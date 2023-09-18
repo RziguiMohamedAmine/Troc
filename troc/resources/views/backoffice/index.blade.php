@@ -194,6 +194,14 @@
                             <li><a href="email-compose.html">Email Compose</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Users <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="email-inbox.html">Inbox</a></li>
+                            <li><a href="email-read.html">Email Read</a></li>
+                            <li><a href="email-compose.html">Email Compose</a></li>
+                        </ul>
+                    </li>
 
                     <li>
                         <a href="calendar.html" class="waves-effect"><i class="icon-calendar"></i><span> Calendar </span></a>
