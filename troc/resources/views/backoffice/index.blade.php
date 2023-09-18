@@ -197,9 +197,7 @@
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Users <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="email-inbox.html">Inbox</a></li>
-                            <li><a href="email-read.html">Email Read</a></li>
-                            <li><a href="email-compose.html">Email Compose</a></li>
+                            <li><a href="{{ route('users') }}">List Of users</a></li>                      
                         </ul>
                     </li>
 
@@ -369,13 +367,9 @@
 
 <!-- jQuery  -->
 <script src="{{asset('assets/backoffice/js/jquery.min.js')}}"></script>
-
 <script src="{{asset('assets/backoffice/js/bootstrap.bundle.min.js')}}"></script>
-
 <script src="{{asset('assets/backoffice/js/metismenu.min.js')}}"></script>
-
 <script src="{{asset('assets/backoffice/js/jquery.slimscroll.js')}}"></script>
-
 <script src="{{asset('assets/backoffice/js/waves.min.js')}}"></script>
 
 <!--Morris Chart-->
