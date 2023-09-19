@@ -38,6 +38,7 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Role</th>
                                         <th>Verified</th>
                                     </tr>
  
@@ -48,6 +49,7 @@
                                         <td><img src="{{ $user->profile_photo_url }}" alt="{{ Auth::user()->name }}" style="width: 40px; height: 40px;" class="rounded-circle"></td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td>{{ $user->formattedRoles() }}</td>
                                         <td>  @if ($user->email_verified_at)
                                             <i class="fas fa-check-circle text-success " style="font-size: 1.2em; margin-left: 16px;"></i>
                                         @else

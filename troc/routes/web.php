@@ -17,13 +17,33 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::middleware([
+
+
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/dashboard', function () {return view('backoffice.index');})->name('dashboard');
+
+// });
+
+Route::middleware([ 
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {return view('backoffice.index');})->name('dashboard');
+    Route::get('/home', function () {return view('frontoffice.index');})->name('home');
+});
 
+
+Route::middleware([ 
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'admin', // Apply the 'admin' middleware to this route
+])->group(function () {
+    Route::get('/dashboard', function () {return view('backoffice.index');})->name('dashboard');
 });
 
 
@@ -33,6 +53,5 @@ config('jetstream.auth_session'),
 ])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users');
 });
-
 
 
