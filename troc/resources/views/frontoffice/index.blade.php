@@ -46,7 +46,7 @@
             class="box clearfix"
             data-box="CMS top HeaderLogo"
           >
-            <a href="index.html" title="">
+            <a href="{{ route('home') }}" title="">
               <img src="{{asset('assets/frontoffice/img/logo_es.png')}}" alt="Echange & Service - " />
             </a>
           </div>
@@ -90,6 +90,14 @@
                 <a href="publier.html" title="" class="button highlight">
                   <i class="lni-pencil-alt"></i><span>Publier une annonce</span>
                 </a>
+              </li>
+              <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                        <button type="submit">
+                            <i class="lni-power-switch"></i> Logout
+                        </button>
+                    </form>
               </li>
             </ul>
           </div>
