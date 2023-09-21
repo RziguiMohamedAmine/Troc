@@ -13,10 +13,14 @@ use \App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('welcome');
 
+
+Route::get('/', function () {
+    return view('frontoffice.welcome');
+})->name('welcome');
 
 
 // Route::middleware([
@@ -33,7 +37,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/home', function () {return view('frontoffice.index');})->name('home');
+    Route::get('/home', function () {return view('frontoffice.home');})->name('home');
 });
 
 
@@ -43,7 +47,7 @@ Route::middleware([
     'verified',
     'admin', // Apply the 'admin' middleware to this route
 ])->group(function () {
-    Route::get('/dashboard', function () {return view('backoffice.index');})->name('dashboard');
+    Route::get('/dashboard', function () {return view('backoffice.welcome');})->name('dashboard');
 });
 
 

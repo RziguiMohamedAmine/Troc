@@ -91,13 +91,26 @@
                   <i class="lni-pencil-alt"></i><span>Publier une annonce</span>
                 </a>
               </li>
-              <li>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                        <button type="submit">
-                            <i class="lni-power-switch"></i> Logout
-                        </button>
-                    </form>
+              <li>      
+                    @if(auth()->check())
+                    <!-- User is logged in, show the "logout" button -->
+                    <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                          <button type="submit">
+                              <i class="lni-power-switch"></i> Logout
+                          </button>
+                      </form>
+                @else
+                <form method="POST" action="{{ route('login') }}">
+                  @csrf
+                      <button type="submit">
+                          <a href="{{ route('login') }}"><i class="lni-user marg-r-XS"></i>Login</a>
+                      </button>
+                  </form>
+                @endif
+
+
+
               </li>
             </ul>
           </div>
@@ -106,7 +119,9 @@
       <header class="clearfix home">
         <div class="container-center clearfix">
           <div class="clear"></div>
-  
+
+
+          @if(!auth()->check())
           <div id="es-home-header-title">
             <h1>
               <span class="text-color1">ECHANGE</span> &
@@ -120,6 +135,11 @@
             </p>
           </div>
   
+          @else
+          <!-- User is not logged in, do not show the "logout" button -->
+         @endif
+
+
           <div
             id="box-headersearch"
             class="box clearfix"
@@ -904,6 +924,19 @@
               </button>
             </form>
           </div>
+          @if(Route::currentRouteName() === 'login')
+          <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
+                       <div class="marg-b" > 
+                            <a href="{{ route('welcome') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Connexion</span>
+                        </div>
+            </div>
+            @elseif(Route::currentRouteName() === 'register')
+            <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
+              <div class="marg-b" > 
+                   <a href="{{ route('welcome') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Inscription</span>
+               </div>
+   </div>
+            @endif
         </div>
       </header>
 
@@ -913,7 +946,7 @@
 
 
 
-      <section id="main" class="clearfix full">
+      <section id="main" class="clearfix">
         @yield('content')
       </section>
 

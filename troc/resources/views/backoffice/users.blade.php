@@ -1,5 +1,4 @@
 <!-- resources/views/dashboard.blade.php -->
-
 @extends('backoffice.index')
 
 @section('content')

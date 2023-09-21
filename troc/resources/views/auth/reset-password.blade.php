@@ -1,151 +1,51 @@
-{{-- <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+@extends('frontoffice.index')
 
-        <x-validation-errors class="mb-4" />
+@section('content')
 
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
+<div id="user-login">
+	<h2 class="title">Modifier Le Mot de passe !</h2>
 
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+	<form method="POST" action="{{ route('password.update') }}" class="form " id="form-user-login">
+        @csrf
+        <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <div class="block">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            </div>
+        <div class="input-icon marg-b-L">
+            <i class="lni-user bg-icon large"></i>
+            <input id="email" class="wanted width-100" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
+        </div>
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+        <div class="input-icon marg-b-L">
+            <i class="lni-lock bg-icon large"></i>
+            <input id="password" type="password" name="password" required autocomplete="new-password" class="width-90" />
 
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+                <i class="lni-question-circle xlarge vertical-middle text-color1 cursor opacity-50 opacity-hover-100" data-popup="<h3>Règles de sécurité</h3>
+                 Nombre de caractères minimum : <strong>6</strong><br />
+                 Nombre de caractères maximum : <strong>24</strong><br />
+                 Doit contenir au minimum :<br /> &nbsp; &rarr; 1 lettre majuscule<br /> &nbsp; &rarr; 1 lettre minuscule<br /> &nbsp; &rarr; 1 chiffre<br /> Caractères spéciaux acceptés : <strong>@ _ - . ? ! *</strong>">
+                </i>
+        </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout> --}}
+        <div class="input-icon marg-b-L">
+            <i class="lni-lock bg-icon large"></i>
 
+            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" class="width-90"/>
 
+                <i class="lni-question-circle xlarge vertical-middle text-color1 cursor opacity-50 opacity-hover-100" data-popup="<h3>Règles de sécurité</h3>
+                 Nombre de caractères minimum : <strong>6</strong><br />
+                 Nombre de caractères maximum : <strong>24</strong><br />
+                 Doit contenir au minimum :<br /> &nbsp; &rarr; 1 lettre majuscule<br /> &nbsp; &rarr; 1 lettre minuscule<br /> &nbsp; &rarr; 1 chiffre<br /> Caractères spéciaux acceptés : <strong>@ _ - . ? ! *</strong>">
+                </i>
+        </div>
 
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-        <title>Stexo - Responsive Admin & Dashboard Template | Themesdesign</title>
-        <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
-        <meta content="Themesdesign" name="author" />
-        <link rel="shortcut icon" href="{{asset('assets/backoffice/images/favicon.ico')}}">
-
-        <!--Morris Chart CSS -->
-        <link rel="stylesheet" href="{{asset('assets/backoffice/plugins/morris/morris.css')}}">
-    
-        <link href="{{asset('assets/backoffice/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/backoffice/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/backoffice/css/icons.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('assets/backoffice/css/style.css')}}" rel="stylesheet" type="text/css">
-    </head>
-
-    <body>
-
-        <!-- Begin page -->
-        <div class="accountbg"></div>
-        <div class="home-btn d-none d-sm-block">
-                <a href="{{route('welcome')}}" class="text-white"><i class="fas fa-home h2"></i></a>
-            </div>
-        <div class="wrapper-page">
-                <div class="card card-pages shadow-none">
-    
-                    <div class="card-body">
-                        <div class="text-center m-t-0 m-b-15">                             
-                                <a href="{{route('welcome')}}" class="logo logo-admin"><img src="{{asset('assets/backoffice/images/logo-light.png')}}" alt="" height="24"></a>
-                        </div>
-                        <h5 class="font-18 text-center">Reset Password</h5>
-    
-                        <form class="form-horizontal m-t-30" method="POST" action="{{ route('password.update') }}">
-                            @csrf
-
-                            <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-        
-
-                                <div class="form-group">
-                                        <div class="col-12">
-                                                <label >{{ __('Email') }}</label>
-                                            <input id="email" class="form-control"type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" >
-                                        </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-12">
-                                        <label>{{ __('Password') }}</label>
-                                        <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12">
-                                        <label>{{ __('Confirm Password') }}</label>
-                                        <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password">
-                                    </div>
-                                </div>
+        <div class="actions clearfix ">
+            <button class="highlight float-left" type="submit" name="form_login" id="submit">{{ __('Reset Password') }}</button>
+        </div>
+      
+	</form>
+</div>
 
 
 
-    
-                            <div class="form-group text-center m-t-20">
-                                <div class="col-12">
-                                    <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">{{ __('Reset Password') }}</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-    
-                </div>
-            </div>
-        <!-- END wrapper -->
-
-
-        <script src="{{asset('assets/backoffice/js/jquery.min.js')}}"></script>
-        <script src="{{asset('assets/backoffice/js/bootstrap.bundle.min.js')}}"></script>
-        <script src="{{asset('assets/backoffice/js/metismenu.min.js')}}"></script>
-        <script src="{{asset('assets/backoffice/js/jquery.slimscroll.js')}}"></script>
-        <script src="{{asset('assets/backoffice/js/waves.min.js')}}"></script>    
-        <script src="{{asset('assets/backoffice/js/app.js')}}"></script>    
-
-    </body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
+<link rel="stylesheet" type="text/css" href="{{asset('assets/frontoffice/css/generate/User.EchangeService.1.css.css')}}" />
+<script type="text/javascript">    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">    try {        var pageTracker = _gat._getTracker("UA-7375850-1");        pageTracker._trackPageview();    } catch(err) {}</script><!-- AdSense async --><script>    $("document").ready(function(){        var adsbygoogle = (adsbygoogle = window.adsbygoogle || []);        $(".adsbygoogle").each(function() { adsbygoogle.push(this) });    });</script>
+@endsection

@@ -55,102 +55,68 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
+@extends('frontoffice.index')
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Stexo - Responsive Admin & Dashboard Template | Themesdesign</title>
-    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
-    <meta content="Themesdesign" name="author" />
-    <link rel="shortcut icon" href="{{asset('assets/backoffice/images/favicon.ico')}}">
+@section('content')
 
-    <link href="{{asset('assets/backoffice/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('assets/backoffice/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('assets/backoffice/css/icons.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('assets/backoffice/css/style.css')}}" rel="stylesheet" type="text/css">
-
-</head>
-
-<body>
-
-<!-- Begin page -->
-<div class="accountbg"></div>
-<div class="home-btn d-none d-sm-block">
-    <a href="{{route('welcome')}}" class="text-white"><i class="fas fa-home h2"></i></a>
-</div>
-<div class="wrapper-page">
-    <div class="card card-pages shadow-none">
-
-        <div class="card-body">
-            <div class="text-center m-t-0 m-b-15">
-                <a href="{{route('welcome')}}" class="logo logo-admin"><img src="{{asset('assets/backoffice/images/logo-light.png')}}" alt="" height="24"></a>
-            </div>
-            <h5 class="font-18 text-center">Sign in to continue to Stexo.</h5>
-
-            <form class="form-horizontal m-t-30" method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="form-group">
-                    <div class="col-12">
-                        <label>{{ __('Email') }}</label>
-                        <input id="email" class="form-control" type="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-12">
-                        <label>{{ __('Password') }}</label>
-                        <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-12">
-                        <div class="checkbox checkbox-primary">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" id="remember_me" name="remember" class="custom-control-input"/>
-                                <label class="custom-control-label" for="remember_me">{{ __('Remember me') }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group text-center m-t-20">
-                    <div class="col-12">
-                        <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">{{ __('Log in') }}</button>
-                    </div>
-                </div>
-
-                <div class="form-group row m-t-30 m-b-0">
-                    <div class="col-sm-7">
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-muted"><i class="fa fa-lock m-r-5"></i>{{ __('Forgot your password?') }}</a>
-                        @endif
-                    </div>
-                    <div class="col-sm-5 text-right">
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="text-muted">Create an account</a>
-                        @endif
-                    </div>
-                </div>
-            </form>
+<div id="user-login">
+	<h2 class="title">Connectez-vous !</h2>
+	<form method="POST" action="{{ route('login') }}" class="form " id="form-user-login">
+        @csrf
+        <div class="input-icon marg-b-L">
+            <i class="lni-user bg-icon large"></i>
+            <input type="email" id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" class="wanted width-100" placeholder="Adresse email" maxlength="100" autocomplete="true" />
         </div>
 
+        <div class="input-icon marg-b-L">
+            <i class="lni-lock bg-icon large"></i>
+            <input type="password" id="password" type="password" name="password" required autocomplete="current-password" size="14" required class="width-90" placeholder="Mot de passe" maxlength="24" />
+                <i class="lni-question-circle xlarge vertical-middle text-color1 cursor opacity-50 opacity-hover-100" data-popup="<h3>Règles de sécurité</h3>
+                 Nombre de caractères minimum : <strong>6</strong><br />
+                 Nombre de caractères maximum : <strong>24</strong><br />
+                 Doit contenir au minimum :<br /> &nbsp; &rarr; 1 lettre majuscule<br /> &nbsp; &rarr; 1 lettre minuscule<br /> &nbsp; &rarr; 1 chiffre<br /> Caractères spéciaux acceptés : <strong>@ _ - . ? ! *</strong>">
+                </i>
+        </div>
+
+        @if ($errors->any())
+    <div class="alert alert-danger" style="text-align: center; color: red; padding-bottom: 15px">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
+        @endif
+        
+        <div class="form-group">
+            <div class="col-12">
+                <div class="checkbox checkbox-primary">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="remember_me" name="remember" class="custom-control-input" style="margin-bottom: 25px"/>
+                        <label class="custom-control-label" for="remember_me">{{ __('Remember me') }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions clearfix ">
+            <button class="highlight float-left" type="submit" name="form_login" id="submit">{{ __('Log in') }}</button>
+            @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}" class="float-right"><i class="fa fa-lock m-r-5"></i>{{ __('Forgot your password?') }}</a>
+                @endif
+        </div>
+        {{-- <div class="form-group row m-t-30 m-b-0">
+            <div class="float-right">
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="text-muted">Create an account</a>
+                @endif
+            </div>
+        </div> --}}
+	</form>
 </div>
-<!-- END wrapper -->
 
-<!-- jQuery  -->
-<script src="{{asset('assets/backoffice/js/jquery.min.js')}}"></script>
-<script src="{{asset('assets/backoffice/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('assets/backoffice/js/metismenu.min.js')}}"></script>
-<script src="{{asset('assets/backoffice/js/jquery.slimscroll.js')}}"></script>
-<script src="{{asset('assets/backoffice/js/waves.min.js')}}"></script>
-<script src="{{asset('assets/backoffice/js/app.js')}}"></script>
-<!-- App js -->
+<link rel="stylesheet" type="text/css" href="{{asset('assets/frontoffice/css/generate/User.EchangeService.1.css.css')}}" />
 
 
-</body>
 
-</html>
+<script type="text/javascript">    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">    try {        var pageTracker = _gat._getTracker("UA-7375850-1");        pageTracker._trackPageview();    } catch(err) {}</script><!-- AdSense async --><script>    $("document").ready(function(){        var adsbygoogle = (adsbygoogle = window.adsbygoogle || []);        $(".adsbygoogle").each(function() { adsbygoogle.push(this) });    });</script>
+@endsection
