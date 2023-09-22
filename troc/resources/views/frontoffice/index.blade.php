@@ -61,10 +61,18 @@
             ></span>
             <ul id="nav-menu" class="links">
               <li>
+                @if(!auth()->check())
+                 <a href="{{ route('welcome') }}" title="" class="link"><i class="lni-users"></i>Accueil</a>
+                @else
+                <a href="{{ route('home') }}" title="" class="link"><i class="lni-users"></i>Accueil</a>
+                @endif
+              
+              </li>
+              {{-- <li>
                 <a href="communaute.html" title="" class="link"
                   ><i class="lni-users"></i>COMMUNAUTÉ</a
                 >
-              </li>
+              </li> --}}
               <li>
                 <a href="faq.html" title="" class="link"
                   ><i class="lni-question-circle"></i>FAQ</a
@@ -82,9 +90,11 @@
                 >
               </li>
               <li>
-                <a href="{{ route('profile.show') }}" id="" title="" class="button">
-                  <i class="lni-lock"></i><span>Mon compte</span>
-                </a>
+                @if(auth()->check())
+                <a href="{{ route('profile.show') }}" id="" title="" class="button"><i class="lni-lock"></i><span>Mon compte</span></a>
+                @else
+                     <!--Not Connected-->
+                @endif
               </li>
               <li>
                 <a href="publier.html" title="" class="button highlight">
@@ -927,13 +937,13 @@
           @if(Route::currentRouteName() === 'login')
           <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
                        <div class="marg-b" > 
-                            <a href="{{ route('welcome') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Connexion</span>
+                            <a href="{{ route('home') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Connexion</span>
                         </div>
             </div>
             @elseif(Route::currentRouteName() === 'register')
             <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
               <div class="marg-b" > 
-                   <a href="{{ route('welcome') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Inscription</span>
+                   <a href="{{ route('home') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Inscription</span>
                </div>
    </div>
             @endif
@@ -946,9 +956,9 @@
 
 
 
-      <section id="main" class="clearfix">
+      
         @yield('content')
-      </section>
+    
 
 
 
