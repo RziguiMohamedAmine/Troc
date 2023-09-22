@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
+use App\Livewire\Chat\CreateChat;
+use App\Livewire\Chat\Main;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,4 +62,6 @@ config('jetstream.auth_session'),
     Route::get('/users', [UserController::class, 'index'])->name('users');
 });
 
+Route::get("/chat-users", CreateChat::class)->name("chat-users");
+Route::get("/chat{key?}", Main::class)->name("chat");
 
