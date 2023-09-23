@@ -32,7 +32,7 @@
     </div>
 
 
-    <div class=" w-full overflow-hidden  overflow-y-scroll h-4/5  p-4  absolute top-16 ">
+    <div id="chatbox_body" class="w-full overflow-hidden  overflow-y-scroll h-4/5  p-4  absolute top-16 ">
         
         @foreach($messages as $message)
         
@@ -40,18 +40,18 @@
         <div wire:key="{{$message->id}}" class="msg_body bg-sky-500 text-white mx-3 ml-auto rounded-lg p-2 my-1  block w-fit max-w-[80%]">
             {{$message->body}}
             <div class="msg_body_footer w-full flex justify-end items-start">
-                <div class="date text-sm pr-2">{{$message->created_at->format('m: i a')}}</div>
-                <div class="read">
+                <div class="date text-xs my-auto pr-2">{{$message->created_at->format('m: i a')}}</div>
+                <div class="read my-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 256 256"><path d="M146.8,82.85l-89.6,88a4,4,0,0,1-5.6,0L13.2,133.14a4,4,0,0,1,5.6-5.71l35.6,35,86.8-85.24a4,4,0,0,1,5.6,5.7Zm96-5.65a4,4,0,0,0-5.65,0l-86.8,85.24-21.63-21.24a4,4,0,1,0-5.61,5.7l24.44,24a4,4,0,0,0,5.6,0l89.6-88A4,4,0,0,0,242.85,77.2Z"></path></svg>
                 </div>
             </div>
         </div>   
         @else
-        <div wire:key="{{$message->id}}" class="msg_body  bg-neutral-200 rounded-lg p-2 my-2 mx-3 block max-w-[80%]">
+        <div wire:key="{{$message->id}}" class="msg_body w-fit  bg-neutral-200 rounded-lg p-2 my-2 mx-3 block max-w-[80%]">
             {{$message->body}}
             <div class="msg_body_footer w-full flex justify-end items-start">
-                <div class="date text-sm pr-2">{{$message->created_at->format('m: i a')}}</div>
-                <div class="read">
+                <div class="date text-xs text-neutral-400 my-auto pr-2">{{$message->created_at->format('m: i a')}}</div>
+                <div class="read my-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#444" viewBox="0 0 256 256"><path d="M146.8,82.85l-89.6,88a4,4,0,0,1-5.6,0L13.2,133.14a4,4,0,0,1,5.6-5.71l35.6,35,86.8-85.24a4,4,0,0,1,5.6,5.7Zm96-5.65a4,4,0,0,0-5.65,0l-86.8,85.24-21.63-21.24a4,4,0,1,0-5.61,5.7l24.44,24a4,4,0,0,0,5.6,0l89.6-88A4,4,0,0,0,242.85,77.2Z"></path></svg>
                 </div>
             </div>
@@ -69,7 +69,6 @@
     </div>
 @endif
 
-
     <script>
         
         window.addEventListener('loadConversation', event => {
@@ -82,8 +81,7 @@
         
     };
 
- 
-  
+   
     $.ajax({
         type: 'POST', 
         url: '/load-conv', 
@@ -127,5 +125,5 @@
 });
 
     </script>
-    
+
 </div>

@@ -16,7 +16,6 @@ class Chatbox extends Component
     public $receiverInstance;
     public $messages;
     public $messages_count;
-    public $paginate = 10;
 
 
     protected $listeners = ['loadConversation', 'pushMessage'];
@@ -34,9 +33,8 @@ class Chatbox extends Component
             $this->receiverInstance = $receiverInstance;
             
             $this->messages_count = Message::where("conversation_id", $conversation->id)->count();
-            $this->messages = Message::where("conversation_id", $conversation->id)
-                ->skip($this->messages_count - $this->paginate)
-                ->take($this->paginate)->get();
+            $this->messages = Message::where("conversation_id", $conversation->id)->get();
+
 
         }
 

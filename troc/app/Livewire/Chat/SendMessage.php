@@ -53,7 +53,7 @@ class SendMessage extends Component
         
         $this->reset("body");
 
-        $this->dispatch("refresh");
+
     
     }
 

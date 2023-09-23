@@ -21,7 +21,7 @@
 
                 <div class="bottom_row flex flex-nowrap w-full">
                     <div class="message_body w-4/5 truncate font-extralight text-neutral-400">
-                       {{$conversation->messages->last()->body}}
+                       {{$conversation?->messages?->last()?->body}}
                     </div>
 
                     <div class="unread_count ml-auto text-xs bg-red-500 p-2 rounded-full text-white font-light">0</div>
