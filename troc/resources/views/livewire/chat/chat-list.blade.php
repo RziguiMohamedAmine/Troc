@@ -3,16 +3,15 @@
     <div class="border-b-[1px] border-gray-400 h-16 flex flex-nowrap">
         <div class="font-bold flex px-2 text-lg items-center justify-center text-center">Chat</div>
         <div class="m-auto mr-3 h-11 w-11 ">
-            <img class="w-full h-full rounded-full border-r-[1px] border-gray-400" src="https://picsum.photos/seed/picsum/200/300" alt="" />
+            <img class="w-full h-full rounded-full border-r-[1px] border-gray-400" src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{auth()->user()->name}}" alt="" />
         </div>
     </div>
     <div class="body p-4">
-
         @if(count($conversations) > 0)
         @foreach($conversations as $conversation)
-        <div class="chatlist_item cursor-pointer flex flex-nowrap mb-2 w-full rounded-xl bg-neutral-200 p-4">
+        <div wire:click ="chatUserSelected({{$conversation}}, {{$this->getChatUserInstance($conversation, $name="id")}})" class="chatlist_item cursor-pointer flex flex-nowrap mb-2 w-full rounded-xl bg-neutral-200 p-4">
             <div class="chatlist_img_container m-auto h-11 w-11 ">
-                <img class="rounded-full w-full h-full" src="https://picsum.photos/id/{{$this->getChatUserInstance($conversation, $name="id")}}/200/300/?blur" alt="" />
+                <img class="rounded-full w-full h-full" src="https://ui-avatars.com/api/?name=<?php echo $this->getChatUserInstance($conversation, 'name'); ?>" alt="" />
             </div>
             <div class="chatlist_info p-1 w-4/5 block">
                 <div class="top_row flex w-full">
@@ -34,8 +33,12 @@
         <div class="flex flex-col items-center justify-center h-full">
             <div class="text-2xl font-bold text-neutral-400">No Conversations</div>
             <div class="text-sm text-neutral-400">Start a conversation with someone</div>
-        @endif
+        </div>
+            @endif
+      
 
         
     </div>
+
+    
 </div>

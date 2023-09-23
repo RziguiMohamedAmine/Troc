@@ -1,12 +1,18 @@
 <div>
+ 
+
     {{-- Stop trying to control. --}}
+    @if ($this->selectedConversation && $this->receiverInstance)
     <div class="border-b-[1px] border-gray-400 h-16 absolute top-0 w-full flex flex-nowrap " >
 
         <div class="img_container h-12 w-12 my-auto mx-1 ml-6">
-            <img class="rounded-full w-full h-full" src="https://picsum.photos/200/300/?blur" alt="" />
+            <img class="rounded-full w-full h-full" src="https://ui-avatars.com/api/?name=<?php echo $this->receiverInstance->name; ?>" alt="" />
         </div>
 
-        <div class="name my-auto mx-1">Nour</div>
+
+        <div class="name my-auto mx-1" >{{
+            $this->receiverInstance?->name
+            }}</div>
 
         <div class="info text-center p-1 mt-auto mr-0 mb-auto ml-auto font-normal flex flex-nowrap">
             <div class="info_item cursor-pointer my-1 mx-3">
@@ -27,34 +33,74 @@
 
 
     <div class="w-full overflow-hidden  overflow-y-scroll h-4/5  p-4  absolute top-16 ">
-        <div class="msg_body  bg-neutral-200 rounded-lg p-2 my-2 mx-3 block max-w-[80%]">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum provident nemo molestiae tempore exercitationem at sit delectus dolorem ex. Dicta voluptate quam ducimus deserunt reiciendis nihil at error sed libero?
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi quod necessitatibus excepturi facere quas odio. Eveniet id, recusandae hic veritatis asperiores nisi consequatur, similique quisquam aperiam cupiditate officia aliquam culpa.
+        
+        @foreach($messages as $message)
+        
+        @if($message->sender_id == auth()->user()->id) 
+        <div class="msg_body bg-sky-500 text-white mx-3 ml-auto rounded-lg p-2 my-1  block w-fit max-w-[80%]">
+            {{$message->body}}
             <div class="msg_body_footer w-full flex justify-end items-start">
-                <div class="date text-sm pr-2">5 hours ago</div>
+                <div class="date text-sm pr-2">{{$message->created_at->format('m: i a')}}</div>
+                <div class="read">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 256 256"><path d="M146.8,82.85l-89.6,88a4,4,0,0,1-5.6,0L13.2,133.14a4,4,0,0,1,5.6-5.71l35.6,35,86.8-85.24a4,4,0,0,1,5.6,5.7Zm96-5.65a4,4,0,0,0-5.65,0l-86.8,85.24-21.63-21.24a4,4,0,1,0-5.61,5.7l24.44,24a4,4,0,0,0,5.6,0l89.6-88A4,4,0,0,0,242.85,77.2Z"></path></svg>
+                </div>
+            </div>
+        </div>   
+        @else
+        <div class="msg_body  bg-neutral-200 rounded-lg p-2 my-2 mx-3 block max-w-[80%]">
+            {{$message->body}}
+            <div class="msg_body_footer w-full flex justify-end items-start">
+                <div class="date text-sm pr-2">{{$message->created_at->format('m: i a')}}</div>
                 <div class="read">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#444" viewBox="0 0 256 256"><path d="M146.8,82.85l-89.6,88a4,4,0,0,1-5.6,0L13.2,133.14a4,4,0,0,1,5.6-5.71l35.6,35,86.8-85.24a4,4,0,0,1,5.6,5.7Zm96-5.65a4,4,0,0,0-5.65,0l-86.8,85.24-21.63-21.24a4,4,0,1,0-5.61,5.7l24.44,24a4,4,0,0,0,5.6,0l89.6-88A4,4,0,0,0,242.85,77.2Z"></path></svg>
                 </div>
             </div>
         </div>
+        @endif
+        @endforeach
 
 
-
-        <div class="msg_body bg-sky-500 text-white mx-3 ml-auto rounded-lg p-2 my-1  block max-w-[80%]">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum provident nemo molestiae tempore exercitationem at sit delectus dolorem ex. Dicta voluptate quam ducimus deserunt reiciendis nihil at error sed libero?
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi quod necessitatibus excepturi facere quas odio. Eveniet id, recusandae hic veritatis asperiores nisi consequatur, similique quisquam aperiam cupiditate officia aliquam culpa.
-            <div class="msg_body_footer w-full flex justify-end items-start">
-                <div class="date text-sm pr-2">5 hours ago</div>
-                <div class="read">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 256 256"><path d="M146.8,82.85l-89.6,88a4,4,0,0,1-5.6,0L13.2,133.14a4,4,0,0,1,5.6-5.71l35.6,35,86.8-85.24a4,4,0,0,1,5.6,5.7Zm96-5.65a4,4,0,0,0-5.65,0l-86.8,85.24-21.63-21.24a4,4,0,1,0-5.61,5.7l24.44,24a4,4,0,0,0,5.6,0l89.6-88A4,4,0,0,0,242.85,77.2Z"></path></svg>
-                </div>
-            </div>
-        </div>
-        
-
-
-        
     </div>
+
+@else
+    <div class="flex flex-col items-center justify-center h-full">
+        <div class="text-2xl font-bold text-neutral-400">No Conversations</div>
+        <div class="text-sm text-neutral-400">Start a conversation with someone</div>
+    </div>
+@endif
+
+
+    <script>
+        
+        window.addEventListener('loadConversation', event => {
+            const {conversation} = event.detail[0];
+            const {receiver} = event.detail[0];  
+
+            const dataToSend = {
+        conversation: conversation,
+        receiver: receiver
+        
+    };
+
+ 
+  
+    $.ajax({
+        type: 'POST', 
+        url: '/load-conv', 
+        data: dataToSend,
+        success: function(response) {
+        
+            console.log(response);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+
+
+        });
+
+    </script>
 
     
 </div>

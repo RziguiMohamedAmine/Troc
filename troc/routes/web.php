@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
+use App\Livewire\Chat\Chatbox;
 use App\Livewire\Chat\CreateChat;
 use App\Livewire\Chat\Main;
+use App\Livewire\Chat\SendMessage;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +67,5 @@ config('jetstream.auth_session'),
 Route::get("/chat-users", CreateChat::class)->name("chat-users");
 Route::get("/chat{key?}", Main::class)->name("chat");
 
+Route::post('/load-conv', [Chatbox::class, 'loadConversation'])->name('load-conv');
+Route::post('/load-send-message', [SendMessage::class, 'loadSendMessage'])->name('load-send-message');
