@@ -69,3 +69,4 @@ Route::get("/chat{key?}", Main::class)->name("chat");
 
 Route::post('/load-conv', [Chatbox::class, 'loadConversation'])->name('load-conv');
 Route::post('/load-send-message', [SendMessage::class, 'loadSendMessage'])->name('load-send-message');
+Route::post('/send-message', [SendMessage::class, 'sendMessage'])->name('send-message');

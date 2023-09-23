@@ -32,12 +32,12 @@
     </div>
 
 
-    <div class="w-full overflow-hidden  overflow-y-scroll h-4/5  p-4  absolute top-16 ">
+    <div class=" w-full overflow-hidden  overflow-y-scroll h-4/5  p-4  absolute top-16 ">
         
         @foreach($messages as $message)
         
         @if($message->sender_id == auth()->user()->id) 
-        <div class="msg_body bg-sky-500 text-white mx-3 ml-auto rounded-lg p-2 my-1  block w-fit max-w-[80%]">
+        <div wire:key="{{$message->id}}" class="msg_body bg-sky-500 text-white mx-3 ml-auto rounded-lg p-2 my-1  block w-fit max-w-[80%]">
             {{$message->body}}
             <div class="msg_body_footer w-full flex justify-end items-start">
                 <div class="date text-sm pr-2">{{$message->created_at->format('m: i a')}}</div>
@@ -47,7 +47,7 @@
             </div>
         </div>   
         @else
-        <div class="msg_body  bg-neutral-200 rounded-lg p-2 my-2 mx-3 block max-w-[80%]">
+        <div wire:key="{{$message->id}}" class="msg_body  bg-neutral-200 rounded-lg p-2 my-2 mx-3 block max-w-[80%]">
             {{$message->body}}
             <div class="msg_body_footer w-full flex justify-end items-start">
                 <div class="date text-sm pr-2">{{$message->created_at->format('m: i a')}}</div>
@@ -96,11 +96,36 @@
             console.error(error);
         }
     });
-
-
+    
         });
 
     </script>
 
+<script>
+
+    window.addEventListener('pushMessage', event => {
+        const {createdMessage} = event.detail[0];
+
+        const dataToSend = {
+            createdMessage: createdMessage,
+    };
+
+    $.ajax({
+        type: 'POST', 
+        url: '/send-message', 
+        data: dataToSend,
+        success: function(response) {
+        
+            console.log(response);
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+    
+    
+});
+
+    </script>
     
 </div>

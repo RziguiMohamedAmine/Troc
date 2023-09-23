@@ -11,17 +11,6 @@
     @endif
     
 
-
-
-
-
-
-
-
-
-
-
-
     <script>
     
         window.addEventListener('loadSendMessage', event => {

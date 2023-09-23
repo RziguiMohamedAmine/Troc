@@ -46,6 +46,14 @@ class SendMessage extends Component
         $this->selectedConversation->last_time_message = $createdMessage->created_at;
 
         $this->selectedConversation->save();
+
+        $this->dispatch("pushMessage", [
+            "createdMessage" => $createdMessage->id
+        ]);
+        
+        $this->reset("body");
+
+        $this->dispatch("refresh");
     
     }
 

@@ -15,12 +15,16 @@ class ChatList extends Component
     public $name;
     public $selectedConversation;
 
-    protected $listeners = ['chatUserSelected' => 'chatUserSelected'];
+    protected $listeners = ['chatUserSelected' => 'chatUserSelected', 'refresh'];
 
 
     public function render()
     {  
         return view('livewire.chat.chat-list');
+    }
+
+    public function refresh(){
+        $this->render();
     }
     
     public function mount(){
@@ -43,8 +47,7 @@ class ChatList extends Component
         $this->dispatch("loadSendMessage", [
             "conversation" => $conversation,
             "receiver" => $receiverInstance
-        ]
-        );
+        ]);
     }
 
     public function getChatUserInstance(Conversation $conversation, $request){

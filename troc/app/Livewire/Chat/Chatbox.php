@@ -19,7 +19,7 @@ class Chatbox extends Component
     public $paginate = 10;
 
 
-    protected $listeners = ['loadConversation'];
+    protected $listeners = ['loadConversation', 'pushMessage'];
 
     
 
@@ -40,6 +40,12 @@ class Chatbox extends Component
 
         }
 
+        public function pushMessage(Request $request){
+            $get_result_arr = json_decode($request->getContent());
+        
+            $newMessage = Message::find($get_result_arr->components[0]->calls[0]->params[1][0]->createdMessage);
+            $this->messages->push($newMessage);
+        }
 
 
     public function render()

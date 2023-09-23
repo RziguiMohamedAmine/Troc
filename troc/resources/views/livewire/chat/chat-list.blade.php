@@ -9,13 +9,13 @@
     <div class="body p-4">
         @if(count($conversations) > 0)
         @foreach($conversations as $conversation)
-        <div wire:click ="chatUserSelected({{$conversation}}, {{$this->getChatUserInstance($conversation, $name="id")}})" class="chatlist_item cursor-pointer flex flex-nowrap mb-2 w-full rounded-xl bg-neutral-200 p-4">
+        <div wire:key="{{$conversation->id}}" wire:click ="chatUserSelected({{$conversation}}, {{$this->getChatUserInstance($conversation, $name="id")}})" class="chatlist_item cursor-pointer flex flex-nowrap mb-2 w-full rounded-xl bg-neutral-200 p-4">
             <div class="chatlist_img_container m-auto h-11 w-11 ">
                 <img class="rounded-full w-full h-full" src="https://ui-avatars.com/api/?name=<?php echo $this->getChatUserInstance($conversation, 'name'); ?>" alt="" />
             </div>
             <div class="chatlist_info p-1 w-4/5 block">
                 <div class="top_row flex w-full">
-                    <div class="list_username text-sm w-4/5">{{$this->getChatUserInstance($conversation, $name="name")}}</div>
+                    <div class="list_username truncate text-sm w-4/5">{{$this->getChatUserInstance($conversation, $name="name")}}</div>
                     <span class="date ml-auto text-xs flex text-neutral-600">{{$conversation->messages->last()?->created_at->shortAbsoluteDiffForHumans()}}</span>
                 </div>
 
@@ -35,9 +35,7 @@
             <div class="text-sm text-neutral-400">Start a conversation with someone</div>
         </div>
             @endif
-      
 
-        
     </div>
 
     
