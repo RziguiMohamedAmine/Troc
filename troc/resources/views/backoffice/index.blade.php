@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -16,7 +17,7 @@
     <link href="{{asset('assets/backoffice/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/backoffice/css/icons.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/backoffice/css/style.css')}}" rel="stylesheet" type="text/css">
-
+    <link href="{{asset('assets/backoffice/plugins/x-editable/css/bootstrap-editable.css')}}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -200,10 +201,20 @@
                             <li><a href="{{ route('users') }}">List Of users</a></li>                      
                         </ul>
                     </li>
-
                     <li>
-                        <a href="calendar.html" class="waves-effect"><i class="icon-calendar"></i><span> Calendar </span></a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Categories <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{{ route('categories.index') }}">List Of Categories</a></li>                      
+                            <li><a href="{{ route('categories.create') }}">Add Categories</a></li>                      
+                        </ul>
                     </li>
+                    {{-- <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Sub Categories <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{{ route('subcategories.index') }}">List Of SubCategories</a></li>                      
+                            <li><a href="{{ route('subcategories.create') }}">Add  SubCategories</a></li>                      
+                        </ul>
+                    </li> --}}
 
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Pages <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
@@ -381,7 +392,11 @@
 
 <!-- App js -->
 <script src="{{asset('assets/backoffice/js/app.js')}}"></script>
-<script src="assets/js/app.js"></script>
+
+    
+<script src="{{asset('assets/backoffice/plugins/moment/moment.js')}}"></script>
+<script src="{{asset('assets/backoffice/plugins/x-editable/js/bootstrap-editable.min.js')}}"></script>
+<script src="{{asset('assets/backoffice/pages/xeditable.js')}}"></script> 
 
 </body>
 

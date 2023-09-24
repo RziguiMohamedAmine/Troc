@@ -147,7 +147,7 @@
         /* Add more CSS styles as needed */
 
     </style>
-
+<section id="main" class="clearfix">
     <div class="container">
         <div class="mb-4 text-sm text-gray-600">
             Please confirm access to your account by entering the authentication code provided by your authenticator application.
@@ -187,7 +187,7 @@
     <script type="text/javascript">    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">    try {        var pageTracker = _gat._getTracker("UA-7375850-1");        pageTracker._trackPageview();    } catch(err) {}</script><!-- AdSense async --><script>    $("document").ready(function(){        var adsbygoogle = (adsbygoogle = window.adsbygoogle || []);        $(".adsbygoogle").each(function() { adsbygoogle.push(this) });    });</script>
 
 
-
+</section>
 @endsection
 
 
