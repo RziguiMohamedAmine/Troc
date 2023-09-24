@@ -251,57 +251,23 @@
    
       @foreach ($categories as $category)
       <div class="service-category">
-        <i class="lni-emoji-smile"></i><a href="beaute-bien-etre.html" class="service-title" title="">{{ $category->name }}</a>
-        <div>
+        <i class="{{ $category->icon }}"></i><a href="beaute-bien-etre.html" class="service-title" title="">{{ $category->name }}</a>
+        @if ($category->subcategories->isNotEmpty())
+        <div> 
+        @foreach ($category->subcategories as $subcategory)       
           <a
             href="beaute-bien-etre/coaching-sportif/membres.html"
             class="sub-service"
             title=""
-            >Coaching</a
-          >
-          <a
-            href="beaute-bien-etre/coiffure.html"
-            class="sub-service"
-            title=""
-            >Coiffure</a
-          >
-          <a
-            href="beaute-bien-etre/manucure/membres.html"
-            class="sub-service"
-            title=""
-            >Manucure</a
-          >
-          <a
-            href="beaute-bien-etre/maquillage/membres.html"
-            class="sub-service"
-            title=""
-            >Maquillage</a
-          >
-          <a
-            href="beaute-bien-etre/massage.html"
-            class="sub-service"
-            title=""
-            >Massage</a
-          >
-          <a
-            href="beaute-bien-etre/relooking/membres.html"
-            class="sub-service"
-            title=""
-            >Relooking</a
-          >
-          <a
-            href="beaute-bien-etre/yoga/membres.html"
-            class="sub-service"
-            title=""
-            >Yoga</a
-          >
-          <a
-            href="beaute-bien-etre/autres/membres.html"
-            class="sub-service"
-            title=""
-            >Autres</a
-          >
-        </div>
+            >{{ $subcategory->name }}</a>
+        
+        @endforeach
+      </div>
+      @else
+      <div>
+          <span>No subcategories available</span>
+      </div>
+      @endif
       </div>
       @endforeach
 

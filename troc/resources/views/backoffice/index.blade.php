@@ -42,6 +42,13 @@
 
         <nav class="navbar-custom">
             <ul class="navbar-right list-inline float-right mb-0">
+                <li class="d-none d-md-inline-block">
+                    <form role="search" class="app-search">
+                        <div class="form-group mb-0">
+                            <a class="nav-link form-control2" href="{{ route('home') }}">home</a>
+                        </div>
+                    </form>
+                </li>
 
                 <!-- language-->
                 <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
@@ -208,13 +215,13 @@
                             <li><a href="{{ route('categories.create') }}">Add Categories</a></li>                      
                         </ul>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Sub Categories <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="{{ route('subcategories.index') }}">List Of SubCategories</a></li>                      
+                            {{-- <li><a href="{{ route('subcategories.index') }}">List Of SubCategories</a></li>                     --}}
                             <li><a href="{{ route('subcategories.create') }}">Add  SubCategories</a></li>                      
                         </ul>
-                    </li> --}}
+                    </li> 
 
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Pages <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>

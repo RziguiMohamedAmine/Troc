@@ -118,9 +118,11 @@
                       </button>
                   </form>
                 @endif
-
-
-
+              </li>
+              <li>
+                @can('admin', Auth::user())
+                <a href="{{ route('dashboard') }}" id="" title="" class="button"><i class="lni-dashboard"></i><span>dashboard</span></a>
+               @endcan
               </li>
             </ul>
           </div>

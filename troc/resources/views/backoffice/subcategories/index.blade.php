@@ -67,7 +67,7 @@
                                 </tr>
                                 @endforeach
                                 @else
-                                <tr><p>No subcategories found for {{ $category->name }}</p></tr>
+                                <tr><p>No subcategories found {{--for {{ $categorie->name }}--}}</p></tr>
                                 @endif
                                 </tbody>
                                 <tfoot>

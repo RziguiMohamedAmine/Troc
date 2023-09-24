@@ -33,11 +33,13 @@ class SubcategoryController extends Controller
     }
 
 
+
+
     public function indexFront()
     {
-            $subcategories=Subcategory::all(); 
-            return view('frontoffice.home', ['subcategories' => $subcategories]);
-       
+            $subcategories = Subcategory::with('category')->get();
+            $groupedSubcategories = $subcategories->groupBy('category.name');       
+            return view('frontoffice.home', compact('groupedSubcategories'));
     }
 
     /**

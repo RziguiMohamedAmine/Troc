@@ -19,9 +19,8 @@ class CategoryController extends Controller
 
     public function indexFront()
     {
-            $categories=Category::all(); 
-            return view('frontoffice.home', ['categories' => $categories]);
-       
+            $categories = Category::with('subcategories')->get();
+            return view('frontoffice.home', compact('categories'));
     }
     /**
      * Show the form for creating a new resource.
@@ -43,6 +42,7 @@ class CategoryController extends Controller
         $categorie =  new Category();
         $categorie->name = strip_tags($request->input('categorie-name'));
         $categorie->description = strip_tags($request->input('categorie-description'));
+        $categorie->icon = strip_tags($request->input('categorie-icon'));
 
         $categorie->save();
         return redirect()->route('categories.index');

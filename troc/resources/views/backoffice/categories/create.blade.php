@@ -54,6 +54,25 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
+                                            <label>Icon</label>
+                                            <select id="categorie-icon" class="form-control" required value="{{old('categorie-icon')}}"name="categorie-icon">                                             
+                                               <option value="lni-hand" data-icon="lni-hand">✋ Hand</option>
+                                               <option value="lni-emoji-smile" data-icon="lni-emoji-smile">😄 Emoji Smile</option>
+                                               <option value="lni-paint-roller" data-icon="lni-paint-roller">🖌️ Paint Roller</option>
+                                               <option value="lni-graduation" data-icon="lni-graduation">🎓 Graduation</option>
+                                               <option value="lni-basketball" data-icon="lni-basketball">🏀 Basketball</option>
+                                               <option value="lni-home" data-icon="lni-home">🏠 Home</option>
+                                               <option value="lni-tshirt" data-icon="lni-tshirt">👕 T-Shirt</option>
+                                               <option value="lni-briefcase" data-icon="lni-briefcase">💼 Briefcase</option>
+                                               <option value="lni-car" data-icon="lni-car">🚗 Car</option> 
+                                            </select>
+                                            @error('categorie-icon')
+                                            <div class="form-error">
+                                                 {{$message}}
+                                           </div>
+                                          @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <div>
                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">
                                                     Submit
