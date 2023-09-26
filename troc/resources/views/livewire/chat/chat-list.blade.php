@@ -23,8 +23,11 @@
                     <div class="message_body w-4/5 truncate font-extralight text-neutral-400">
                        {{$conversation?->messages?->last()?->body}}
                     </div>
-
-                    <div class="unread_count ml-auto text-xs bg-red-500 p-2 rounded-full text-white font-light">0</div>
+                    @php
+                        if(count($conversation->messages->where('read', 0)) && $conversation->messages->last()->sender_id != auth()->id()){
+                            echo '<div class="unread_count ml-auto text-xs bg-red-500 p-2 rounded-full text-white font-light">'.count($conversation->messages->where('read', 0)).'</div>';
+                        }
+                    @endphp
                 </div>
             </div>
         </div>

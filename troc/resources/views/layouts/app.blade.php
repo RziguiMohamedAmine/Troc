@@ -14,7 +14,7 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
    
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
         <!-- Styles -->
         @livewireStyles
@@ -41,16 +41,19 @@
         </div>
 
         @stack('modals')
-       
-        @livewireScripts
+
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+   
+        <script src={{mix('js/app.js')}}></script>
 
         <script>
             $.ajaxSetup({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-});
-        </script>
+        });
+        </script>     
         
+        @livewireScripts
     </body>
 </html>
