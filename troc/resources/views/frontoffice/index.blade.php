@@ -31,6 +31,7 @@
             display: none;
           }
         </style>
+
         <link rel="stylesheet" href="{{asset('assets/frontoffice/css/generate/Home.EchangeService.1.css.css')}}"/>
         <link href="{{asset('assets/frontoffice/owlcarousel/owl.carousel.min.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/frontoffice/owlcarousel/owl.theme.default.min.css')}}" rel="stylesheet"/>
@@ -97,7 +98,7 @@
                 @endif
               </li>
               <li>
-                <a href="publier.html" title="" class="button highlight">
+                <a href="{{ route('products.create') }}" title="" class="button highlight">
                   <i class="lni-pencil-alt"></i><span>Publier une annonce</span>
                 </a>
               </li>

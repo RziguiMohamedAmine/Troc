@@ -42,6 +42,8 @@ class SubcategoryController extends Controller
             return view('frontoffice.home', compact('groupedSubcategories'));
     }
 
+
+
     /**
      * Show the form for creating a new resource.
      */

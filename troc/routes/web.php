@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\SubcategoryController;
+use \App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,6 +65,16 @@ config('jetstream.auth_session'),
 ])->group(function () {
 Route::resource('subcategories', SubcategoryController::class);
 });
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::resource('products', ProductController::class);
+});
+
 
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
