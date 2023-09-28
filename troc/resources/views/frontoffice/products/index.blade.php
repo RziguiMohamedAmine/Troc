@@ -19,17 +19,21 @@
         <ul> 
             @foreach ($categories as $category)
           <li>   
-            <a href="../../aide-a-la-personne.html" title="" class="">
+            <a href="{{ route('products.index', ['category' => $category->id]) }}" class="{{ $category->id == $selectedCategory ? 'active' : '' }}">
               <i class="{{ $category->icon }}"></i>
               <span>{{ $category->name }}</span> 
-              <span class="count">{{count($category->subcategories)}}</span>
+              <span class="count {{ $category->id == $selectedCategory ? 'active' : '' }}">
+              ({{ $category->subcategories->sum(function ($subcategory) {
+                return $subcategory->products->count();
+              })}})
+            </span>
             </a>
 
             <ul class="">
                 @foreach ($category->subcategories as $subcategory)
               <li>
-                <a href="{{ route('products.index', ['subcategory' => $subcategory->id]) }}">{{ $subcategory->name }}</a> 
-                <span class="count">1030</span>
+                <a class="{{ $subcategory->id == $selectedSubcategory ? 'active' : '' }}" href="{{ route('products.index', ['subcategory' => $subcategory->id]) }}">{{ $subcategory->name }}</a> 
+                <span class="count {{ $subcategory->id == $selectedSubcategory ? 'active' : '' }}">{{$subcategory->products->count()}}</span>
               </li>
               @endforeach
             </ul>       
@@ -301,23 +305,28 @@
             </a>
            <i class="lni-user marg-r-XXS"></i><span>{{$product->user->name}}</span>
           </div>
-          <button type="button" class="see-member" data-goto="/profil/STE75-">
-            <i class="lni-check-box marg-r-XS"></i><span>Voir le Detail</span>
-          </button>
+          <a href="{{ route('products.show',['product'=> $product['id']]) }}" class="flex justify-end py-2 px-4 rounded-2xl" >
+            <i class="lni-check-box marg-r-XS py-1"></i><span>Voir le Detail</span>
+          </a>
         </div>
         <div class="member-services clearfix">
         
-            @if ($product->is_offering)
+            @if (!$product->is_offering)
           <div>         
-            <strong>Je recherche :</strong><span class="text-color1">{{$product->name}}</span>
+            <strong>Je recherche :</strong><span class="text-color1">{{$product->name}}</span><br>
+            @if ($product->exchange_for)
+              <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+              @else
+              <strong>Prix :</strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+              @endif
           </div>
           @else
           <div>
             <strong>Je propose :</strong><span class="text-color1"> {{$product->name}} </span> <br>
             @if ($product->exchange_for)
-            <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
+            <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, <br>
             @else
-            <strong>Prix :</strong><span class="text-color1"> {{$product->price}} </span>
+            <strong>Prix :</strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
             @endif
           </div>
           @endif

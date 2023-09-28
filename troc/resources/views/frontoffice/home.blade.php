@@ -251,12 +251,12 @@
    
       @foreach ($categories as $category)
       <div class="service-category">
-        <i class="{{ $category->icon }}"></i><a href="beaute-bien-etre.html" class="service-title" title="">{{ $category->name }}</a>
+        <i class="{{ $category->icon }}"></i><a href="{{ route('products.index', ['category' => $category->id]) }}" class="service-title" title="">{{ $category->name }}</a>
         @if ($category->subcategories->isNotEmpty())
         <div> 
         @foreach ($category->subcategories as $subcategory)       
           <a
-            href="beaute-bien-etre/coaching-sportif/membres.html"
+            href="{{ route('products.index', ['subcategory' => $subcategory->id]) }}"
             class="sub-service"
             title=""
             >{{ $subcategory->name }}</a>

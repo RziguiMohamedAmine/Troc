@@ -15,40 +15,39 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    // Get the category and subcategory IDs from the query parameters
-    $categoryID = $request->query('category');
-    $subcategoryID = $request->query('subcategory');
+    {
+        $selectedCategory = $request->query('category');
+        $selectedSubcategory = $request->query('subcategory');
 
-    // Fetch all categories
-    $categories = Category::all();
+        // $categories = Category::all();
+        $categories = Category::with('subcategories.products')->get();
+        $subcategories = Subcategory::all();
 
-    // Fetch all subcategories, and products based on the selected category and subcategory
-    $subcategories = Subcategory::all();
-    
-    // Create a base query for products
-    $productsQuery = Product::query();
+        // Fetch products based on the selected category and subcategory
+        if ($selectedSubcategory !== null) {
+            $products = Product::where('subcategory_id', $selectedSubcategory)->get();
+        } elseif ($selectedCategory !== null) {
+            // Fetch products based on the selected category
+            $products = Product::whereHas('subcategory', function ($query) use ($selectedCategory) {
+                $query->where('category_id', $selectedCategory);
+            })->get();
+        } else {
+            // No category or subcategory selected, show all products
+            $products = Product::all();
+        }
 
-    // Filter products based on the selected subcategory, if provided
-    if ($subcategoryID) {
-        $productsQuery->where('subcategory_id', $subcategoryID);
+        return view('frontoffice.products.index', compact('categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory'));
     }
 
-    // Filter products based on the selected category, if provided
-    if ($categoryID) {
-        $productsQuery->whereIn('subcategory_id', function ($query) use ($categoryID) {
-            $query->select('id')
-                ->from('subcategories')
-                ->where('category_id', $categoryID);
-        });
+    public function userProducts()
+    {
+     // Get the currently authenticated user
+      $user = Auth::user();
+
+     // Fetch the products added by the user
+     $products = $user->products;
+     return view('frontoffice.products.user_products', compact('products'));
     }
-
-    // Execute the query and get the products
-    $products = $productsQuery->get();
-
-    return view('frontoffice.products.index', compact('categories', 'subcategories', 'products'));
-}
-
 
     /**
      * Show the form for creating a new resource.
@@ -118,9 +117,11 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($product)
     {
-        //
+       $index = Product::findOrFail($product);
+    
+         return view('frontoffice.products.show',['product' => $index]);
     }
 
     /**

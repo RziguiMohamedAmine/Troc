@@ -31,7 +31,7 @@
             display: none;
           }
         </style>
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('assets/frontoffice/css/generate/Home.EchangeService.1.css.css')}}"/>
         <link href="{{asset('assets/frontoffice/owlcarousel/owl.carousel.min.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/frontoffice/owlcarousel/owl.theme.default.min.css')}}" rel="stylesheet"/>
@@ -42,11 +42,7 @@
 
       <section id="top">
         <div class="container-center clearfix">
-          <div
-            id="box-headerlogo"
-            class="box clearfix"
-            data-box="CMS top HeaderLogo"
-          >
+          <div id="box-headerlogo" class="box clearfix" data-box="CMS top HeaderLogo">
             <a href="{{ route('home') }}" title="">
               <img src="{{asset('assets/frontoffice/img/logo_es.png')}}" alt="Echange & Service - " />
             </a>
@@ -74,20 +70,25 @@
                   ><i class="lni-users"></i>COMMUNAUTÉ</a
                 >
               </li> --}}
-              <li>
-                <a href="faq.html" title="" class="link"
-                  ><i class="lni-question-circle"></i>FAQ</a
-                >
-              </li>
+              
               <li>
                 <a href="contact.html" title="" class="link"
                   ><i class="lni-envelope"></i>CONTACT</a
                 >
               </li>
+              @if(!auth()->check())
               <li>
                 <a href="{{ route('register') }}" title="" class="link"
                   ><i class="lni-user marg-r-XS" style="display: inline-block"></i
                   >INSCRIPTION GRATUITE</a
+                >
+              </li>
+              @else
+                     <!--Not Connected-->
+              @endif
+              <li>
+                <a href="{{ route('user.products') }}" title="" class="link"
+                  ><i class="lni-question-circle"></i>Mes Annonces</a
                 >
               </li>
               <li>
@@ -102,28 +103,29 @@
                   <i class="lni-pencil-alt"></i><span>Publier une annonce</span>
                 </a>
               </li>
+              
+              <li>
+                @can('admin', Auth::user())
+                <a href="{{ route('dashboard') }}" id="" title="" class="button"><i class="lni-dashboard"></i><span>dashboard</span></a>
+               @endcan
+              </li>
               <li>      
-                    @if(auth()->check())
-                    <!-- User is logged in, show the "logout" button -->
-                    <form method="POST" action="{{ route('logout') }}">
-                      @csrf
-                          <button type="submit">
-                              <i class="lni-power-switch"></i> Logout
-                          </button>
-                      </form>
-                @else
+                @if(auth()->check())
+                <!-- User is logged in, show the "logout" button -->
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                      <button type="submit">
+                          <i class="lni-power-switch"></i> Logout
+                      </button>
+                  </form>
+                 @else
                 <form method="POST" action="{{ route('login') }}">
                   @csrf
                       <button type="submit">
                           <a href="{{ route('login') }}"><i class="lni-user marg-r-XS"></i>Login</a>
                       </button>
-                  </form>
-                @endif
-              </li>
-              <li>
-                @can('admin', Auth::user())
-                <a href="{{ route('dashboard') }}" id="" title="" class="button"><i class="lni-dashboard"></i><span>dashboard</span></a>
-               @endcan
+                </form>
+                 @endif
               </li>
             </ul>
           </div>

@@ -75,7 +75,7 @@ Route::middleware([
     Route::resource('products', ProductController::class);
 });
 
-
+Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');
