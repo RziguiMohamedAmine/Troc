@@ -313,7 +313,7 @@
         
             @if (!$product->is_offering)
           <div>         
-            <strong>Je recherche :</strong><span class="text-color1">{{$product->name}}</span><br>
+            <strong>Je cherche :</strong><span class="text-color1">{{$product->name}}</span><br>
             @if ($product->exchange_for)
               <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
               @else

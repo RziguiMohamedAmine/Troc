@@ -127,24 +127,73 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($product)
     {
-        //
+        $product = Product::with('Subcategory')->findOrFail($product);
+        $categories = Category::with('subcategories')->get();
+
+        return view('frontoffice.products.edit',compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $product)
     {
-        //
+        $request->validate([
+            'product-name' => 'required|string|max:255',
+            'product-description' => 'required|string',
+            'product-type' => 'required|in:product,service',
+            'product-subcategory_id' => 'required|exists:subcategories,id',
+            'product-is_offering' => 'required|boolean',
+            'ad_exchange_type' => 'required|in:price,exchange',
+            'product-price' => Rule::requiredIf(function () use ($request) {
+                return $request->input('ad_exchange_type') === 'price';
+            }) . '|nullable|numeric|min:0',
+            'product-exchange_for' => Rule::requiredIf(function () use ($request) {
+                return $request->input('ad_exchange_type') === 'exchange';
+            }) . '|nullable|string|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $product = Product::findOrFail($product);
+        $product->name = $request->input('product-name');
+        $product->description = $request->input('product-description');
+
+        $exchangeType = $request->input('ad_exchange_type');
+
+        if ($exchangeType === 'price') {
+            $product->price = $request->input('product-price');
+            $product->exchange_For = null;
+        } elseif ($exchangeType === 'exchange') {
+            $product->exchange_For = $request->input('product-exchange_for');
+            $product->price = null;
+        }
+
+        $product->type = $request->input('product-type');
+        $product->subcategory_id = $request->input('product-subcategory_id');
+        $product->is_offering = $request->input('product-is_offering');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $product->image = $imageName;
+        }
+        $product->save();
+    
+        return redirect()->route('products.index',$product);
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($product)
     {
-        //
+        $delete=Product::findOrFail($product);
+        $delete->delete();
+        return redirect()->route('products.index');
     }
 }

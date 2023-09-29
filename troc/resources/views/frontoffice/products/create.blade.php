@@ -89,7 +89,7 @@
                 </div>
          
 
-                <div class="padd-b">
+                <div class="padd-b ">
                     <input type="text" name="product-name" value="{{old('product-name')}}" placeholder="Nom du service ou du bien"
                            class="inline-block width-100" maxlength="100" required="required"  />
                            @error('product-name')

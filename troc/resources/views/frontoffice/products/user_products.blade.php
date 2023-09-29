@@ -2,8 +2,9 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
+ 
 <section id="main" class="clearfix">
-    @foreach ($products as $product)
+   @foreach ($products as $product)
     <div class="member-box clearfix">
       <span class="member-offline">&#9679;</span>
       <div class="member-image">
@@ -36,7 +37,7 @@
       
           @if ($product->is_offering)
         <div>         
-          <strong>Je recherche : </strong><span class="text-color1">{{$product->name}}</span><br>
+          <strong>Je propose : </strong><span class="text-color1">{{$product->name}}</span><br>
           @if ($product->exchange_for)
           <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span>,<br>
           @else
@@ -45,7 +46,7 @@
         </div>
         @else
         <div>
-          <strong>Je propose : </strong><span class="text-color1"> {{$product->name}} </span> <br>
+          <strong>Je cherche : </strong><span class="text-color1"> {{$product->name}} </span> <br>
           @if ($product->exchange_for)
           <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span>, <br>
           @else
@@ -54,25 +55,35 @@
         </div>
         @endif
     </div>
-    @endforeach
     <div class="flex flex-col pl-32" style="width: 300px; padding-left: 8rem;">
-       <a href="/vrzv"> <button type="button" class="see-member" style="margin-bottom: 1rem;" data-goto="/profil/STE75-">
-           <i class="lni-check-box marg-r-XS"></i><span>Update</span>
-        </button></a>    
-    </div>
-    <div class="flex justify-end pl-32" style="width: 300px; padding-left: 8rem;">
-       <a href="/vrzv"> <button type="button" class="hover:bg-red-500" style="margin-bottom: 1rem;" data-goto="/profil/STE75-">
-           <i class="lni-check-box marg-r-XS"></i><span>Delete</span>
-        </button></a>    
-    </div>
+      <a href="{{route('products.edit',$product->id)}}"> <button type="button" class="see-member" style="margin-bottom: 1rem;" data-goto="/profil/STE75-">
+          <i class="lni-check-box marg-r-XS"></i><span>Update</span>
+       </button></a>    
+   </div>
+   <div class="flex justify-end pl-32" style="width: 300px; padding-left: 8rem;">
+      <a href="{{ route('products.destroy', $product->id) }}" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this Product?')) document.getElementById('delete-product-form').submit();"> 
+       <button type="button" class="hover:bg-red-500" style="margin-bottom: 1rem;" data-goto="/profil/STE75-">
+          <i class="lni-check-box marg-r-XS"></i><span>Delete</span>
+       </button>
+     </a>    
+     <form id="delete-product-form" action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: none;">
+       @csrf
+       @method('DELETE')
+   </form>
+   </div>
+
+
+
+
   </div>
     @if ($products->isEmpty())
     <div class="member-box clearfix">
         <p>You haven't added any products yet.</p>
     </div>
-    @endif
+    @endif 
+    @endforeach
 </section>
-
+   
 
 
 

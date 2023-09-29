@@ -177,7 +177,7 @@
             <div>
                 @if ($product->is_offering)
                 <div class="mt-4 mb-4">         
-                  <strong>Je recherche : </strong><span class="text-color1"> {{$product->name}}</span><br><br>
+                  <strong>Je propose : </strong><span class="text-color1"> {{$product->name}}</span><br><br>
                   @if ($product->exchange_for)
                   <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
                   @else
@@ -186,7 +186,7 @@
                 </div>
                 @else
                 <div class="mt-4 mb-4">
-                  <strong>Je propose :</strong><span class="text-color1"> {{$product->name}} </span> <br><br>
+                  <strong>Je cherche :</strong><span class="text-color1"> {{$product->name}} </span> <br><br>
                   @if ($product->exchange_for)
                   <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
                   @else
