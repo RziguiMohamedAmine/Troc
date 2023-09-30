@@ -57,6 +57,14 @@ class Chatbox extends Component
             $this->messages_count = Message::where("conversation_id", $conversation->id)->count();
             $this->messages = Message::where("conversation_id", $conversation->id)->get();
 
+                foreach($this->messages as $message){
+                    if($message->user_id != auth()->user()->id){
+                        $message->read = 1;
+                        $message->save();
+                    }
+                }
+            
+                $this->dispatch("refresh");
 
         }
 
