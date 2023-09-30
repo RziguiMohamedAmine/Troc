@@ -15,7 +15,7 @@
    
         <!-- Scripts -->
 
-
+        @cloudinaryJS
         <!-- Styles -->
         @livewireStyles
     </head>

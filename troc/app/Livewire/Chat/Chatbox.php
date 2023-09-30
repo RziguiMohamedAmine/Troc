@@ -7,8 +7,8 @@ use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 
 
@@ -20,7 +20,10 @@ class Chatbox extends Component
     public $receiverInstance;
     public $messages;
     public $messages_count;
+    public $file;
+    public $createdMessage;
 
+    use WithFileUploads;
 
     
     public function getListeners(){
@@ -79,5 +82,24 @@ class Chatbox extends Component
     public function render()
     {
         return view('livewire.chat.chatbox');
+    }
+
+    public function uploadImage($secureUrl){
+        $this->createdMessage = Message::create([
+            'conversation_id' => $this->selectedConversation->id,
+            'sender_id' => auth()->user()->id,
+            'receiver_id' => $this->receiverInstance->id,
+            'body' => $secureUrl
+        ]);
+
+        $this->selectedConversation->last_time_message = $this->createdMessage->created_at;
+
+        $this->selectedConversation->save();
+
+        $this->dispatch("pushMessage", [
+            "createdMessage" => $this->createdMessage->id
+        ]);
+        
+
     }
 }

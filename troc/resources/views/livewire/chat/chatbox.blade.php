@@ -1,3 +1,5 @@
+
+
 <div>
  
 
@@ -15,13 +17,14 @@
             }}</div>
 
         <div class="info text-center p-1 mt-auto mr-0 mb-auto ml-auto font-normal flex flex-nowrap">
-           
-        
-                <div class="info_item cursor-pointer hover:text-neutral-800 my-1 mx-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#000000" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM156,88a12,12,0,1,1-12,12A12,12,0,0,1,156,88ZM40,200V172l52-52,80,80Zm176,0H194.63l-36-36,20-20L216,181.38V200Z"></path></svg>
-                </div>
+
+
+        <button type="button" onclick="openWidget()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#000000" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM156,88a12,12,0,1,1-12,12A12,12,0,0,1,156,88ZM40,200V172l52-52,80,80Zm176,0H194.63l-36-36,20-20L216,181.38V200Z"></path></svg>
+        </button>
+
+        <input class="hidden"  id="image_url" type="text" name="image_url" value="" wire:model="image_url" />
        
-           
                 <div class="info_item cursor-pointer hover:text-neutral-800 my-1 mx-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#000000" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-4,48a12,12,0,1,1-12,12A12,12,0,0,1,124,72Zm12,112a16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40a8,8,0,0,1,0,16Z"></path></svg>
                 </div>
@@ -36,7 +39,13 @@
         
         @if($message->sender_id == auth()->user()->id) 
         <div class="msg_body bg-sky-500 text-white mx-3 ml-auto rounded-lg p-2 my-1  block w-fit max-w-[80%]">
+            
+           {{-- if message body starts with https://res.cloudinary --}}
+            @if (strpos($message->body, 'https://res.cloudinary') !== false)
+            <img class="rounded-lg" src="{{$message->body}}" alt="" />
+            @else
             {{$message->body}}
+            @endif
             <div class="msg_body_footer w-full flex justify-end items-start">
                 <div class="date text-xs my-auto pr-2">{{$message->created_at->format('m: i a')}}</div>
                 <div class="read my-auto">
@@ -57,7 +66,11 @@
         </div>   
         @else
         <div wire:key="{{$message->id}}" class="msg_body w-fit  bg-neutral-200 rounded-lg p-2 my-2 mx-3 block max-w-[80%]">
+            @if (strpos($message->body, 'https://res.cloudinary') !== false)
+            <img class="rounded-lg" src="{{$message->body}}" alt="" />
+            @else
             {{$message->body}}
+            @endif
             <div class="msg_body_footer w-full flex justify-end items-start">
                 <div class="date text-xs text-neutral-400 my-auto pr-2">{{$message->created_at->format('m: i a')}}</div>
                 <div class="read my-auto">
@@ -132,7 +145,6 @@
         url: '/send-message', 
         data: dataToSend,
         success: function(response) {
-        
             console.log(response);
         },
         error: function(error) {
@@ -144,5 +156,24 @@
 });
 
     </script>
+
+<script type="text/javascript">
+
+    function openWidget() {
+        window.cloudinary.openUploadWidget(
+            { cloud_name: "dp42cajy0",
+              upload_preset: "tdaorffn"
+            },
+            (error, result) => {
+              if (!error && result && result.event === "success") {
+                console.log("Done! Here is the image info: ", result.info.secure_url);
+                document.getElementById("image_url").value = result.info.secure_url;
+                //execute function in livewire controller called uploadImage
+                @this.call('uploadImage', result.info.secure_url);
+           
+            }
+        }).open();
+    }
+</script>
 
 </div>

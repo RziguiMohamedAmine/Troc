@@ -21,7 +21,12 @@
 
                 <div class="bottom_row flex flex-nowrap w-full">
                     <div class="message_body w-4/5 truncate font-extralight text-neutral-400">
+                        {{-- check if last message starts with https://res.cloudinary --}}
+                        @if (strpos($conversation->messages->last()?->body, 'https://res.cloudinary') !== false)
+                        <span>Sent an image</span>
+                        @else
                        {{$conversation?->messages?->last()?->body}}
+                        @endif
                     </div>
                     @php
                         if(count($conversation->messages->where('read', 0)) && $conversation->messages->last()->sender_id != auth()->id()){
