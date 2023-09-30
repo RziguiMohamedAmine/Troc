@@ -315,18 +315,18 @@
           <div>         
             <strong>Je cherche :</strong><span class="text-color1">{{$product->name}}</span><br>
             @if ($product->exchange_for)
-              <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+              <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
               @else
-              <strong>Prix :</strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+              <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
               @endif
           </div>
           @else
           <div>
-            <strong>Je propose :</strong><span class="text-color1"> {{$product->name}} </span> <br>
+            <strong>Je propose : </strong><span class="text-color1"> {{$product->name}} </span> <br>
             @if ($product->exchange_for)
-            <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, <br>
+            <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span>, <br>
             @else
-            <strong>Prix :</strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+            <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
             @endif
           </div>
           @endif

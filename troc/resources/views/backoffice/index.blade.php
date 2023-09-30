@@ -209,6 +209,14 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-todolist-check"></i><span> Products<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{{ route('backoffice.products.index') }}">List Of Productss</a>
+                            </li>                                            
+                        </ul>
+                    </li>
+                    <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Categories <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
                             <li><a href="{{ route('categories.index') }}">List Of Categories</a></li>                      

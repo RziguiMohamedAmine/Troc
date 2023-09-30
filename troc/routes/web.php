@@ -37,7 +37,7 @@ Route::middleware([
     'verified',
     'admin', // Apply the 'admin' middleware to this route
 ])->group(function () {
-    Route::get('/dashboard', function () {return view('backoffice.welcome');})->name('dashboard');
+    Route::get('/dashboard', [ProductController::class, 'showBackofficeProducts'])->name('dashboard');
 });
 
 
@@ -76,6 +76,7 @@ Route::middleware([
 });
 
 Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
+Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');

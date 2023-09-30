@@ -19,7 +19,7 @@ class ProductController extends Controller
         $selectedCategory = $request->query('category');
         $selectedSubcategory = $request->query('subcategory');
 
-        // $categories = Category::all();
+        
         $categories = Category::with('subcategories.products')->get();
         $subcategories = Subcategory::all();
 
@@ -37,6 +37,15 @@ class ProductController extends Controller
         }
 
         return view('frontoffice.products.index', compact('categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory'));
+    }
+
+
+    public function showBackofficeProducts()
+    {
+        // Retrieve all products with their subcategories
+        $products = Product::with('subcategory.category')->get();
+
+        return view('backoffice.products.index', compact('products'));
     }
 
     public function userProducts()
