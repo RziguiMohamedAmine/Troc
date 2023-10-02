@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\CategoryController;
+use \App\Http\Controllers\SubcategoryController;
+use \App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,41 +16,28 @@ use \App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('welcome');
-
 
 Route::get('/', function () {
     return view('frontoffice.welcome');
 })->name('welcome');
 
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/dashboard', function () {return view('backoffice.index');})->name('dashboard');
-
-// });
-
-Route::middleware([ 
+Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/home', function () {return view('frontoffice.home');})->name('home');
+    Route::get('/home',[CategoryController::class, 'indexFront'])->name('home');
 });
 
 
-Route::middleware([ 
+Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
     'admin', // Apply the 'admin' middleware to this route
 ])->group(function () {
-    Route::get('/dashboard', function () {return view('backoffice.welcome');})->name('dashboard');
+    Route::get('/dashboard', [ProductController::class, 'showBackofficeProducts'])->name('dashboard');
 });
 
 
@@ -59,4 +49,42 @@ config('jetstream.auth_session'),
     Route::get('/users', [UserController::class, 'index'])->name('users');
 });
 
+Route::middleware([ 'auth:sanctum',
+config('jetstream.auth_session'),
+'verified',
+'admin',
+])->group(function () {
+Route::resource('categories', CategoryController::class);
+});
 
+
+Route::middleware([ 'auth:sanctum',
+config('jetstream.auth_session'),
+'verified',
+'admin',
+])->group(function () {
+Route::resource('subcategories', SubcategoryController::class);
+});
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::resource('products', ProductController::class);
+});
+
+Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
+Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
+Route::get('/aaaa', function(){
+
+    return view('frontoffice.products.test');
+
+} )
+;
+Route::post('/add-to-cart', 'CartController@addToCart')->name('cart.add');
+//Route::get('/cart', 'CartController@showCart')->name('cart.show');
+
+//Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
+//Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');

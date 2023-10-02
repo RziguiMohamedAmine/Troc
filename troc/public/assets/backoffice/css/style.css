@@ -1046,6 +1046,25 @@ dt {
   color: #f6f6f6;
 }
 
+
+.app-search .form-control2,
+.app-search .form-control2:focus {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  height: 34px;
+  padding-left: 18px;
+  padding-right: 40px;
+  margin-right: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-radius: 30px;
+  width: 80px;
+  border: none;
+  color: #f6f6f6;
+}
+
+
 .app-search .form-control::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
