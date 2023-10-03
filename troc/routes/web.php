@@ -7,6 +7,9 @@ use App\Livewire\Chat\CreateChat;
 use App\Livewire\Chat\Main;
 use App\Livewire\Chat\SendMessage;
 
+use \App\Http\Controllers\CategoryController;
+use \App\Http\Controllers\SubcategoryController;
+use \App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,41 +21,28 @@ use App\Livewire\Chat\SendMessage;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('welcome');
-
 
 Route::get('/', function () {
     return view('frontoffice.welcome');
 })->name('welcome');
 
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/dashboard', function () {return view('backoffice.index');})->name('dashboard');
-
-// });
-
-Route::middleware([ 
+Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/home', function () {return view('frontoffice.home');})->name('home');
+    Route::get('/home',[CategoryController::class, 'indexFront'])->name('home');
 });
 
 
-Route::middleware([ 
+Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
     'admin', // Apply the 'admin' middleware to this route
 ])->group(function () {
-    Route::get('/dashboard', function () {return view('backoffice.welcome');})->name('dashboard');
+    Route::get('/dashboard', [ProductController::class, 'showBackofficeProducts'])->name('dashboard');
 });
 
 
@@ -72,3 +62,34 @@ Route::post('/load-send-message', [SendMessage::class, 'loadSendMessage'])->name
 Route::post('/send-message', [SendMessage::class, 'sendMessage'])->name('send-message');
 
 Route::post("/upload-image", [Chatbox::class, 'uploadImage'])->name("upload-image");
+Route::middleware([ 'auth:sanctum',
+config('jetstream.auth_session'),
+'verified',
+'admin',
+])->group(function () {
+Route::resource('categories', CategoryController::class);
+});
+
+
+Route::middleware([ 'auth:sanctum',
+config('jetstream.auth_session'),
+'verified',
+'admin',
+])->group(function () {
+Route::resource('subcategories', SubcategoryController::class);
+});
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::resource('products', ProductController::class);
+});
+
+Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
+Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
+
+//Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
+//Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');
