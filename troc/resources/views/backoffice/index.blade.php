@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Stexo - Responsive Admin & Dashboard Template | Themesdesign</title>
+    <title>Echange & Service</title>
     <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
     <meta content="Themesdesign" name="author" />
     <link rel="shortcut icon" href="{{asset('assets/backoffice/images/favicon.ico')}}">
@@ -32,7 +32,8 @@
         <div class="topbar-left">
             <a href="index.html" class="logo">
                     <span class="logo-light">
-                            <i class="mdi mdi-camera-control"></i> Stexo
+                            {{-- <i class="mdi mdi-camera-control"></i>Echanges</span>&Service --}}
+                            <img style="width: 196px" src="{{asset('assets/frontoffice/img/logo_es.png')}}" alt="Echange & Service - " />
                         </span>
                 <span class="logo-sm">
                             <i class="mdi mdi-camera-control"></i>
