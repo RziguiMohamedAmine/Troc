@@ -5,6 +5,7 @@ use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\SubcategoryController;
 use \App\Http\Controllers\ProductController;
+use \App\Http\Controllers\OffreController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,9 +75,18 @@ Route::middleware([
 ])->group(function () {
     Route::resource('products', ProductController::class);
 });
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::resource('offres', OffreController::class);
+});
 
 Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
 Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');
+
+Route::post('/offre/create', 'OffreController@create')->name('offres.create');

@@ -19,7 +19,7 @@ class ProductController extends Controller
         $selectedCategory = $request->query('category');
         $selectedSubcategory = $request->query('subcategory');
 
-        
+
         $categories = Category::with('subcategories.products')->get();
         $subcategories = Subcategory::all();
 
@@ -129,7 +129,7 @@ class ProductController extends Controller
     public function show($product)
     {
        $index = Product::findOrFail($product);
-    
+
          return view('frontoffice.products.show',['product' => $index]);
     }
 
@@ -190,7 +190,7 @@ class ProductController extends Controller
             $product->image = $imageName;
         }
         $product->save();
-    
+
         return redirect()->route('products.index',$product);
 
 
