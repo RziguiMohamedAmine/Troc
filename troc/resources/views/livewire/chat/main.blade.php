@@ -1,4 +1,5 @@
-<div class="flex p-2 flex-nowrap fixed w-[95%] left-[2.5%] rounded-xl h-[85%] border-[1px] border-gray-400 mt-4">
+
+<div class="flex p-2 flex-nowrap  w-[95%] left-[2.5%] rounded-xl h-[85%] border-[1px] border-gray-400 mt-4">
     {{-- The whole world belongs to you. --}}
 
         {{-- first-div --}}
@@ -13,3 +14,4 @@
         </div>
 
 </div>
+
