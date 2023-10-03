@@ -70,7 +70,7 @@
               </li>
               {{-- <li>
                 <a href="communaute.html" title="" class="link"
-                  ><i class="lni-users"></i>COMMUNAUTÉ</a
+                  ><i class="lni-users"></i>CHAT</a
                 >
               </li> --}}
               <li>
