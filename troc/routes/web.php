@@ -17,10 +17,13 @@ use \App\Http\Controllers\ProductController;
 */
 
 
-Route::get('/', function () {
+Route::get('/chart', function () {
     return view('frontoffice.welcome');
 })->name('welcome');
 
+Route::get('/chart', function () {
+    return view('backoffice.categories.chart');
+})->name('welcome');
 
 Route::middleware([
     'auth:sanctum',

@@ -52,9 +52,24 @@
                                     @foreach ($products as $product)
                                     <tr>
                                         <td>
-                                        <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}" 
-                                        style="width: 40px; height: 40px;" class="rounded-circle" />          
-                                     </td>
+                                            @if ($product->image)
+                                                <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}" 
+                                                style="width: 40px; height: 40px;" class="rounded-circle" />  
+                                            @else
+                                            <div style="width: 40px; 
+                                            height: 40px;
+                                            border-radius: 50%;
+                                            background-color: #2196F3; 
+                                            color: #ffffff; 
+                                            font-size: 10px; 
+                                            text-align: center;
+                                            line-height: 40px;"> 
+                                                {{ strtoupper(substr($product->name, 0, 3)) }}
+                                            </div>
+                                            
+                                            @endif
+                                                
+                                        </td>
                                         <td>{{ $product->name }}</td>
                                         <td>
                                             

@@ -136,7 +136,7 @@
           <div class="clear"></div>
 
 
-          @if(!auth()->check())
+          {{-- @if(!auth()->check()) --}}
           <div id="es-home-header-title">
             <h1>
               <span class="text-color1">ECHANGE</span> &
@@ -150,21 +150,13 @@
             </p>
           </div>
   
-          @else
+          {{-- @else
           <!-- User is not logged in, do not show the "logout" button -->
-         @endif
+         @endif --}}
 
-
-          <div
-            id="box-headersearch"
-            class="box clearfix"
-            data-box="ES header HeaderSearch"
-          >
-            <form
-              action="https://www.echange-service.com/search/dispatcher"
-              method="post"
-              class="clearfix"
-            >
+         @if(auth()->check())
+          <div id="box-headersearch" class="box clearfix" data-box="ES header HeaderSearch" >
+            <form action="https://www.echange-service.com/search/dispatcher" method="post" class="clearfix">
               <div class="select-group">
                 <i class="lni-map-marker marg-r-XXS"></i>
                 <select name="search_region" id="search-region">
@@ -939,6 +931,10 @@
               </button>
             </form>
           </div>
+          @else
+
+          @endif
+          
           @if(Route::currentRouteName() === 'login')
           <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
                        <div class="marg-b" > 
