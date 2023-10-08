@@ -11,9 +11,13 @@ class Offre extends Model
 
     protected $fillable = ['name', 'user_id','product_id'];
 
-    public function offres()
+    public function user()
     {
-        return $this->hasMany(Offre::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function product()
+    {
+        return $this->belongsTo(Subcategory::class, 'product_id');
     }
 
     public function offresCount()

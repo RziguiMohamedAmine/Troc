@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
     <section id="main" class="clearfix">
         <h1 id="profile-title">
-            {{ $product->user->name }} échange des services à Marmande - Lot et Garonne
+            {{ $offre->user->name }} échange des services à Marmande - Lot et Garonne
         </h1>
         <p id="communaute-intro">
             Echange de service, 29 membres inscrits dans le département
@@ -35,7 +35,7 @@
 
         <div id="content-container" style="margin-left: 4rem;">
             <div id="filters" class="clearfix">
-                <a href="{{ route('products.index') }}">
+                <a href="{{ route('offres.index') }}">
                     <button type="button" class="" data-goto="/normandie/seine-maritime">
                         <i class="lni-chevron-left small vertical-middle marg-r-XXS"></i><span>Retour</span>
                     </button>
@@ -58,21 +58,21 @@
                     <div id="profile-image">
                         <span class="member-offline">&#9679;</span>
                         <div class="img-container large blue">
-                            <img src="{{ $product->user->profile_photo_url }}" alt="{{ $product->user->name }}" />
+                            <img src="{{ $offre->user->profile_photo_url }}" alt="{{ $offre->user->name }}" />
                         </div>
                         <div class="offline"><span>Hors ligne</span></div>
                     </div>
                     <ul>
                         <li>
                             <i class="lni-user marg-r-XXS"></i>
-                            <span><strong>{{ $product->user->name }}</strong></span>
+                            <span><strong>{{ $offre->user->name }}</strong></span>
                         </li>
                         <li class="small">
                             <i class="lni-map-marker marg-r-XXS"></i><span>Marmande</span>
                         </li>
                         <li class="small">
                             <i class="lni-alarm-clock marg-r-XXS"></i><span>Inscrit le
-                                {{ $product->user->created_at->format('Y-m-d') }}</span>
+                                {{ $offre->user->created_at->format('Y-m-d') }}</span>
                         </li>
                         <li class="marg-t-S">
                             <button type="button" class="highlight small" data-goto="/user/login"
@@ -94,42 +94,42 @@
 
                 <div id="profile-provide" class=" flex flex-col justify-center items-center py-8">
                     <div class="mt-4 mb-4 ml-32 ">
-                        <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}"
+                        <img src="{{ asset('images/' . $offre->image) }}" alt="{{ $offre->image }}"
                             class="w-40 border border-gray-950 rounded-lg" />
                     </div>
 
                     <div>
-                        @if ($product->is_offering)
+                        @if ($offre->is_offering)
                             <div class="mt-4 mb-4">
                                 <strong>Je propose : </strong><span class="text-color1">
-                                    {{ $product->name }}</span><br><br>
-                                @if ($product->exchange_for)
+                                    {{ $offre->name }}</span><br><br>
+                                @if ($offre->exchange_for)
                                     <strong>Echange contre :</strong><span class="text-color1">
-                                        {{ $product->exchange_for }} </span>,
+                                        {{ $offre->exchange_for }} </span>,
                                 @else
-                                    <strong>Prix : </strong><span class="text-color1"> {{ $product->price }}
+                                    <strong>Prix : </strong><span class="text-color1"> {{ $offre->price }}
                                     </span><strong class="font-bold"> DT</strong>
                                 @endif
                             </div>
                         @else
                             <div class="mt-4 mb-4">
-                                <strong>Je cherche :</strong><span class="text-color1"> {{ $product->name }} </span>
+                                <strong>Je cherche :</strong><span class="text-color1"> {{ $offre->name }} </span>
                                 <br><br>
-                                @if ($product->exchange_for)
+                                @if ($offre->exchange_for)
                                     <strong>Echange contre :</strong><span class="text-color1">
-                                        {{ $product->exchange_for }} </span>,
+                                        {{ $offre->exchange_for }} </span>,
                                 @else
-                                    <strong>Prix :</strong><span class="text-color1"> {{ $product->price }} </span>
+                                    <strong>Prix :</strong><span class="text-color1"> {{ $offre->price }} </span>
                                 @endif
                             </div>
                         @endif
                         <div class="mt-4 mb-4 max-w-lg ">
                             <strong>Description : </strong>
-                            <p>{{ $product->description }}</p>
+                            <p>{{ $offre->description }}</p>
                         </div>
                         <div class="mt-4 mb-4 flex justify-center items-center ">
-                            @if ($product->exchange_for)
-                                <a href="{{ route('offres.create', ['product' => $product['id']]) }}">
+                            @if ($offre->exchange_for)
+                                <a href="{{ route('offres.show', ['offre' => $offre['id']]) }}">
                                     @csrf
                                     <button>Echange contre</button>
                                 </a>,
@@ -158,7 +158,7 @@
             <!--<script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>-->
-            <a href="{{ route('products.index') }}">
+            <a href="{{ route('offres.index') }}">
                 <button type="button" class="marg-t" data-goto="/normandie/seine-maritime">
                     <i class="lni-chevron-left small vertical-middle marg-r-XXS"></i><span>Retour</span>
                 </button>

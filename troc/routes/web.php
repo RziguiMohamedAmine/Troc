@@ -75,6 +75,7 @@ Route::middleware([
 ])->group(function () {
     Route::resource('products', ProductController::class);
 });
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -89,4 +90,4 @@ Route::get('/backoffice/products', [ProductController::class, 'showBackofficePro
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');
 
-Route::post('/offre/create', 'OffreController@create')->name('offres.create');
+Route::get('/offre/create', 'OffreController@create')->name('offres.create');

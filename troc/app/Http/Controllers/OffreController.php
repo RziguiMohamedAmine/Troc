@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Offre;
+use App\Models\Subcategory;
+use App\Models\Category;
+use App\Models\User;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class OffreController extends Controller
 {
@@ -19,10 +25,12 @@ class OffreController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($product)
     {
-        //
-        return redirect()->route('products.index');
+        // $users = User::with('users')->get();
+        // $products = Product::with('products')->get();
+        $index = Product::findOrFail($product);
+        return view('frontoffice.offres.create', ['product' => $index, 'offres' => compact('offres')]);
     }
 
     /**
@@ -36,9 +44,11 @@ class OffreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($offre)
     {
-        //
+       $index = Offre::findOrFail($offre);
+
+         return view('frontoffice.offres.show',['offre' => $index]);
     }
 
     /**
