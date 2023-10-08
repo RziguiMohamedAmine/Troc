@@ -13,7 +13,28 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('backoffice.categories.index',['categories'=>Category::all()]);
+        $categories = Category::all();
+    $categoriesWithPercentages = [];
+
+    foreach ($categories as $category) {
+        $subcategoryProductsCount = $category->subcategories->sum(function ($subcategory) {
+            return $subcategory->products->count();
+        });
+
+        $totalProducts = Product::count();
+
+        $percentage = ($subcategoryProductsCount / $totalProducts) * 100;
+
+        $categoriesWithPercentages[] = [
+            'category' => $category,
+            'percentage' => $percentage,
+        ];
+    }
+
+    return view('backoffice.categories.index', [
+        'categories' => $categories,
+        'categoriesWithPercentages' => $categoriesWithPercentages,
+    ]);
     }
 
   

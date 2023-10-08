@@ -16,10 +16,10 @@ use \App\Http\Controllers\ProductController;
 |
 */
 
-
-Route::get('/chart', function () {
+Route::get('/', function () {
     return view('frontoffice.welcome');
 })->name('welcome');
+
 
 Route::get('/chart', function () {
     return view('backoffice.categories.chart');
