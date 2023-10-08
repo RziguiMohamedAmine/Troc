@@ -25,12 +25,14 @@ class OffreController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($product)
+    public function create(Request $request)
     {
+        $id = $request->query('product');
         // $users = User::with('users')->get();
         // $products = Product::with('products')->get();
-        $index = Product::findOrFail($product);
-        return view('frontoffice.offres.create', ['product' => $index, 'offres' => compact('offres')]);
+        $index = Product::findOrFail($id);
+        $categories = Category::with('subcategories')->get();
+        return view('frontoffice.offres.create', compact('categories'));
     }
 
     /**
