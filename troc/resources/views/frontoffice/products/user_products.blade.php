@@ -2,7 +2,12 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
- 
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+
+
+
 <section id="main" class="clearfix">
    @foreach ($products as $product)
     <div class="member-box clearfix">
@@ -57,19 +62,19 @@
     </div>
     <div class="flex flex-col pl-32" style="width: 300px; padding-left: 8rem;">
       <a href="{{route('products.edit',$product->id)}}"> <button type="button" class="see-member" style="margin-bottom: 1rem;" data-goto="/profil/STE75-">
-          <i class="lni-check-box marg-r-XS"></i><span>Update</span>
+          <i class="lni-pencil marg-r-XS"></i><span>Update</span>
        </button></a>    
    </div>
    <div class="flex justify-end pl-32" style="width: 300px; padding-left: 8rem;">
-      <a href="{{ route('products.destroy', $product->id) }}" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this Product?')) document.getElementById('delete-product-form').submit();"> 
-       <button type="button" class="hover:bg-red-500" style="margin-bottom: 1rem;" data-goto="/profil/STE75-">
-          <i class="lni-check-box marg-r-XS"></i><span>Delete</span>
-       </button>
-     </a>    
-     <form id="delete-product-form" action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: none;">
-       @csrf
-       @method('DELETE')
-   </form>
+     
+    
+    <form method="POST" action="{{ route('products.destroy', $product->id) }}">
+      @csrf
+      <input name="_method" type="hidden" value="DELETE">
+      <button type="submit" class="hover:bg-red-500 confirm-button" style="margin-bottom: 1rem;" data-goto="/profil/STE75-"><i class="lni lni-trash lni-16 marg-r-XS"></i><span>Delete</span></button>
+  </form>
+    
+
    </div>
 
 
@@ -78,7 +83,7 @@
   </div>
     @if ($products->isEmpty())
     <div class="member-box clearfix">
-        <p>You haven't added any products yet.</p>
+        <h1>You haven't added any products yet.</h1>
     </div>
     @endif 
     @endforeach
@@ -100,8 +105,27 @@
 
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
 
+  $('.confirm-button').click(function(event) {
+      var form =  $(this).closest("form");
+      event.preventDefault();
+      swal({
+          title: `Are you sure you want to delete this product?`,
+          text: "It will gone forever",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+          .then((willDelete) => {
+              if (willDelete) {
+                  form.submit();
+              }
+          });
+  });
 
+</script>
 
 {{-- <section id="user-products" class="clearfix">
     <h1>Your Products</h1>
