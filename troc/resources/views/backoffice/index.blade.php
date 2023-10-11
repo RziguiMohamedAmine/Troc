@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Stexo - Responsive Admin & Dashboard Template | Themesdesign</title>
+    <title>Echange & Service</title>
     <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
     <meta content="Themesdesign" name="author" />
     <link rel="shortcut icon" href="{{asset('assets/backoffice/images/favicon.ico')}}">
@@ -32,7 +32,8 @@
         <div class="topbar-left">
             <a href="index.html" class="logo">
                     <span class="logo-light">
-                            <i class="mdi mdi-camera-control"></i> Stexo
+                            {{-- <i class="mdi mdi-camera-control"></i>Echanges</span>&Service --}}
+                            <img style="width: 196px" src="{{asset('assets/frontoffice/img/logo_es.png')}}" alt="Echange & Service - " />
                         </span>
                 <span class="logo-sm">
                             <i class="mdi mdi-camera-control"></i>
@@ -222,6 +223,15 @@
                             <li><a href="{{ route('categories.index') }}">List Of Categories</a></li>                      
                             <li><a href="{{ route('categories.create') }}">Add Categories</a></li>                      
                         </ul>
+                    </li>
+                    <li>   
+                    <a href="javascript:void(0);" class=" lni-cart"><i class="mdi mdi-account-circle"></i><span> Abonnements <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                    <ul class="submenu">
+                    <li><a href="{{ route('categories.index') }}">Ajouter Abonnements</a></li>      
+                    <li><a href="{{ route('categories.index') }}">Consulter Liste des Abonnements</a></li>      
+                    </ul>                
+                    
+
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Sub Categories <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>

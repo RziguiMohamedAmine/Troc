@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
 <section id="main" class="clearfix">
     <h1 id="profile-title">
-     échange des services à Marmande - Lot et Garonne
+     {{$product->user->name}} échange des services à Marmande - Lot et Garonne
     </h1>
     <p id="communaute-intro">
       Echange de service, 29 membres inscrits dans le département
@@ -202,7 +202,10 @@
                     @if ($product->exchange_for)
                     <button>Echange contre</button>, 
                     @else
-                    <button>Acheter</button> </span>
+                    <form action="{{ route('add.to.cart', ['productId' => $product->id]) }}" method="POST">
+    @csrf
+    <button type="submit">Ajouter au Panier</button>
+</form>
                     @endif
                 </div>
         </div>

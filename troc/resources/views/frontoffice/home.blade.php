@@ -3,237 +3,65 @@
 @section('content')
 
 <section id="main" class="clearfix full">
-    @if(auth()->check())
-     <!-- Members slider -->
-     <div id="home-members-container" class="clearfix">
-        <div class="container-center clearfix">
+  @if (auth()->check())
+  <!-- Members slider -->
+  <div id="home-members-container" class="clearfix">
+      <div class="container-center clearfix">
           <div id="slide-members" class="owl-carousel">
-            <div class="member-box clearfix">
-              <span class="member-offline">&#9679;</span>
-              <div class="member-image">
-                <div
-                  class="img-container blue cursor"
-                  data-goto="/profil/GeraldineD"
-                >
-                  <img
-                    src="{{asset('assets/frontoffice/img/EchangeService/avatar_f.png')}}"
-                    alt="GeraldineD - Croix"
-                  />
-                </div>
-              </div>
-              <div class="member-content clearfix">
-                <div class="member-details">
-                  <a href="profil/GeraldineD.html" title="">
-                    <i class="lni-user marg-r-XXS"></i> <span>GeraldineD</span>
-                  </a>
-                  <i class="lni-map-marker marg-r-XXS"></i><span>Croix</span>
-                </div>
-                <button
-                  type="button"
-                  class="see-member"
-                  data-goto="/profil/GeraldineD"
-                >
-                  <i class="lni-check-box marg-r-XS"></i
-                  ><span>Voir le profil</span>
-                </button>
-              </div>
-              <div class="member-services clearfix">
-                <div>
-                  <strong>Je recherche :</strong> Aucun service actuellement
-                </div>
-                <div>
-                  <strong>Je propose :</strong> Aucun service actuellement
-                </div>
-              </div>
-            </div>
-            <div class="member-box clearfix">
-              <span class="member-offline">&#9679;</span>
-              <div class="member-image">
-                <div
-                  class="img-container blue cursor"
-                  data-goto="/profil/Clotilde59"
-                >
-                  <img
-                    src="{{asset('assets/frontoffice/img/EchangeService/avatar_f.png')}}"
-                    alt="Clotilde59 - Tressin"
-                  />
-                </div>
-              </div>
-              <div class="member-content clearfix">
-                <div class="member-details">
-                  <a href="profil/Clotilde59.html" title="">
-                    <i class="lni-user marg-r-XXS"></i> <span>Clotilde59</span>
-                  </a>
-                  <i class="lni-map-marker marg-r-XXS"></i><span>Tressin</span>
-                </div>
-                <button
-                  type="button"
-                  class="see-member"
-                  data-goto="/profil/Clotilde59"
-                >
-                  <i class="lni-check-box marg-r-XS"></i
-                  ><span>Voir le profil</span>
-                </button>
-              </div>
-              <div class="member-services clearfix">
-                <div>
-                  <strong>Je recherche :</strong> Aucun service actuellement
-                </div>
-                <div>
-                  <strong>Je propose :</strong> Aucun service actuellement
-                </div>
-              </div>
-            </div>
-            <div class="member-box clearfix">
-              <span class="member-offline">&#9679;</span>
-              <div class="member-image">
-                <div
-                  class="img-container blue cursor"
-                  data-goto="/profil/Adrien"
-                >
-                  <img
-                    src="{{asset('assets/frontoffice/img/EchangeService/avatar_m.png')}}"
-                    alt="Adrien - Levallois-Perret"
-                  />
-                </div>
-              </div>
-              <div class="member-content clearfix">
-                <div class="member-details">
-                  <a href="profil/Adrien.html" title="">
-                    <i class="lni-user marg-r-XXS"></i> <span>Adrien</span>
-                  </a>
-                  <i class="lni-map-marker marg-r-XXS"></i
-                  ><span>Levallois-Perret</span>
-                </div>
-                <button
-                  type="button"
-                  class="see-member"
-                  data-goto="/profil/Adrien"
-                >
-                  <i class="lni-check-box marg-r-XS"></i
-                  ><span>Voir le profil</span>
-                </button>
-              </div>
-              <div class="member-services clearfix">
-                <div>
-                  <strong>Je recherche :</strong> Aucun service actuellement
-                </div>
-                <div>
-                  <strong>Je propose :</strong> Aucun service actuellement
-                </div>
-              </div>
-            </div>
-            <div class="member-box clearfix">
-              <span class="member-offline">&#9679;</span>
-              <div class="member-image">
-                <div
-                  class="img-container blue cursor"
-                  data-goto="/profil/Helios"
-                >
-                  <img
-                    src="{{asset('assets/frontoffice/img/EchangeService/avatar_m.png')}}"
-                    alt="Helios - Lyon"
-                  />
-                </div>
-              </div>
-              <div class="member-content clearfix">
-                <div class="member-details">
-                  <a href="profil/Helios.html" title="">
-                    <i class="lni-user marg-r-XXS"></i> <span>Helios</span>
-                  </a>
-                  <i class="lni-map-marker marg-r-XXS"></i><span>Lyon</span>
-                </div>
-                <button
-                  type="button"
-                  class="see-member"
-                  data-goto="/profil/Helios"
-                >
-                  <i class="lni-check-box marg-r-XS"></i
-                  ><span>Voir le profil</span>
-                </button>
-              </div>
-              <div class="member-services clearfix">
-                <div>
-                  <strong>Je recherche :</strong> Massage, Yoga, Sport &
-                  Hobbies, Vins & Gastronomie
-                </div>
-                <div>
-                  <strong>Je propose :</strong> Massage, Sport & Hobbies, Vins &
-                  Gastronomie
-                </div>
-              </div>
-            </div>
-            <div class="member-box clearfix">
-              <span class="member-offline">&#9679;</span>
-              <div class="member-image">
-                <div
-                  class="img-container blue cursor"
-                  data-goto="/profil/Calimas"
-                >
-                  <img
-                    src="{{asset('assets/frontoffice/img/EchangeService/avatar_m.png')}}"
-                    alt="Calimas - Pomps"
-                  />
-                </div>
-              </div>
-              <div class="member-content clearfix">
-                <div class="member-details">
-                  <a href="profil/Calimas.html" title="">
-                    <i class="lni-user marg-r-XXS"></i> <span>Calimas</span>
-                  </a>
-                  <i class="lni-map-marker marg-r-XXS"></i><span>Pomps</span>
-                </div>
-                <button
-                  type="button"
-                  class="see-member"
-                  data-goto="/profil/Calimas"
-                >
-                  <i class="lni-check-box marg-r-XS"></i
-                  ><span>Voir le profil</span>
-                </button>
-              </div>
-              <div class="member-services clearfix">
-                <div><strong>Je recherche :</strong> Massage</div>
-                <div><strong>Je propose :</strong> Massage</div>
-              </div>
-            </div>
-            <div class="member-box clearfix">
-              <span class="member-offline">&#9679;</span>
-              <div class="member-image">
-                <div class="img-container blue cursor" data-goto="/profil/Zen">
-                  <img
-                    src="{{asset('assets/frontoffice/img/EchangeService/avatar_m.png')}}"
-                    alt="Zen - Grimaud"
-                  />
-                </div>
-              </div>
-              <div class="member-content clearfix">
-                <div class="member-details">
-                  <a href="profil/Zen.html" title="">
-                    <i class="lni-user marg-r-XXS"></i> <span>Zen</span>
-                  </a>
-                  <i class="lni-map-marker marg-r-XXS"></i><span>Grimaud</span>
-                </div>
-                <button
-                  type="button"
-                  class="see-member"
-                  data-goto="/profil/Zen"
-                >
-                  <i class="lni-check-box marg-r-XS"></i
-                  ><span>Voir le profil</span>
-                </button>
-              </div>
-              <div class="member-services clearfix">
-                <div><strong>Je recherche :</strong> Massage</div>
-                <div><strong>Je propose :</strong> Massage</div>
-              </div>
-            </div>
+              @foreach ($products as $product)
+                  <div class="member-box clearfix">
+                      <span class="member-offline">&#9679;</span>
+                      <div class="member-image">
+                          <div class="img-container blue cursor" data-goto="/profil/GeraldineD">
+                              @if ($product->user->profile_photo_url)
+                                  <img src="{{$product->user->profile_photo_url }}" alt="{{ $product->user->name }}" />
+                              @else
+                                  <img src="{{asset('assets/frontoffice/img/EchangeService/avatar_f.png')}}" alt="Default User Photo" class="user-photo">
+                              @endif
+                          </div>
+                      </div>
+
+                      <div class="member-content clearfix">
+                          <div class="member-details">
+                              <a href="profil/GeraldineD.html" title="">
+                                  <i class="lni-user marg-r-XXS"></i> <span>{{$product->user->name}}</span>
+                              </a>
+                              <i class="lni-map-marker marg-r-XXS"></i><span>Croix</span>
+                          </div>
+                          <a href="{{ route('products.show',['product'=> $product['id']]) }}" class="flex justify-end py-2 px-4 rounded-2xl">
+                              <i class="lni-check-box marg-r-XS py-1"></i><span>Voir le Detail</span>
+                          </a>
+                      </div>
+                      <div class="member-services clearfix">
+
+                          @if (!$product->is_offering)
+                              <div>
+                                  <strong>Je cherche :</strong><span class="text-color1">{{$product->name}}</span><br>
+                                  @if ($product->exchange_for)
+                                      <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+                                  @else
+                                      <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+                                  @endif
+                              </div>
+                          @else
+                              <div>
+                                  <strong>Je propose : </strong><span class="text-color1"> {{$product->name}} </span> <br>
+                                  @if ($product->exchange_for)
+                                      <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span>, <br>
+                                  @else
+                                      <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+                                  @endif
+                              </div>
+                          @endif
+                      </div>
+                  </div>
+              @endforeach
           </div>
-        </div>
       </div>
-      @else
-          <!-- User is not logged in, do not show the "logout" button -->
-     @endif
+  </div>
+@else
+  <!-- User is not logged in, do not show the "logout" button -->
+@endif
    
 
      @if(!auth()->check())

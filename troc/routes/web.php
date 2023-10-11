@@ -5,6 +5,7 @@ use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\SubcategoryController;
 use \App\Http\Controllers\ProductController;
+use \App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,11 +17,14 @@ use \App\Http\Controllers\ProductController;
 |
 */
 
-
 Route::get('/', function () {
     return view('frontoffice.welcome');
 })->name('welcome');
 
+
+Route::get('/chart', function () {
+    return view('backoffice.categories.chart');
+})->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
@@ -77,14 +81,12 @@ Route::middleware([
 
 Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
 Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
-Route::get('/aaaa', function(){
-
-    return view('frontoffice.products.test');
-
-} )
-;
-Route::post('/add-to-cart', 'CartController@addToCart')->name('cart.add');
-//Route::get('/cart', 'CartController@showCart')->name('cart.show');
-
+Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('add.to.cart');
+Route::get('/my-cart', [CartController::class, 'showCart'])->name('show.cart');
+Route::post('/cart/confirm-purchase', [CartController::class, 'confirmPurchase']);
+Route::get('/cart/confirm-payment/{clientSecret}', [CartController::class, 'handlePaymentConfirmation']);
+Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::delete('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.remove');
+Route::get('/success', [CartController::class, 'success'])->name('success');
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');

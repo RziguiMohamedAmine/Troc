@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    use HasFactory;
-    protected $table='panier';
-    protected $fillable = [
-        'user_id',
-        'product_name',
-        'product_price',
-    ];
+    protected $table = 'cart';
+    protected $fillable = ['product_id'];
+    public function product()
+    {
+        
+        return $this->belongsTo(product::class);
+    }
 }

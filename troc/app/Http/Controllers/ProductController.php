@@ -48,6 +48,7 @@ class ProductController extends Controller
         return view('backoffice.products.index', compact('products'));
     }
 
+    
     public function userProducts()
     {
      // Get the currently authenticated user
