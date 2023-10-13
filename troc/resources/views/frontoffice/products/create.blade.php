@@ -1,7 +1,13 @@
 @extends('frontoffice.index')
 
 @section('content')
-<section id="main" class="clearfix">    
+<section id="main" class="clearfix">   
+    <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+    
+    
     <h1 class="text-center title-underline-center">Publier une annonce</h1>
     <div id="ad-publish" style="margin-left: 170px">
 
@@ -16,7 +22,7 @@
                 <div class="padd-b">
     
                     <div class="select-container">
-                        <select name="product-is_offering" required="required">
+                        <select name="product-is_offering" id="product-is_offering" required="required">
                             <option value="1" >Je propose</option>
                             <option value="0" >Je recherche</option>
                         </select>
@@ -63,6 +69,34 @@
                     </div>
     
                 </div>
+
+
+                <div class="padd-b" >
+                    
+                    <div class="select-container" id="start-field" style="display: @if(old('product-is_offering') === '0') block @else none @endif;">
+                        <label for="">Date Debut</label><br>
+                        <input type="date" class="rounded-lg" name="product-startDate" id="start_date" value="{{ old('product-startDate') }}" placeholder="start Date" class="inline-block width-100">
+                        @error('product-price')
+                        <div class="form-error">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    
+                    <div class="select-container ml-12"  id="end-field" style="display: @if(old('product-is_offering') === '0') block @else none @endif;">
+                        <label for="">Date Fin</label><br>
+                        <input type="date" class="rounded-lg" name="product-endDate" id="end_Date" value="{{ old('product-endDate') }}" placeholder="end Date" class="inline-block width-100">
+                        @error('product-price')
+                        <div class="form-error">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+
+
+
+
                 <div class="select-container padd-b">
                     <select name="ad_exchange_type" id="ad_exchange_type" required="required">
                         <option value="price" @if(old('ad_exchange_type') === 'price') selected @endif>Prix</option>
@@ -91,7 +125,7 @@
 
                 <div class="padd-b ">
                     <input type="text" name="product-name" value="{{old('product-name')}}" placeholder="Nom du service ou du bien"
-                           class="inline-block width-100" maxlength="100" required="required"  />
+                           class="inline-block width-100 rounded-lg" maxlength="100" required="required"  />
                            @error('product-name')
                               <div class="form-error">
                                      {{$message}}
@@ -145,6 +179,19 @@
                 $('#exchange-field').show();
             }
         });
+
+
+        $('#product-is_offering').change(function () {
+            if ($(this).val() === '0') {
+                $('#start-field').show();
+                $('#end-field').show();
+            } else if ($(this).val() === '1') {
+                $('#start-field').hide();
+                $('#end-field').hide();
+                
+            }
+        });
+
     });
 </script>
 

@@ -17,12 +17,12 @@
       <h5>Catégories</h5>
       <div id="services-menu-container">
         <a href="{{ route('products.index') }}" class="{{ request()->is('products') ? 'active' : ''}}">
-          <i class="active"></i>
-          <span>Tous les produits</span>
-          <span class="count {{ request()->is('products') ? 'active' : ''}}">
-              ({{ $productCount->count() }})
-          </span>
-      </a>
+            <i class="active"></i>
+            <span>Tous les produits</span>
+            <span class="count {{ request()->is('products') ? 'active' : ''}}">
+                ({{ $productCount->count() }})
+            </span>
+        </a>
         <ul> 
             @foreach ($categories as $category)
           <li>   
@@ -291,7 +291,7 @@
       </div>
 
       <!-- Members list -->
-      @foreach ($products as $product)
+      @foreach ($results as $product)
       <div class="member-box clearfix">
         <span class="member-offline">&#9679;</span>
         <div class="member-image">
@@ -341,7 +341,7 @@
       </div>
       @endforeach
 
-      @if ($products->isEmpty())
+      @if ($results->isEmpty())
       <p>No products found for this subcategory.</p>
       @endif
       <!-- No members -->

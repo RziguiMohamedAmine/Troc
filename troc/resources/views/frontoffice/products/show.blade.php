@@ -179,18 +179,23 @@
                 <div class="mt-4 mb-4">         
                   <strong>Je propose : </strong><span class="text-color1"> {{$product->name}}</span><br><br>
                   @if ($product->exchange_for)
-                  <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
+                  <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
                   @else
                   <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span><strong class="font-bold"> DT</strong>
                   @endif
                 </div>
                 @else
                 <div class="mt-4 mb-4">
-                  <strong>Je cherche :</strong><span class="text-color1"> {{$product->name}} </span> <br><br>
+                  <strong>Je cherche : </strong> <span class="text-color1"> {{$product->name}} </span> <br><br>
                   @if ($product->exchange_for)
                   <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
                   @else
-                  <strong>Prix :</strong><span class="text-color1"> {{$product->price}} </span>
+                  <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span><br>
+                  @endif
+                  @if ($product->start_date && $product->end_date)
+                  <br>
+                  <strong>Date de Debut : </strong><span class="text-color1"> {{ $product->start_date }} </span><br>
+                  <strong>Date de fin : </strong><span class="text-color1"> {{ $product->end_date }} </span>
                   @endif
                 </div>
                 @endif
@@ -202,7 +207,7 @@
                     @if ($product->exchange_for)
                     <button>Echange contre</button>, 
                     @else
-                    <button>Acheter</button> </span>
+                    <button>Acheter</button></span>
                     @endif
                 </div>
         </div>
