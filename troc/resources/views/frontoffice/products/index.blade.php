@@ -292,6 +292,11 @@
 
       <!-- Members list -->
       @foreach ($products as $product)
+                                    @php
+                                             $today = \Carbon\Carbon::today(); 
+                                             $endDate = \Carbon\Carbon::parse($product->end_date); 
+                                    @endphp  
+                                    @if ($endDate->greaterThanOrEqualTo($today))      
       <div class="member-box clearfix">
         <span class="member-offline">&#9679;</span>
         <div class="member-image">
@@ -321,11 +326,22 @@
             @if (!$product->is_offering)
           <div>         
             <strong>Je cherche :</strong><span class="text-color1">{{$product->name}}</span><br>
-            @if ($product->exchange_for)
-              <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+          @if ($product->start_date && $product->end_date)
+              @if ($product->exchange_for)
+                <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+                <strong>Service entre : </strong><span class="text-color1"> {{$product->start_date}} et {{$product->end_date}} </span> <br>
               @else
-              <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+                <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong><br>
+                <strong>Service entre : </strong><span class="text-color1"> {{$product->start_date}} </span><strong > et </strong><span class="text-color1"> {{$product->end_date}} </span> 
               @endif
+                @else
+            @if ($product->exchange_for)
+                <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+              @else
+                <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+           @endif
+             
+           @endif
           </div>
           @else
           <div>
@@ -338,9 +354,10 @@
           </div>
           @endif
         </div>
-      </div>
+      </div> 
+       @endif
       @endforeach
-
+    
       @if ($products->isEmpty())
       <p>No products found for this subcategory.</p>
       @endif

@@ -47,6 +47,11 @@
                                 <tbody>
                                  
                                     @foreach ($products as $product)
+                                    @php
+                                             $today = \Carbon\Carbon::today(); 
+                                             $endDate = \Carbon\Carbon::parse($product->end_date); 
+                                    @endphp  
+                                    @if ($endDate->greaterThanOrEqualTo($today))         
                                     <tr>
                                        
                                         <td>{{ $product->id }}</td>
@@ -58,6 +63,7 @@
                                                 class="btn btn-primary">Details</a>
                                         </td>
                                     </tr>
+                                    @endif
                                     @endforeach
                              
                               

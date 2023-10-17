@@ -204,7 +204,7 @@
               <div class="marg-b" > 
                    <a href="{{ route('home') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Inscription</span>
                </div>
-   </div>
+            </div>
             @endif
         </div>
       </header>
