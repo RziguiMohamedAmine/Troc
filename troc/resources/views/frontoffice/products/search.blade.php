@@ -17,12 +17,12 @@
       <h5>Catégories</h5>
       <div id="services-menu-container">
         <a href="{{ route('products.index') }}" class="{{ request()->is('products') ? 'active' : ''}}">
-          <i class="active"></i>
-          <span>Tous les produits</span>
-          <span class="count {{ request()->is('products') ? 'active' : ''}}">
-              ({{ $productCount->count() }})
-          </span>
-      </a>
+            <i class="active"></i>
+            <span>Tous les produits</span>
+            <span class="count {{ request()->is('products') ? 'active' : ''}}">
+                ({{ $productCount->count() }})
+            </span>
+        </a>
         <ul> 
             @foreach ($categories as $category)
           <li>   
@@ -291,12 +291,7 @@
       </div>
 
       <!-- Members list -->
-      @foreach ($products as $product)
-                                    @php
-                                             $today = \Carbon\Carbon::today(); 
-                                             $endDate = \Carbon\Carbon::parse($product->end_date); 
-                                    @endphp  
-                                    @if ($endDate->greaterThanOrEqualTo($today))      
+      @foreach ($results as $product)
       <div class="member-box clearfix">
         <span class="member-offline">&#9679;</span>
         <div class="member-image">
@@ -326,22 +321,11 @@
             @if (!$product->is_offering)
           <div>         
             <strong>Je cherche :</strong><span class="text-color1">{{$product->name}}</span><br>
-          @if ($product->start_date && $product->end_date)
-              @if ($product->exchange_for)
-                <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
-                <strong>Service entre : </strong><span class="text-color1"> {{$product->start_date}} et {{$product->end_date}} </span> <br>
-              @else
-                <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong><br>
-                <strong>Service entre : </strong><span class="text-color1"> {{$product->start_date}} </span><strong > et </strong><span class="text-color1"> {{$product->end_date}} </span> 
-              @endif
-                @else
             @if ($product->exchange_for)
-                <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+              <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
               @else
-                <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
-           @endif
-             
-           @endif
+              <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+              @endif
           </div>
           @else
           <div>
@@ -354,11 +338,10 @@
           </div>
           @endif
         </div>
-      </div> 
-       @endif
+      </div>
       @endforeach
-    
-      @if ($products->isEmpty())
+
+      @if ($results->isEmpty())
       <p>No products found for this subcategory.</p>
       @endif
       <!-- No members -->

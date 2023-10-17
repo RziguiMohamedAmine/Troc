@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
 <section id="main" class="clearfix">
     <h1 id="profile-title">
-     {{$product->user->name}} échange des services à Marmande - Lot et Garonne
+     {{$product->user->name}} échange des services 
     </h1>
     <p id="communaute-intro">
       Echange de service, 29 membres inscrits dans le département
@@ -144,15 +144,21 @@
               <i class="lni-alarm-clock marg-r-XXS"></i
               ><span>Inscrit le {{$product->user->created_at->format('Y-m-d')}}</span>
             </li>
+            @if($product->user->id !== Auth::id())
             <li class="marg-t-S">
-              <form id="conversationForm" method="POST" action="{{ route('check-conversation') }}">
-                @csrf <!-- Add this line to include the CSRF token -->
-                <input type="hidden" id="receiverId" name="receiverId" value="{{$product->user->id}}">
-                <button type="submit" class="highlight small">
-                    <span class="text-white">Contactez Moi !</span>
-                </button>
-            </form>
-            </li>
+               <button
+                 type="button"
+                 class="highlight small"
+                  data-goto="/user/login"
+                  data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?"
+                    >
+            <span>Contactez Moi !</span>
+        </button>
+    </li>
+    @else
+
+    @endif
+
             <li class="marg-t-L addthis_toolbox addthis_default_style">
               <a class="addthis_button_preferred_1"></a>
               <a class="addthis_button_preferred_2"></a>
@@ -178,18 +184,23 @@
                 <div class="mt-4 mb-4">         
                   <strong>Je propose : </strong><span class="text-color1"> {{$product->name}}</span><br><br>
                   @if ($product->exchange_for)
-                  <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
+                  <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
                   @else
                   <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span><strong class="font-bold"> DT</strong>
                   @endif
                 </div>
                 @else
                 <div class="mt-4 mb-4">
-                  <strong>Je cherche :</strong><span class="text-color1"> {{$product->name}} </span> <br><br>
+                  <strong>Je cherche : </strong> <span class="text-color1"> {{$product->name}} </span> <br><br>
                   @if ($product->exchange_for)
                   <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
                   @else
-                  <strong>Prix :</strong><span class="text-color1"> {{$product->price}} </span>
+                  <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span><br>
+                  @endif
+                  @if ($product->start_date && $product->end_date)
+                  <br>
+                  <strong>Date de Debut : </strong><span class="text-color1"> {{ $product->start_date }} </span><br>
+                  <strong>Date de fin : </strong><span class="text-color1"> {{ $product->end_date }} </span>
                   @endif
                 </div>
                 @endif
@@ -201,7 +212,7 @@
                     @if ($product->exchange_for)
                     <button>Echange contre</button>, 
                     @else
-                    <button>Acheter</button> </span>
+                    <button>Acheter</button></span>
                     @endif
                 </div>
         </div>
@@ -278,8 +289,4 @@
     });
   });
 </script>
-
-
-
-
 @endsection

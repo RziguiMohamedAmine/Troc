@@ -5,16 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
-use App\Models\Conversation;
-use App\Models\Message;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
- public $users;
- public $message = "Hello, I am interested in your product.";
     /**
      * Display a listing of the resource.
      */
@@ -40,7 +36,8 @@ class ProductController extends Controller
             $products = Product::all();
         }
 
-        return view('frontoffice.products.index', compact('categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory'));
+        $productCount = Product::all();
+        return view('frontoffice.products.index', compact('categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory','productCount'));
     }
 
 
@@ -52,14 +49,15 @@ class ProductController extends Controller
         return view('backoffice.products.index', compact('products'));
     }
 
+    
     public function userProducts()
     {
      // Get the currently authenticated user
       $user = Auth::user();
-
+      $categories = Category::with('subcategories')->get();  
      // Fetch the products added by the user
      $products = $user->products;
-     return view('frontoffice.products.user_products', compact('products'));
+     return view('frontoffice.products.user_products', compact('products','categories'));
     }
 
     /**
@@ -77,8 +75,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product-name' => 'required|string|max:255',
-            'product-description' => 'required|string',
+            'product-name' => 'required|string|max:255|min:3',
+            'product-description' => 'required|string|min:10',
             'product-type' => 'required|in:product,service',
             'product-subcategory_id' => 'required|exists:subcategories,id',
             'product-is_offering' => 'required|boolean',
@@ -150,9 +148,18 @@ class ProductController extends Controller
      */
     public function show($product)
     {
-       $index = Product::findOrFail($product);
-    
-         return view('frontoffice.products.show',['product' => $index]);
+       $product = Product::findOrFail($product);
+       $categories = Category::with('subcategories')->get();
+
+         return view('frontoffice.products.show',compact('product', 'categories'));
+    }
+
+    public function showBack($product)
+    {
+       $product = Product::findOrFail($product);
+       $categories = Category::with('subcategories')->get();
+
+         return view('backoffice.products.show',compact('product', 'categories'));
     }
 
     /**
@@ -172,8 +179,8 @@ class ProductController extends Controller
     public function update(Request $request, $product)
     {
         $request->validate([
-            'product-name' => 'required|string|max:255',
-            'product-description' => 'required|string',
+            'product-name' => 'required|string|max:255|min:3',
+            'product-description' => 'required|string|min:10',
             'product-type' => 'required|in:product,service',
             'product-subcategory_id' => 'required|exists:subcategories,id',
             'product-is_offering' => 'required|boolean',
@@ -185,6 +192,8 @@ class ProductController extends Controller
                 return $request->input('ad_exchange_type') === 'exchange';
             }) . '|nullable|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product-start_date' => 'after_or_equal:today',
+            'product-end_date' => 'date|after:product-start_date',
         ]);
 
         $product = Product::findOrFail($product);
@@ -204,6 +213,8 @@ class ProductController extends Controller
         $product->type = $request->input('product-type');
         $product->subcategory_id = $request->input('product-subcategory_id');
         $product->is_offering = $request->input('product-is_offering');
+        $product->start_date = $request->input('product-start_date'); 
+        $product->end_date = $request->input('product-end_date'); 
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -218,40 +229,6 @@ class ProductController extends Controller
 
     }
 
-      public function checkConversation(Request $request)
-    {
-
-        $receiverId = $request->input('receiverId');
-            $checkedConversation= Conversation::where("receiver_id", auth()->user()->id)->where("sender_id", $receiverId)
-            ->orWhere("receiver_id", $receiverId)->where("sender_id", auth()->user()->id)->get();
-
-            if($checkedConversation->count() > 0){
-                //change route to /chat
-                return redirect()->route('chat');
-
-            }else{
-               
-                $createdConversation = Conversation::create([
-                    'sender_id' => auth()->user()->id,
-                    'receiver_id' => $receiverId,
-                    "last_time_message" => "2023-09-22 14:11:27"
-                ]);
-
-                $createdMessage = Message::create([
-                    'conversation_id' => $createdConversation->id,
-                    'sender_id' => auth()->user()->id,
-                    'receiver_id' => $receiverId,
-                    'body' => $this->message,
-                ]);
-
-                $createdConversation->last_time_message= $createdMessage->created_at;
-                $createdConversation->save();
-
-                return redirect()->route('chat');
-            }
-
-    }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -259,7 +236,7 @@ class ProductController extends Controller
     {
         $delete=Product::findOrFail($product);
         $delete->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('user.products'); 
     }
 
 
@@ -306,5 +283,10 @@ class ProductController extends Controller
             $productCount = Product::all();
         return view('frontoffice.products.search', compact('results','categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory','productCount'));    
     }
+
+
+
+
+
 
 }

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reports', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->foreignId('message_id')->constrained('messages');
+        Schema::table('products', function (Blueprint $table) {
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
         });
     }
 
@@ -23,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reports');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('start_date');
+            $table->dropColumn('end_date');
+        });
     }
 };

@@ -27,8 +27,6 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
-
-
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
     }

@@ -36,13 +36,10 @@
                                 <thead>                         
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>offer / propose</th>
-                                    <th>Price / Echange for</th>
+                                    <th>Name</th>                                                                      
                                     <th>Sub-Categories</th>
-                                    <th data-priority="3">Category</th>
                                     <th data-priority="6">User</th>
-                                    <th data-priority="6">Date Publication</th>
+                                    <th data-priority="6">Details</th>
                                     
                                 </tr>
 
@@ -50,33 +47,23 @@
                                 <tbody>
                                  
                                     @foreach ($products as $product)
+                                    @php
+                                             $today = \Carbon\Carbon::today(); 
+                                             $endDate = \Carbon\Carbon::parse($product->end_date); 
+                                    @endphp  
+                                    @if ($endDate->greaterThanOrEqualTo($today))         
                                     <tr>
-                                        <td>
-                                        <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}" 
-                                        style="width: 40px; height: 40px;" class="rounded-circle" />          
-                                     </td>
-                                        <td>{{ $product->name }}</td>
-                                        <td>
-                                            
-                                                @if (!$product->is_offering)
-                                                    <strong>Je cherche :</strong><span class="text-color1"> {{ $product->name }}</span><br>
-                                                @else
-                                                    <strong>Je propose :</strong><span class="text-color1"> {{ $product->name }}</span><br>
-                                                @endif
-                                                
-                                          </td>
-                                          <td>
-                                            @if ($product->exchange_for)
-                                                <strong>Echange contre :</strong><span class="text-color1"> {{ $product->exchange_for }}</span><br>
-                                            @else
-                                                <strong>Prix :</strong><span class="text-color1"> {{ $product->price }}</span><strong class="font-bold"> DT</strong>
-                                            @endif
-                                        </td>
+                                       
+                                        <td>{{ $product->id }}</td>
+                                        <td>{{ $product->name }}</td> 
                                         <td>{{ $product->subcategory->name }}</td>
-                                        <td>{{ $product->subcategory->category->name }}</td>
                                         <td>{{ $product->user->name }}</td>
-                                        <td>{{$product->created_at->format('Y-m-d')}}</td>
+                                        <td>
+                                            <a href="{{ route('backoffice.products.show',['product'=> $product['id']]) }}"
+                                                class="btn btn-primary">Details</a>
+                                        </td>
                                     </tr>
+                                    @endif
                                     @endforeach
                              
                               
