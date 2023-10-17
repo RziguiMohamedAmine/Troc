@@ -239,7 +239,7 @@ class ProductController extends Controller
     {
         $selectedCategory = $request->query('category');
         $selectedSubcategory = $request->query('subcategory');
-
+    
         
         $categories = Category::with('subcategories.products')->get();
         $subcategories = Subcategory::all();
