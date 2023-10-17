@@ -70,8 +70,8 @@ class CartController extends Controller
             'payment_method_types' => ['card'],
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('success'),
-            'cancel_url' => route('success'),
+            'success_url' => route('successCart'),
+            'cancel_url' => route('successCart'),
         ]);
     
         return redirect()->away($session->url);
@@ -80,7 +80,7 @@ class CartController extends Controller
 
 
 
-    public function success(){
+    public function successCart(){
 
         auth()->user()->cart()->delete();
         $cartItems = auth()->user()->cart;

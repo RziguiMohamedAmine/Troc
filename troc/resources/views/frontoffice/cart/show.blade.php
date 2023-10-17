@@ -1,6 +1,12 @@
 @extends('frontoffice.index')
 
 @section('content')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script>
+    function showAlert() {
+      Alert::success('This is a success alert!');
+    }
+  </script>
 <section id="main" class="clearfix">
     <h1>My Cart</h1>
     <!-- Your cart content goes here -->

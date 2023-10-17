@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Plan;
+use App\Http\Controllers\PlanController;
 
 class CategoryController extends Controller
 {
@@ -41,9 +43,10 @@ class CategoryController extends Controller
 
     public function indexFront()
     {
+            $plans = Plan::all();
             $products = Product::all();
             $categories = Category::with('subcategories')->get();
-            return view('frontoffice.home', compact('categories','products'));
+            return view('frontoffice.home', compact('categories','products','plans'));
     }
     /**
      * Show the form for creating a new resource.
@@ -132,4 +135,57 @@ class CategoryController extends Controller
         $delete->delete();
         return redirect()->route('categories.index');
     }
+
+    public function buyPlan($planId){
+     // Find the selected plan based on $planId (replace with your actual plan retrieval logic)
+     $selectedPlan = Plan::find($planId);
+
+     if (!$selectedPlan) {
+         return redirect()->route('frontoffice.home')->with('error', 'Invalid plan selected.');
+     }
+ 
+     \Stripe\Stripe::setApiKey(config('stripe.sk'));
+     $session = \Stripe\Checkout\Session::create([
+         'payment_method_types' => ['card'],
+         'line_items' => [[
+             'price_data' => [
+                 'currency' => 'usd',
+                 'unit_amount' => $selectedPlan->price * 100, // Convert to cents
+                 'product_data' => [
+                     'name' => $selectedPlan->name, // Set the plan name as the product name
+                     'description' => $selectedPlan->description, // Set the plan description
+                 ],
+             ],
+             'quantity' => 1, // Set the quantity to 1 for the selected plan
+         ]],
+         'mode' => 'payment',
+         'success_url' => route('success'),
+         'cancel_url' => route('success'), // You may want to set a cancel route
+     ]);
+ 
+     // Get the authenticated user
+     $user = auth()->user();
+ 
+     // Update the user's plan to the selected plan
+     $user->update(['plan' => $selectedPlan->id]);
+ 
+     return redirect()->away($session->url);
+
+}
+
+
+public function success(Request $request)
+    {
+
+        $plans = Plan::all();
+        $products = Product::all();
+        $categories = Category::with('subcategories')->get();
+        return view('frontoffice.home', compact('categories','products','plans'));
+    }
+
+
+
+
+
+    
 }

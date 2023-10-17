@@ -227,8 +227,8 @@
                     <li>   
                     <a href="javascript:void(0);" class=" lni-cart"><i class="mdi mdi-account-circle"></i><span> Abonnements <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                     <ul class="submenu">
-                    <li><a href="{{ route('categories.index') }}">Ajouter Abonnements</a></li>      
-                    <li><a href="{{ route('categories.index') }}">Consulter Liste des Abonnements</a></li>      
+                    <li><a href="{{ route('backoffice.subscription.create') }}">Ajouter Abonnements</a></li>      
+                    <li><a href="{{ route('backoffice.subscription.show') }}">Consulter Liste des Abonnements</a></li>      
                     </ul>                
                     
 

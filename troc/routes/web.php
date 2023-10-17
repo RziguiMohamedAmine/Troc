@@ -6,6 +6,7 @@ use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\SubcategoryController;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\CartController;
+use \App\Http\Controllers\PlanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -80,6 +81,20 @@ Route::middleware([
 });
 
 Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
+Route::get('/backoffice/plan/show', [PlanController::class, 'showBackofficePlans'])->name('backoffice.subscription.show');
+//Route::post('/backoffice/plan/add', [PlanController::class, 'addBackofficePlans'])->name('backoffice.subscription.create');
+Route::get('/backoffice/plan/add', [PlanController::class, 'create'])->name('backoffice.subscription.create');
+Route::post('/backoffice/plan/add', [PlanController::class, 'addBackofficePlans'])->name('backoffice.subscription.create');
+//Route::get('/home/plans', [PlanController::class, 'showHomePlans'])->name('home.plans');
+
+Route::get('/backoffice/plan/{plan}/edit', [PlanController::class, 'edit'])->name('plan.edit');
+
+// Update a plan
+Route::put('/backoffice/plan/{plan}', [PlanController::class, 'update'])->name('plan.update');
+
+// Delete a plan
+Route::delete('/backoffice/plan/{plan}', [PlanController::class, 'destroy'])->name('plan.destroy');
+
 Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
 Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('add.to.cart');
 Route::get('/my-cart', [CartController::class, 'showCart'])->name('show.cart');
@@ -87,6 +102,14 @@ Route::post('/cart/confirm-purchase', [CartController::class, 'confirmPurchase']
 Route::get('/cart/confirm-payment/{clientSecret}', [CartController::class, 'handlePaymentConfirmation']);
 Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::delete('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.remove');
-Route::get('/success', [CartController::class, 'success'])->name('success');
+Route::get('/successCart', [CartController::class, 'successCart'])->name('successCart');
+
+Route::get('/successSub', [CategoryController::class, 'success'])->name('success');
+
+
+Route::post('/checkoutSub/{planId}', [CategoryController::class, 'buyPlan'])->name('payment.process');
+
+
+
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');
