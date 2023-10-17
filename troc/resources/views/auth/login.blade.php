@@ -58,7 +58,7 @@
 @extends('frontoffice.index')
 
 @section('content')
-
+<section id="main" class="clearfix">
 <div id="user-login">
 	<h2 class="title">Connectez-vous !</h2>
 	<form method="POST" action="{{ route('login') }}" class="form " id="form-user-login">
@@ -113,6 +113,8 @@
         </div> --}}
 	</form>
 </div>
+
+</section>
 
 <link rel="stylesheet" type="text/css" href="{{asset('assets/frontoffice/css/generate/User.EchangeService.1.css.css')}}" />
 

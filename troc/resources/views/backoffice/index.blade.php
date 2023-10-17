@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Stexo - Responsive Admin & Dashboard Template | Themesdesign</title>
+    <title>Echange & Service</title>
     <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
     <meta content="Themesdesign" name="author" />
     <link rel="shortcut icon" href="{{asset('assets/backoffice/images/favicon.ico')}}">
@@ -16,7 +17,7 @@
     <link href="{{asset('assets/backoffice/css/metismenu.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/backoffice/css/icons.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/backoffice/css/style.css')}}" rel="stylesheet" type="text/css">
-
+    <link href="{{asset('assets/backoffice/plugins/x-editable/css/bootstrap-editable.css')}}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -31,7 +32,8 @@
         <div class="topbar-left">
             <a href="index.html" class="logo">
                     <span class="logo-light">
-                            <i class="mdi mdi-camera-control"></i> Stexo
+                            {{-- <i class="mdi mdi-camera-control"></i>Echanges</span>&Service --}}
+                            <img style="width: 196px" src="{{asset('assets/frontoffice/img/logo_es.png')}}" alt="Echange & Service - " />
                         </span>
                 <span class="logo-sm">
                             <i class="mdi mdi-camera-control"></i>
@@ -41,6 +43,13 @@
 
         <nav class="navbar-custom">
             <ul class="navbar-right list-inline float-right mb-0">
+                <li class="d-none d-md-inline-block">
+                    <form role="search" class="app-search">
+                        <div class="form-group mb-0">
+                            <a class="nav-link form-control2" href="{{ route('home') }}">home</a>
+                        </div>
+                    </form>
+                </li>
 
                 <!-- language-->
                 <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
@@ -200,12 +209,15 @@
                             <li><a href="{{ route('users') }}">List Of users</a></li>                      
                         </ul>
                     </li>
-
                     <li>
-                        <a href="calendar.html" class="waves-effect"><i class="icon-calendar"></i><span> Calendar </span></a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-todolist-check"></i><span> Products<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{{ route('backoffice.products.index') }}">List Of Productss</a>
+                            </li>                                            
+                        </ul>
                     </li>
-<<<<<<< Updated upstream
-=======
+
 
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="icon-todolist-check"></i><span> Reports<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
@@ -229,8 +241,6 @@
                             <li><a href="{{ route('subcategories.create') }}">Add  SubCategories</a></li>                      
                         </ul>
                     </li> 
->>>>>>> Stashed changes
-
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Pages <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
@@ -407,7 +417,11 @@
 
 <!-- App js -->
 <script src="{{asset('assets/backoffice/js/app.js')}}"></script>
-<script src="assets/js/app.js"></script>
+
+    
+<script src="{{asset('assets/backoffice/plugins/moment/moment.js')}}"></script>
+<script src="{{asset('assets/backoffice/plugins/x-editable/js/bootstrap-editable.min.js')}}"></script>
+<script src="{{asset('assets/backoffice/pages/xeditable.js')}}"></script> 
 
 </body>
 

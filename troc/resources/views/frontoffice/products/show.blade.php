@@ -1,7 +1,6 @@
 @extends('frontoffice.index')
 
 @section('content')
-
 <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
 <section id="main" class="clearfix">
     <h1 id="profile-title">

@@ -23,41 +23,28 @@ use App\Http\Controllers\ReportsController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('welcome');
-
 
 Route::get('/', function () {
     return view('frontoffice.welcome');
 })->name('welcome');
 
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/dashboard', function () {return view('backoffice.index');})->name('dashboard');
-
-// });
-
-Route::middleware([ 
+Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/home', function () {return view('frontoffice.home');})->name('home');
+    Route::get('/home',[CategoryController::class, 'indexFront'])->name('home');
 });
 
 
-Route::middleware([ 
+Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
     'admin', // Apply the 'admin' middleware to this route
 ])->group(function () {
-    Route::get('/dashboard', function () {return view('backoffice.welcome');})->name('dashboard');
+    Route::get('/dashboard', [ProductController::class, 'showBackofficeProducts'])->name('dashboard');
 });
 
 

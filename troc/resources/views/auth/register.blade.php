@@ -62,6 +62,7 @@
 
 @section('content')
 
+<section id="main" class="clearfix">
 <form method="POST" action="{{ route('register') }}" class="form" id="form-user-register">
     @csrf
     <!-- Auth -->
@@ -156,7 +157,7 @@
         </strong>
     </div>
 </div>
-
+</section>
 <link rel="stylesheet" type="text/css" href="{{asset('assets/frontoffice/css/generate/User.EchangeService.1.css.css')}}" />
 
 
