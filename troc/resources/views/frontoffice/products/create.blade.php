@@ -27,7 +27,7 @@
                             <option value="0" >Je recherche</option>
                         </select>
                         @error('product-is_offering')
-                              <div class="form-error">
+                              <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                                      {{$message}}
                               </div>
                         @enderror
@@ -39,7 +39,7 @@
                             <option value="product" >Un bien</option>
                         </select>
                         @error('product-type')
-                              <div class="form-error">
+                              <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                                      {{$message}}
                               </div>
                         @enderror
@@ -62,7 +62,7 @@
                                     @endforeach 
                             </select>
                             @error('product-subcategory_id')
-                              <div class="form-error">
+                              <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                                      {{$message}}
                               </div>
                             @enderror
@@ -76,8 +76,8 @@
                     <div class="select-container" id="start-field" style="display: @if(old('product-is_offering') === '0') block @else none @endif;">
                         <label for="">Date Debut</label><br>
                         <input type="date" class="rounded-lg" name="product-startDate" id="start_date" value="{{ old('product-startDate') }}" placeholder="start Date" class="inline-block width-100">
-                        @error('product-price')
-                        <div class="form-error">
+                        @error('product-startDate')
+                        <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                             {{ $message }}
                         </div>
                         @enderror
@@ -86,8 +86,8 @@
                     <div class="select-container ml-12"  id="end-field" style="display: @if(old('product-is_offering') === '0') block @else none @endif;">
                         <label for="">Date Fin</label><br>
                         <input type="date" class="rounded-lg" name="product-endDate" id="end_Date" value="{{ old('product-endDate') }}" placeholder="end Date" class="inline-block width-100">
-                        @error('product-price')
-                        <div class="form-error">
+                        @error('product-endDate')
+                        <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                             {{ $message }}
                         </div>
                         @enderror
@@ -107,7 +107,7 @@
                 <div class="padd-b" id="price-field" style="display: @if(old('ad_exchange_type') === 'price') block @else none @endif;">
                     <input type="number" name="product-price" id="ad_price" value="{{ old('product-price') }}" placeholder="Price" class="inline-block width-100">
                     @error('product-price')
-                    <div class="form-error">
+                    <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                         {{ $message }}
                     </div>
                     @enderror
@@ -116,7 +116,7 @@
                 <div class="padd-b" id="exchange-field" style="display: @if(old('ad_exchange_type') === 'exchange') block @else none @endif;">
                     <input type="text" name="product-exchange_for" id="ad_exchange_for" value="{{ old('product-exchange_for') }}" placeholder="Exchange for" class="inline-block width-100">
                     @error('product-exchange_for')
-                    <div class="form-error">
+                    <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                         {{ $message }}
                     </div>
                     @enderror
@@ -125,18 +125,18 @@
 
                 <div class="padd-b ">
                     <input type="text" name="product-name" value="{{old('product-name')}}" placeholder="Nom du service ou du bien"
-                           class="inline-block width-100 rounded-lg" maxlength="100" required="required"  />
+                           class="inline-block width-100 rounded-lg" maxlength="100" />
                            @error('product-name')
-                              <div class="form-error">
+                              <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                                      {{$message}}
                               </div>
                            @enderror
                 </div>
                 <label>Description</label>
                 <div class="padd-b relative">
-                    <textarea name="product-description" value="{{old('product-description')}}" rows="4" class="width-100" maxlength="255" minlength="10" required="required"></textarea>
+                    <textarea name="product-description" value="{{old('product-description')}}" rows="4" class="width-100"></textarea>
                     @error('product-description')
-                              <div class="form-error">
+                              <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                                      {{$message}}
                               </div>
                     @enderror

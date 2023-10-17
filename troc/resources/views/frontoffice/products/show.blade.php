@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
 <section id="main" class="clearfix">
     <h1 id="profile-title">
-     {{$product->user->name}} échange des services à Marmande - Lot et Garonne
+     {{$product->user->name}} échange des services 
     </h1>
     <p id="communaute-intro">
       Echange de service, 29 membres inscrits dans le département
@@ -144,16 +144,21 @@
               <i class="lni-alarm-clock marg-r-XXS"></i
               ><span>Inscrit le {{$product->user->created_at->format('Y-m-d')}}</span>
             </li>
+            @if($product->user->id !== Auth::id())
             <li class="marg-t-S">
-              <button
-                type="button"
-                class="highlight small"
-                data-goto="/user/login"
-                data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?"
-              >
-                <span>Contactez Moi !</span>
-              </button>
-            </li>
+               <button
+                 type="button"
+                 class="highlight small"
+                  data-goto="/user/login"
+                  data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?"
+                    >
+            <span>Contactez Moi !</span>
+        </button>
+    </li>
+    @else
+
+    @endif
+
             <li class="marg-t-L addthis_toolbox addthis_default_style">
               <a class="addthis_button_preferred_1"></a>
               <a class="addthis_button_preferred_2"></a>

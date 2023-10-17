@@ -75,8 +75,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product-name' => 'required|string|max:255',
-            'product-description' => 'required|string',
+            'product-name' => 'required|string|max:255|min:3',
+            'product-description' => 'required|string|min:10',
             'product-type' => 'required|in:product,service',
             'product-subcategory_id' => 'required|exists:subcategories,id',
             'product-is_offering' => 'required|boolean',
@@ -88,8 +88,8 @@ class ProductController extends Controller
                 return $request->input('ad_exchange_type') === 'exchange';
             }) . '|nullable|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'start_date' => 'date|after_or_equal:today',
-            'end_date' => 'date|after:start_date',
+            'product-startDate' => 'after_or_equal:today',
+            'product-endDate' => 'date|after:product-startDate',
         ]);
 
 
@@ -166,8 +166,8 @@ class ProductController extends Controller
     public function update(Request $request, $product)
     {
         $request->validate([
-            'product-name' => 'required|string|max:255',
-            'product-description' => 'required|string',
+            'product-name' => 'required|string|max:255|min:3',
+            'product-description' => 'required|string|min:10',
             'product-type' => 'required|in:product,service',
             'product-subcategory_id' => 'required|exists:subcategories,id',
             'product-is_offering' => 'required|boolean',
@@ -179,6 +179,8 @@ class ProductController extends Controller
                 return $request->input('ad_exchange_type') === 'exchange';
             }) . '|nullable|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product-start_date' => 'after_or_equal:today',
+            'product-end_date' => 'date|after:product-start_date',
         ]);
 
         $product = Product::findOrFail($product);
@@ -198,6 +200,8 @@ class ProductController extends Controller
         $product->type = $request->input('product-type');
         $product->subcategory_id = $request->input('product-subcategory_id');
         $product->is_offering = $request->input('product-is_offering');
+        $product->start_date = $request->input('product-start_date'); 
+        $product->end_date = $request->input('product-end_date'); 
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -219,7 +223,7 @@ class ProductController extends Controller
     {
         $delete=Product::findOrFail($product);
         $delete->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('user.products'); 
     }
 
 
