@@ -90,6 +90,15 @@ class ProductController extends Controller
                 return $request->input('ad_exchange_type') === 'exchange';
             }) . '|nullable|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            'product-startDate' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
+
+            'product-endDate' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
+
         ]);
 
 
@@ -112,6 +121,15 @@ class ProductController extends Controller
         $product->type = $request->input('product-type');
         $product->subcategory_id = $request->input('product-subcategory_id');
         $product->is_offering = $request->input('product-is_offering');
+
+        
+
+
+        if ($product->is_offering === '0') {
+            $product->start_date = $request->input('product-startDate'); 
+            $product->end_date = $request->input('product-endDate'); 
+        } 
+
         $product->user_id = Auth::id();
 
         if ($request->hasFile('image')) {
@@ -243,6 +261,55 @@ class ProductController extends Controller
         $delete->delete();
         return redirect()->route('products.index');
     }
+
+
+
+    public function indexPage()
+    {
+        $categories = Category::with('subcategories')->get();
+        return view('frontoffice.index', compact('categories'));
+    }
+
+
+    public function searchP(Request $request)
+    {
+        $selectedCategory = $request->query('category');
+        $selectedSubcategory = $request->query('subcategory');
+
+        
+        $categories = Category::with('subcategories.products')->get();
+        $subcategories = Subcategory::all();
+
+        // Fetch products based on the selected category and subcategory
+        if ($selectedSubcategory !== null) {
+            $products = Product::where('subcategory_id', $selectedSubcategory)->get();
+        } elseif ($selectedCategory !== null) {
+            // Fetch products based on the selected category
+            $products = Product::whereHas('subcategory', function ($query) use ($selectedCategory) {
+                $query->where('category_id', $selectedCategory);
+            })->get();
+        } else {
+            // No category or subcategory selected, show all products
+            $products = Product::all();
+        }
+
+
+        $productType = $request->input('search_department');
+        $isOffering = $request->input('search_region');
+        $subcategory = $request->input('product-subcategory_id');
+
+        $results = Product::where('type', $productType)
+            ->where('is_offering', $isOffering)
+            ->where('subcategory_id', $subcategory)
+            ->get();
+
+            $productCount = Product::all();
+        return view('frontoffice.products.search', compact('results','categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory','productCount'));    
+    }
+
+
+
+
 
 
 }
