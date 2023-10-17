@@ -154,7 +154,7 @@
           <!-- User is not logged in, do not show the "logout" button -->
          @endif --}}
 
-         @if(auth()->check())
+         @if(auth()->check() && !request()->routeIs('profile.show'))
           <div id="box-headersearch" class="box clearfix" data-box="ES header HeaderSearch" >
             <form action="{{ route('search') }}" method="post" class="clearfix">
               @csrf
