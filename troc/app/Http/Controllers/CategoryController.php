@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -12,15 +13,37 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('backoffice.categories.index',['categories'=>Category::all()]);
+        $categories = Category::all();
+    $categoriesWithPercentages = [];
+
+    foreach ($categories as $category) {
+        $subcategoryProductsCount = $category->subcategories->sum(function ($subcategory) {
+            return $subcategory->products->count();
+        });
+
+        $totalProducts = Product::count();
+
+        $percentage = ($subcategoryProductsCount / $totalProducts) * 100;
+
+        $categoriesWithPercentages[] = [
+            'category' => $category,
+            'percentage' => $percentage,
+        ];
+    }
+
+    return view('backoffice.categories.index', [
+        'categories' => $categories,
+        'categoriesWithPercentages' => $categoriesWithPercentages,
+    ]);
     }
 
   
 
     public function indexFront()
     {
+            $products = Product::all();
             $categories = Category::with('subcategories')->get();
-            return view('frontoffice.home', compact('categories'));
+            return view('frontoffice.home', compact('categories','products'));
     }
     /**
      * Show the form for creating a new resource.

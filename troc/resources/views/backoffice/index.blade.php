@@ -217,16 +217,6 @@
                             </li>                                            
                         </ul>
                     </li>
-
-
-                    <li>
-                        <a href="javascript:void(0);" class="waves-effect"><i class="icon-todolist-check"></i><span> Reports<span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
-                        <ul class="submenu">
-                            <li>
-                                <a href="{{ route('backoffice.reports.index') }}">List Of Reports</a>
-                            </li>                                            
-                        </ul>
-                    </li>
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Categories <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
@@ -241,6 +231,7 @@
                             <li><a href="{{ route('subcategories.create') }}">Add  SubCategories</a></li>                      
                         </ul>
                     </li> 
+
                     <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="icon-paper-sheet"></i><span> Pages <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
