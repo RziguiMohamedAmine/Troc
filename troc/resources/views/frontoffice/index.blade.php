@@ -154,17 +154,10 @@
           <!-- User is not logged in, do not show the "logout" button -->
          @endif
 
-
-          <div
-            id="box-headersearch"
-            class="box clearfix"
-            data-box="ES header HeaderSearch"
-          >
-            <form
-              action="https://www.echange-service.com/search/dispatcher"
-              method="post"
-              class="clearfix"
-            >
+         @if(auth()->check() && !request()->routeIs('profile.show'))
+          <div id="box-headersearch" class="box clearfix" data-box="ES header HeaderSearch" >
+            <form action="{{ route('search') }}" method="post" class="clearfix">
+              @csrf
               <div class="select-group">
                 <i class="lni-map-marker marg-r-XXS"></i>
                 <select name="search_region" id="search-region">

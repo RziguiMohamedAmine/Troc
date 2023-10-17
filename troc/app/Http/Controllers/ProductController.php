@@ -90,6 +90,15 @@ class ProductController extends Controller
                 return $request->input('ad_exchange_type') === 'exchange';
             }) . '|nullable|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            'product-startDate' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
+
+            'product-endDate' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
+
         ]);
 
 
@@ -112,6 +121,15 @@ class ProductController extends Controller
         $product->type = $request->input('product-type');
         $product->subcategory_id = $request->input('product-subcategory_id');
         $product->is_offering = $request->input('product-is_offering');
+
+        
+
+
+        if ($product->is_offering === '0') {
+            $product->start_date = $request->input('product-startDate'); 
+            $product->end_date = $request->input('product-endDate'); 
+        } 
+
         $product->user_id = Auth::id();
 
         if ($request->hasFile('image')) {
@@ -257,7 +275,7 @@ class ProductController extends Controller
     {
         $selectedCategory = $request->query('category');
         $selectedSubcategory = $request->query('subcategory');
-    
+
         
         $categories = Category::with('subcategories.products')->get();
         $subcategories = Subcategory::all();
