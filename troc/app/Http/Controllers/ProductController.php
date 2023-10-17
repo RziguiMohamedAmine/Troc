@@ -245,48 +245,4 @@ class ProductController extends Controller
     }
 
 
-
-    public function indexPage()
-    {
-        $categories = Category::with('subcategories')->get();
-        return view('frontoffice.index', compact('categories'));
-    }
-
-
-    public function searchP(Request $request)
-    {
-        $selectedCategory = $request->query('category');
-        $selectedSubcategory = $request->query('subcategory');
-    
-        
-        $categories = Category::with('subcategories.products')->get();
-        $subcategories = Subcategory::all();
-
-        // Fetch products based on the selected category and subcategory
-        if ($selectedSubcategory !== null) {
-            $products = Product::where('subcategory_id', $selectedSubcategory)->get();
-        } elseif ($selectedCategory !== null) {
-            // Fetch products based on the selected category
-            $products = Product::whereHas('subcategory', function ($query) use ($selectedCategory) {
-                $query->where('category_id', $selectedCategory);
-            })->get();
-        } else {
-            // No category or subcategory selected, show all products
-            $products = Product::all();
-        }
-
-
-        $productType = $request->input('search_department');
-        $isOffering = $request->input('search_region');
-        $subcategory = $request->input('product-subcategory_id');
-
-        $results = Product::where('type', $productType)
-            ->where('is_offering', $isOffering)
-            ->where('subcategory_id', $subcategory)
-            ->get();
-
-            $productCount = Product::all();
-        return view('frontoffice.products.search', compact('results','categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory','productCount'));    
-    }
-
 }
