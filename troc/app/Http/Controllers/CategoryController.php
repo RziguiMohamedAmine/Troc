@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -35,6 +34,7 @@ class CategoryController extends Controller
         'categories' => $categories,
         'categoriesWithPercentages' => $categoriesWithPercentages,
     ]);
+        return view('backoffice.categories.index',['categories'=>Category::all()]);
     }
 
   
@@ -44,6 +44,8 @@ class CategoryController extends Controller
             $products = Product::all();
             $categories = Category::with('subcategories')->get();
             return view('frontoffice.home', compact('categories','products'));
+            $categories = Category::with('subcategories')->get();
+            return view('frontoffice.home', compact('categories'));
     }
     /**
      * Show the form for creating a new resource.
