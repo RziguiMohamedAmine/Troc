@@ -145,14 +145,13 @@
               ><span>Inscrit le {{$product->user->created_at->format('Y-m-d')}}</span>
             </li>
             <li class="marg-t-S">
-              <button
-                type="button"
-                class="highlight small"
-                data-goto="/user/login"
-                data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?"
-              >
-                <span>Contactez Moi !</span>
-              </button>
+              <form id="conversationForm" method="POST" action="{{ route('check-conversation') }}">
+                @csrf <!-- Add this line to include the CSRF token -->
+                <input type="hidden" id="receiverId" name="receiverId" value="{{$product->user->id}}">
+                <button type="submit" class="highlight small">
+                    <span class="text-white">Contactez Moi !</span>
+                </button>
+            </form>
             </li>
             <li class="marg-t-L addthis_toolbox addthis_default_style">
               <a class="addthis_button_preferred_1"></a>
@@ -279,4 +278,8 @@
     });
   });
 </script>
+
+
+
+
 @endsection

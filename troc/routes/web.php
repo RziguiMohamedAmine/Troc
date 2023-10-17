@@ -10,6 +10,8 @@ use App\Livewire\Chat\SendMessage;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\SubcategoryController;
 use \App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,8 +90,16 @@ Route::middleware([
     Route::resource('products', ProductController::class);
 });
 
+Route::post("/check-conversation", [ProductController::class, 'checkConversation'])->name("check-conversation");
+
 Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
 Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
+
+Route::get("/backoffice/reports", [ReportsController::class, 'showBackofficeReports'])->name("backoffice.reports.index");
+
+
+Route::post('/backoffice/reports', [ReportsController::class, 'approve'])->name('backoffice.reports.approve');
+Route::post('/backoffice/reports/deny', [ReportsController::class, 'deny'])->name('backoffice.reports.deny');
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');

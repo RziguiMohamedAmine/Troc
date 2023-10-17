@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
+use App\Models\Conversation;
+use App\Models\Message;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
+ public $users;
+ public $message = "Hello, I am interested in your product.";
     /**
      * Display a listing of the resource.
      */
@@ -196,6 +200,40 @@ class ProductController extends Controller
 
     }
 
+      public function checkConversation(Request $request)
+    {
+
+        $receiverId = $request->input('receiverId');
+            $checkedConversation= Conversation::where("receiver_id", auth()->user()->id)->where("sender_id", $receiverId)
+            ->orWhere("receiver_id", $receiverId)->where("sender_id", auth()->user()->id)->get();
+
+            if($checkedConversation->count() > 0){
+                //change route to /chat
+                return redirect()->route('chat');
+
+            }else{
+               
+                $createdConversation = Conversation::create([
+                    'sender_id' => auth()->user()->id,
+                    'receiver_id' => $receiverId,
+                    "last_time_message" => "2023-09-22 14:11:27"
+                ]);
+
+                $createdMessage = Message::create([
+                    'conversation_id' => $createdConversation->id,
+                    'sender_id' => auth()->user()->id,
+                    'receiver_id' => $receiverId,
+                    'body' => $this->message,
+                ]);
+
+                $createdConversation->last_time_message= $createdMessage->created_at;
+                $createdConversation->save();
+
+                return redirect()->route('chat');
+            }
+
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -205,4 +243,6 @@ class ProductController extends Controller
         $delete->delete();
         return redirect()->route('products.index');
     }
+
+
 }
