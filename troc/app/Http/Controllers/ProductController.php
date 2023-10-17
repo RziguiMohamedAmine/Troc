@@ -192,8 +192,13 @@ class ProductController extends Controller
                 return $request->input('ad_exchange_type') === 'exchange';
             }) . '|nullable|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'product-start_date' => 'after_or_equal:today',
-            'product-end_date' => 'date|after:product-start_date',
+            'product-start_date' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
+
+            'product-end_date' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
         ]);
 
         $product = Product::findOrFail($product);
@@ -216,6 +221,11 @@ class ProductController extends Controller
         $product->start_date = $request->input('product-start_date'); 
         $product->end_date = $request->input('product-end_date'); 
 
+        
+        if ($product->is_offering === '0') {
+            $product->start_date = $request->input('product-start_date'); 
+            $product->end_date = $request->input('product-end_date'); 
+        } 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
