@@ -68,6 +68,12 @@
                 @endif
               
               </li>
+              <li>
+                @if(auth()->check())
+                <a href="{{ route('history.index') }}"title="" class="link"
+                  ><i class="lni-question-circle"></i>History</a
+                ></a>@endif
+              </li>
               {{-- <li>
                 <a href="communaute.html" title="" class="link"
                   ><i class="lni-users"></i>COMMUNAUTÉ</a
@@ -915,6 +921,7 @@
               </div>
               <div class="select-group">
                 <i class="lni-menu marg-r-XXS"></i>
+<<<<<<< Updated upstream
                 <select name="search_services">
                   <option value="" selected="selected">Catégories</option>
                   <option value="beaute-bien-etre">Beauté Bien-être</option>
@@ -927,6 +934,10 @@
                   <option value="vehicules">Véhicules</option>
                   <option value="vacances">Vacances</option>
                   <option value="mode">Mode</option>
+=======
+                <select name="product-subcategory_id">
+                  
+>>>>>>> Stashed changes
                 </select>
               </div>
               <button class="highlight" name="form_search_dispatcher">

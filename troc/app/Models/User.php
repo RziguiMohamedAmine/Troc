@@ -66,4 +66,17 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return implode(', ', $this->getRoleNames()->toArray());
     }
+<<<<<<< Updated upstream
+=======
+
+    public function products()
+    {
+         return $this->hasMany(Product::class);
+    }
+    public function history()
+{
+    return $this->hasMany(History::class, 'user_id');
+}
+
+>>>>>>> Stashed changes
 }
