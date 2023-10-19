@@ -35,37 +35,6 @@ class OffreController extends Controller
         return view('frontoffice.offres.create', ['product' => $index,'categories' => $categories]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'offre-name' => 'required|string|max:255',
-    //         'offre-description' => 'required|string',
-    //         'offre-product_id' => 'required|exists:products,id',
-    //         'offre-value' => 'required|string',
-    //         'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    //     ]);
-    //     $offre = new Offre();
-    //     $offre->name = $request->input('offre-name');
-    //     $offre->description = $request->input('offre-description');
-
-
-    //     $offre->product_id = $request->input('offre-product_id');
-    //     $offre->user_id = Auth::id();
-
-    //     if ($request->hasFile('image')) {
-    //         $image = $request->file('image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('images'), $imageName);
-    //         $offre->image = $imageName;
-    //     }
-
-    //     $offre->save();
-
-    //     return redirect()->route('offres.index')->with('success', 'Offre created successfully!');
-    // }
     public function store(Request $request)
 {
     //     $request->validate([
@@ -79,7 +48,6 @@ class OffreController extends Controller
 
 
         $offre = new Offre();
-        $offre->name = $request->input('offre-name');
         $offre->description = $request->input('offre-description');
         $offre->value = $request->input('offre-value');
 
@@ -99,7 +67,7 @@ class OffreController extends Controller
 
         $offre->save();
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully!');
+        return redirect()->route('products.index')->with('success', 'Offer created successfully!');
 
     }
 

@@ -21,13 +21,19 @@
 
                 <!-- Annonce -->
                 <div class="fields-box clearfix">
-                    <h3>Votre annonce</h3>
+                    <h3>Votre annonce pour <b>
+                            {{ $product->name }}
+                        </b></h3>
                     <div class="padd-b">
+                        <div class="mt-4 mb-4 ml-32 ">
+                            <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}"
+                                class="w-40 border border-gray-950 rounded-lg" />
+                        </div>
 
 
 
 
-                        <div class="select-container">
+                        <div class="select-container" style="display:none">
                             <select name="offre-product_id" required="required">
                                 <option value="{{ $product->id }}" class='bold bg-light large'>{{ $product->name }}
                                 </option>
@@ -44,6 +50,7 @@
 
 
                     <div class="padd-b">
+
 
                         <div class="select-container" id="start-field"
                             style="display: @if (old('offre-is_offering') === '0') block @else none @endif;">
@@ -75,7 +82,7 @@
                     <div class="padd-b" id="exchange-field">
                         <label for="offre-value">Value</label>
                         <input type="text" name="offre-value" id="ad_value" value="{{ old('offre-value') }}"
-                            placeholder="Value" class="inline-block width-100">
+                            placeholder="Value" class="inline-block width-100" required>
                         @error('offre-value')
                             <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                                 {{ $message }}
@@ -84,17 +91,7 @@
                     </div>
 
 
-                    <div class="padd-b ">
-                        <label for="offre-name">Name</label>
-                        <input type="text" name="offre-name" value="{{ old('offre-name') }}"
-                            placeholder="Nom du service ou du bien" class="inline-block width-100 rounded-lg"
-                            maxlength="100" />
-                        @error('offre-name')
-                            <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+
                     <label>Description</label>
                     <div class="padd-b relative">
 
