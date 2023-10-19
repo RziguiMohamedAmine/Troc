@@ -12,7 +12,7 @@
             <div class="padd-b">
 
                 <div class="select-container">
-                    <select name="product-is_offering" required="required">
+                    <select name="product-is_offering" id="product-is_offering" required="required">
                         @if ($product->is_offering == 1)
                         <option value="1" @if($product->is_offering == 1) selected @endif>Je propose</option>
                         <option value="0" @if($product->is_offering == 0) selected @endif>Je recherche</option>
@@ -70,6 +70,28 @@
 
             </div>
 
+            <div class="padd-b">
+                <div class="select-container" id="start-field" style="display: @if(old('product-is_offering', $product->is_offering) === '0' || $product->is_offering === '0') block @else none @endif;">
+                    <label for="product-start_date">Date Debut</label><br>
+                    <input type="date" class="rounded-lg" name="product-start_date" id="product-start_date" value="{{ $product->start_date }}" placeholder="start Date" class="inline-block width-100">
+                    @error('product-start_date')
+                        <div class="form-error bg-red-500 h-8 w-28 text-white rounded-md mt-1 text-start">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                
+                <div class="select-container" id="end-field" style="display: @if(old('product-is_offering', $product->is_offering) === '0' || $product->is_offering === '0') block @else none @endif;">
+                    <label for="product-end_date">Date Fin</label><br>
+                    <input type="date" class="rounded-lg" name="product-end_date" id="product-end_date" value="{{ $product->end_date }}" placeholder="end Date" class="inline-block width-100">
+                    @error('product-end_date')
+                    <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 text-start">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+                
+            </div>
 
 
             <div class="select-container padd-b">
@@ -90,16 +112,16 @@
             <div class="padd-b" id="price-field" style="display: @if(old('ad_exchange_type', $product->ad_exchange_type) === 'price' || $product->ad_exchange_type === 'price') block @else none @endif;">
                 <input type="number" name="product-price" id="ad_price" value="{{$product->price}}" placeholder="Price" class="inline-block width-100">
                 @error('product-price')
-                <div class="form-error">
-                    {{ $message }}
-                </div>
-                @enderror
+                    <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
+                        {{ $message }}
+                    </div>
+                    @enderror
             </div>
             
             <div class="padd-b" id="exchange-field" style="display: @if(old('ad_exchange_type', $product->ad_exchange_type) === 'exchange' || $product->ad_exchange_type === 'exchange') block @else none @endif;">
                 <input type="text" name="product-exchange_for" id="ad_exchange_for" value="{{$product->exchange_for}}" placeholder="Exchange for" class="inline-block width-100">
                 @error('product-exchange_for')
-                <div class="form-error">
+                <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                     {{ $message }}
                 </div>
                 @enderror
@@ -110,10 +132,10 @@
                 <input type="text" name="product-name" value="{{$product->name}}" placeholder="Nom du service ou du bien"
                        class="inline-block width-100" maxlength="100" required="required"  />
                        @error('product-name')
-                          <div class="form-error">
-                                 {{$message}}
-                          </div>
-                       @enderror
+                       <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
+                              {{$message}}
+                       </div>
+                    @enderror
             </div>
             <label>Description</label>
             <div class="padd-b relative">
@@ -169,6 +191,30 @@
     } else if (adExchangeTypeSelect.value === 'exchange') {
         priceField.style.display = 'none';
         exchangeField.style.display = 'block';
+    }
+</script>
+<script>
+    const isOfferingSelect = document.getElementById('product-is_offering');
+    const startField = document.getElementById('start-field');
+    const endField = document.getElementById('end-field');
+
+    isOfferingSelect.addEventListener('change', function () {
+        if (this.value === '0') {
+            startField.style.display = 'block';
+            endField.style.display = 'block';
+        } else if (this.value === '1') {
+            startField.style.display = 'none';
+            endField.style.display = 'none';
+        }
+    });
+
+    // Initial check for the isOffering select on page load
+    if (isOfferingSelect.value === '0') {
+        startField.style.display = 'block';
+        endField.style.display = 'block';
+    } else if (isOfferingSelect.value === '1') {
+        startField.style.display = 'none';
+        endField.style.display = 'none';
     }
 </script>
 @endsection

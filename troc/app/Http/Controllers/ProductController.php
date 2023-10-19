@@ -36,7 +36,8 @@ class ProductController extends Controller
             $products = Product::all();
         }
 
-        return view('frontoffice.products.index', compact('categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory'));
+        $productCount = Product::all();
+        return view('frontoffice.products.index', compact('categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory','productCount'));
     }
 
 
@@ -48,14 +49,15 @@ class ProductController extends Controller
         return view('backoffice.products.index', compact('products'));
     }
 
+
     public function userProducts()
     {
      // Get the currently authenticated user
       $user = Auth::user();
-
+      $categories = Category::with('subcategories')->get();
      // Fetch the products added by the user
      $products = $user->products;
-     return view('frontoffice.products.user_products', compact('products'));
+     return view('frontoffice.products.user_products', compact('products','categories'));
     }
 
     /**
@@ -73,8 +75,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product-name' => 'required|string|max:255',
-            'product-description' => 'required|string',
+            'product-name' => 'required|string|max:255|min:3',
+            'product-description' => 'required|string|min:10',
             'product-type' => 'required|in:product,service',
             'product-subcategory_id' => 'required|exists:subcategories,id',
             'product-is_offering' => 'required|boolean',
@@ -86,6 +88,15 @@ class ProductController extends Controller
                 return $request->input('ad_exchange_type') === 'exchange';
             }) . '|nullable|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            'product-startDate' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
+
+            'product-endDate' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
+
         ]);
 
 
@@ -108,6 +119,15 @@ class ProductController extends Controller
         $product->type = $request->input('product-type');
         $product->subcategory_id = $request->input('product-subcategory_id');
         $product->is_offering = $request->input('product-is_offering');
+
+
+
+
+        if ($product->is_offering === '0') {
+            $product->start_date = $request->input('product-startDate');
+            $product->end_date = $request->input('product-endDate');
+        }
+
         $product->user_id = Auth::id();
 
         if ($request->hasFile('image')) {
@@ -128,9 +148,18 @@ class ProductController extends Controller
      */
     public function show($product)
     {
-       $index = Product::findOrFail($product);
+       $product = Product::findOrFail($product);
+       $categories = Category::with('subcategories')->get();
 
-         return view('frontoffice.products.show',['product' => $index]);
+         return view('frontoffice.products.show',compact('product', 'categories'));
+    }
+
+    public function showBack($product)
+    {
+       $product = Product::findOrFail($product);
+       $categories = Category::with('subcategories')->get();
+
+         return view('backoffice.products.show',compact('product', 'categories'));
     }
 
     /**
@@ -150,8 +179,8 @@ class ProductController extends Controller
     public function update(Request $request, $product)
     {
         $request->validate([
-            'product-name' => 'required|string|max:255',
-            'product-description' => 'required|string',
+            'product-name' => 'required|string|max:255|min:3',
+            'product-description' => 'required|string|min:10',
             'product-type' => 'required|in:product,service',
             'product-subcategory_id' => 'required|exists:subcategories,id',
             'product-is_offering' => 'required|boolean',
@@ -163,6 +192,13 @@ class ProductController extends Controller
                 return $request->input('ad_exchange_type') === 'exchange';
             }) . '|nullable|string|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product-start_date' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
+
+            'product-end_date' => Rule::requiredIf(function () use ($request) {
+                return $request->input('product-is_offering') === '0';
+            }) . '|nullable|after_or_equal:today',
         ]);
 
         $product = Product::findOrFail($product);
@@ -182,7 +218,14 @@ class ProductController extends Controller
         $product->type = $request->input('product-type');
         $product->subcategory_id = $request->input('product-subcategory_id');
         $product->is_offering = $request->input('product-is_offering');
+        $product->start_date = $request->input('product-start_date');
+        $product->end_date = $request->input('product-end_date');
 
+
+        if ($product->is_offering === '0') {
+            $product->start_date = $request->input('product-start_date');
+            $product->end_date = $request->input('product-end_date');
+        }
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -203,6 +246,57 @@ class ProductController extends Controller
     {
         $delete=Product::findOrFail($product);
         $delete->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('user.products');
     }
+
+
+
+    public function indexPage()
+    {
+        $categories = Category::with('subcategories')->get();
+        return view('frontoffice.index', compact('categories'));
+    }
+
+
+    public function searchP(Request $request)
+    {
+        $selectedCategory = $request->query('category');
+        $selectedSubcategory = $request->query('subcategory');
+
+
+        $categories = Category::with('subcategories.products')->get();
+        $subcategories = Subcategory::all();
+
+        // Fetch products based on the selected category and subcategory
+        if ($selectedSubcategory !== null) {
+            $products = Product::where('subcategory_id', $selectedSubcategory)->get();
+        } elseif ($selectedCategory !== null) {
+            // Fetch products based on the selected category
+            $products = Product::whereHas('subcategory', function ($query) use ($selectedCategory) {
+                $query->where('category_id', $selectedCategory);
+            })->get();
+        } else {
+            // No category or subcategory selected, show all products
+            $products = Product::all();
+        }
+
+
+        $productType = $request->input('search_department');
+        $isOffering = $request->input('search_region');
+        $subcategory = $request->input('product-subcategory_id');
+
+        $results = Product::where('type', $productType)
+            ->where('is_offering', $isOffering)
+            ->where('subcategory_id', $subcategory)
+            ->get();
+
+            $productCount = Product::all();
+        return view('frontoffice.products.search', compact('results','categories', 'subcategories', 'products', 'selectedCategory', 'selectedSubcategory','productCount'));
+    }
+
+
+
+
+
+
 }

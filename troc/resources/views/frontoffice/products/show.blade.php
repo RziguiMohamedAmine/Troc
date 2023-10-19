@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
     <section id="main" class="clearfix">
         <h1 id="profile-title">
-            {{ $product->user->name }} échange des services à Marmande - Lot et Garonne
+            {{ $product->user->name }} échange des services
         </h1>
         <p id="communaute-intro">
             Echange de service, 29 membres inscrits dans le département
@@ -51,99 +51,135 @@
                     </button>
                 </form>
             </div>
+            <<<<<<< HEAD=======<div class="offline"><span>Hors ligne</span>
+        </div>
+        </div>
+        <ul>
+            <li>
+                <i class="lni-user marg-r-XXS"></i>
+                <span><strong>{{ $product->user->name }}</strong></span>
+            </li>
+            <li class="small">
+                <i class="lni-map-marker marg-r-XXS"></i><span>Marmande</span>
+            </li>
+            <li class="small">
+                <i class="lni-alarm-clock marg-r-XXS"></i><span>Inscrit le
+                    {{ $product->user->created_at->format('Y-m-d') }}</span>
+            </li>
+            @if ($product->user->id !== Auth::id())
+                <li class="marg-t-S">
+                    <button type="button" class="highlight small" data-goto="/user/login"
+                        data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?">
+                        <span>Contactez Moi !</span>
+                    </button>
+                </li>
+            @else
+            @endif
 
-            <!-- Profile -->
-            <div id="profile-content" class="clearfix">
-                <div id="profile-details" class="clearfix">
-                    <div id="profile-image">
-                        <span class="member-offline">&#9679;</span>
-                        <div class="img-container large blue">
-                            <img src="{{ $product->user->profile_photo_url }}" alt="{{ $product->user->name }}" />
-                        </div>
-                        <div class="offline"><span>Hors ligne</span></div>
+            <li class="marg-t-L addthis_toolbox addthis_default_style">
+                <a class="addthis_button_preferred_1"></a>
+                <a class="addthis_button_preferred_2"></a>
+                <a class="addthis_button_preferred_3"></a>
+                <a class="addthis_button_preferred_4"></a>
+                <a class="addthis_button_compact"></a>
+                <a class="addthis_counter addthis_bubble_style"></a>
+                <script src="../../s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4eb1cca0207b297a" type="text/javascript"></script>
+            </li>
+        </ul>
+        </div>
+        >>>>>>> main
+
+        <!-- Profile -->
+        <div id="profile-content" class="clearfix">
+            <div id="profile-details" class="clearfix">
+                <div id="profile-image">
+                    <span class="member-offline">&#9679;</span>
+                    <div class="img-container large blue">
+                        <img src="{{ $product->user->profile_photo_url }}" alt="{{ $product->user->name }}" />
                     </div>
-                    <ul>
-                        <li>
-                            <i class="lni-user marg-r-XXS"></i>
-                            <span><strong>{{ $product->user->name }}</strong></span>
-                        </li>
-                        <li class="small">
-                            <i class="lni-map-marker marg-r-XXS"></i><span>Marmande</span>
-                        </li>
-                        <li class="small">
-                            <i class="lni-alarm-clock marg-r-XXS"></i><span>Inscrit le
-                                {{ $product->user->created_at->format('Y-m-d') }}</span>
-                        </li>
-                        <li class="marg-t-S">
-                            <button type="button" class="highlight small" data-goto="/user/login"
-                                data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?">
-                                <span>Contactez Moi !</span>
-                            </button>
-                        </li>
-                        <li class="marg-t-L addthis_toolbox addthis_default_style">
-                            <a class="addthis_button_preferred_1"></a>
-                            <a class="addthis_button_preferred_2"></a>
-                            <a class="addthis_button_preferred_3"></a>
-                            <a class="addthis_button_preferred_4"></a>
-                            <a class="addthis_button_compact"></a>
-                            <a class="addthis_counter addthis_bubble_style"></a>
-                            <script src="../../s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4eb1cca0207b297a" type="text/javascript"></script>
-                        </li>
-                    </ul>
+                    <div class="offline"><span>Hors ligne</span></div>
                 </div>
-
-                <div id="profile-provide" class=" flex flex-col justify-center items-center py-8">
-                    <div class="mt-4 mb-4 ml-32 ">
-                        <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}"
-                            class="w-40 border border-gray-950 rounded-lg" />
-                    </div>
-
-                    <div>
-                        @if ($product->is_offering)
-                            <div class="mt-4 mb-4">
-                                <strong>Je propose : </strong><span class="text-color1">
-                                    {{ $product->name }}</span><br><br>
-                                @if ($product->exchange_for)
-                                    <strong>Echange contre :</strong><span class="text-color1">
-                                        {{ $product->exchange_for }} </span>,
-                                @else
-                                    <strong>Prix : </strong><span class="text-color1"> {{ $product->price }}
-                                    </span><strong class="font-bold"> DT</strong>
-                                @endif
-                            </div>
-                        @else
-                            <div class="mt-4 mb-4">
-                                <strong>Je cherche :</strong><span class="text-color1"> {{ $product->name }} </span>
-                                <br><br>
-                                @if ($product->exchange_for)
-                                    <strong>Echange contre :</strong><span class="text-color1">
-                                        {{ $product->exchange_for }} </span>,
-                                @else
-                                    <strong>Prix :</strong><span class="text-color1"> {{ $product->price }} </span>
-                                @endif
-                            </div>
-                        @endif
-                        <div class="mt-4 mb-4 max-w-lg ">
-                            <strong>Description : </strong>
-                            <p>{{ $product->description }}</p>
-                        </div>
-                        <div class="mt-4 mb-4 flex justify-center items-center ">
-                            @if ($product->exchange_for)
-                                <a href="{{ route('offres.create', ['product' => $product['id']]) }}">
-                                    @csrf
-                                    <button>Echange contre</button>
-                                </a>,
-                            @else
-                                <button>Acheter</button> </span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-
+                <ul>
+                    <li>
+                        <i class="lni-user marg-r-XXS"></i>
+                        <span><strong>{{ $product->user->name }}</strong></span>
+                    </li>
+                    <li class="small">
+                        <i class="lni-map-marker marg-r-XXS"></i><span>Marmande</span>
+                    </li>
+                    <li class="small">
+                        <i class="lni-alarm-clock marg-r-XXS"></i><span>Inscrit le
+                            {{ $product->user->created_at->format('Y-m-d') }}</span>
+                    </li>
+                    <li class="marg-t-S">
+                        <button type="button" class="highlight small" data-goto="/user/login"
+                            data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?">
+                            <span>Contactez Moi !</span>
+                        </button>
+                    </li>
+                    <li class="marg-t-L addthis_toolbox addthis_default_style">
+                        <a class="addthis_button_preferred_1"></a>
+                        <a class="addthis_button_preferred_2"></a>
+                        <a class="addthis_button_preferred_3"></a>
+                        <a class="addthis_button_preferred_4"></a>
+                        <a class="addthis_button_compact"></a>
+                        <a class="addthis_counter addthis_bubble_style"></a>
+                        <script src="../../s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4eb1cca0207b297a" type="text/javascript"></script>
+                    </li>
+                </ul>
             </div>
 
-            <!-- Ads -->
+            <div id="profile-provide" class=" flex flex-col justify-center items-center py-8">
+                <div class="mt-4 mb-4 ml-32 ">
+                    <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}"
+                        class="w-40 border border-gray-950 rounded-lg" />
+                </div>
+
+                <div>
+                    @if ($product->is_offering)
+                        <div class="mt-4 mb-4">
+                            <strong>Je propose : </strong><span class="text-color1">
+                                {{ $product->name }}</span><br><br>
+                            @if ($product->exchange_for)
+                                <strong>Echange contre :</strong><span class="text-color1">
+                                    {{ $product->exchange_for }} </span>,
+                            @else
+                                <strong>Prix : </strong><span class="text-color1"> {{ $product->price }}
+                                </span><strong class="font-bold"> DT</strong>
+                            @endif
+                        </div>
+                    @else
+                        <div class="mt-4 mb-4">
+                            <strong>Je cherche :</strong><span class="text-color1"> {{ $product->name }} </span>
+                            <br><br>
+                            @if ($product->exchange_for)
+                                <strong>Echange contre :</strong><span class="text-color1">
+                                    {{ $product->exchange_for }} </span>,
+                            @else
+                                <strong>Prix :</strong><span class="text-color1"> {{ $product->price }} </span>
+                            @endif
+                        </div>
+                    @endif
+                    <div class="mt-4 mb-4 max-w-lg ">
+                        <strong>Description : </strong>
+                        <p>{{ $product->description }}</p>
+                    </div>
+                    <div class="mt-4 mb-4 flex justify-center items-center ">
+                        @if ($product->exchange_for)
+                            <a href="{{ route('offres.create', ['product' => $product['id']]) }}">
+                                @csrf
+                                <button>Echange contre</button>
+                            </a>,
+                        @else
+                            <button>Acheter</button> </span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <<<<<<< HEAD <!-- Ads -->
             <div id="profile-ads">
                 <h4>Mes annonces</h4>
                 <div class="ad-box text-center">Aucune annonce pour le moment</div>
@@ -163,7 +199,50 @@
                     <i class="lni-chevron-left small vertical-middle marg-r-XXS"></i><span>Retour</span>
                 </button>
             </a>
-        </div>
+            =======
+
+            <div>
+                @if ($product->is_offering)
+                    <div class="mt-4 mb-4">
+                        <strong>Je propose : </strong><span class="text-color1"> {{ $product->name }}</span><br><br>
+                        @if ($product->exchange_for)
+                            <strong>Echange contre : </strong><span class="text-color1"> {{ $product->exchange_for }}
+                            </span>,
+                        @else
+                            <strong>Prix : </strong><span class="text-color1"> {{ $product->price }} </span><strong
+                                class="font-bold"> DT</strong>
+                        @endif
+                    </div>
+                @else
+                    <div class="mt-4 mb-4">
+                        <strong>Je cherche : </strong> <span class="text-color1"> {{ $product->name }} </span> <br><br>
+                        @if ($product->exchange_for)
+                            <strong>Echange contre :</strong><span class="text-color1"> {{ $product->exchange_for }}
+                            </span>,
+                        @else
+                            <strong>Prix : </strong><span class="text-color1"> {{ $product->price }} </span><br>
+                        @endif
+                        @if ($product->start_date && $product->end_date)
+                            <br>
+                            <strong>Date de Debut : </strong><span class="text-color1"> {{ $product->start_date }}
+                            </span><br>
+                            <strong>Date de fin : </strong><span class="text-color1"> {{ $product->end_date }} </span>
+                        @endif
+                    </div>
+                @endif
+                <div class="mt-4 mb-4 max-w-lg ">
+                    <strong>Description : </strong>
+                    <p>{{ $product->description }}</p>
+                </div>
+                <div class="mt-4 mb-4 flex justify-center items-center ">
+                    @if ($product->exchange_for)
+                        <button>Echange contre</button>,
+                    @else
+                        <button>Acheter</button></span>
+                    @endif
+                </div>
+                >>>>>>> main
+            </div>
     </section>
 
 

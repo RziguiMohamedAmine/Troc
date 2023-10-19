@@ -23,6 +23,10 @@ Route::get('/', function () {
 })->name('welcome');
 
 
+Route::get('/chart', function () {
+    return view('backoffice.categories.chart');
+})->name('welcome');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -86,6 +90,13 @@ Route::middleware([
 
 Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
 Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
+Route::get('/backoffice/products/{product}', [ProductController::class, 'showBack'])->name('backoffice.products.show');
+
+
+
+Route::post('/search',[ProductController::class, 'searchP'])->name('search');
+
+
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');
