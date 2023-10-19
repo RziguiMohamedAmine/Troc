@@ -67,15 +67,15 @@ class OffreController extends Controller
     //     return redirect()->route('offres.index')->with('success', 'Offre created successfully!');
     // }
     public function store(Request $request)
-    {
-        $request->validate([
-            'offre-name' => 'required|string|max:255|min:3',
-            'offre-description' => 'required|string|min:10',
-            'offre-type' => 'required|in:offre,service',
-            'offre-product_id' => 'required|exists:products,id',
-            'offre-value' => 'required|string',
+{
+    //     $request->validate([
+    //         'offre-name' => 'required|string|max:255|min:3',
+    //         'offre-description' => 'required|string|min:10',
+    //         'offre-type' => 'required|in:offre,service',
+    //         'offre-product_id' => 'required|exists:products,id',
+    //         'offre-value' => 'required|string',
 
-        ]);
+    //     ]);
 
 
         $offre = new Offre();
