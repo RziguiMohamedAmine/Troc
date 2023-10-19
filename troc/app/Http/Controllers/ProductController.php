@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Offre;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -150,8 +151,9 @@ class ProductController extends Controller
     {
        $product = Product::findOrFail($product);
        $categories = Category::with('subcategories')->get();
+       $offres = Offre::where('product_id',$product->id)->get();
 
-         return view('frontoffice.products.show',compact('product', 'categories'));
+         return view('frontoffice.products.show',compact('product', 'categories','offres'));
     }
 
     public function showBack($product)

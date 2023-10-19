@@ -51,8 +51,8 @@
                     </button>
                 </form>
             </div>
-            <<<<<<< HEAD=======<div class="offline"><span>Hors ligne</span>
-        </div>
+            <div class="offline"><span>Hors ligne</span>
+            </div>
         </div>
         <ul>
             <li>
@@ -87,7 +87,6 @@
             </li>
         </ul>
         </div>
-        >>>>>>> main
 
         <!-- Profile -->
         <div id="profile-content" class="clearfix">
@@ -179,70 +178,85 @@
 
 
         </div>
-        <<<<<<< HEAD <!-- Ads -->
-            <div id="profile-ads">
-                <h4>Mes annonces</h4>
-                <div class="ad-box text-center">Aucune annonce pour le moment</div>
+        <!-- Ads -->
+        <div id="profile-ads " style="margin-top:16px">
+            <h4 class="text-center">Les offres</h4>
+            <div class="ad-box">
+
+                @foreach ($offres as $offre)
+                    <div class="flex h-16 justify-between w-full items-center overflow-hidden">
+                        <img class="rounded-full h-full w-16" src="{{ asset('images/' . $offre->user->image) }}" />
+                        <span>
+                            {{ $offre->value }}
+                        </span>
+                        <span>
+                            {{ $offre->description }}
+                        </span>
+                        <img class="h-full w-16" src="{{ asset('images/' . $offre->image) }}" />
+                    </div>
+                @endforeach
             </div>
+        </div>
+        <div id="profile-ads">
+            <h4>Mes annonces</h4>
+            <div class="ad-box text-center">Aucune annonce pour le moment</div>
+        </div>
 
-            <!-- Reviews -->
+        <!-- Reviews -->
 
-            <!-- AdSense -->
-            <ins class="adsbygoogle" style="display: block; width: 100%; margin: 20px 0 30px 0"
-                data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-0184352842429596"
-                data-ad-slot="6520630379"></ins>
-            <!--<script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>-->
-            <a href="{{ route('products.index') }}">
-                <button type="button" class="marg-t" data-goto="/normandie/seine-maritime">
-                    <i class="lni-chevron-left small vertical-middle marg-r-XXS"></i><span>Retour</span>
-                </button>
-            </a>
-            =======
+        <!-- AdSense -->
+        <ins class="adsbygoogle" style="display: block; width: 100%; margin: 20px 0 30px 0" data-ad-layout="in-article"
+            data-ad-format="fluid" data-ad-client="ca-pub-0184352842429596" data-ad-slot="6520630379"></ins>
+        <!--<script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>-->
+        <a href="{{ route('products.index') }}">
+            <button type="button" class="marg-t" data-goto="/normandie/seine-maritime">
+                <i class="lni-chevron-left small vertical-middle marg-r-XXS"></i><span>Retour</span>
+            </button>
+        </a>
 
-            <div>
-                @if ($product->is_offering)
-                    <div class="mt-4 mb-4">
-                        <strong>Je propose : </strong><span class="text-color1"> {{ $product->name }}</span><br><br>
-                        @if ($product->exchange_for)
-                            <strong>Echange contre : </strong><span class="text-color1"> {{ $product->exchange_for }}
-                            </span>,
-                        @else
-                            <strong>Prix : </strong><span class="text-color1"> {{ $product->price }} </span><strong
-                                class="font-bold"> DT</strong>
-                        @endif
-                    </div>
-                @else
-                    <div class="mt-4 mb-4">
-                        <strong>Je cherche : </strong> <span class="text-color1"> {{ $product->name }} </span> <br><br>
-                        @if ($product->exchange_for)
-                            <strong>Echange contre :</strong><span class="text-color1"> {{ $product->exchange_for }}
-                            </span>,
-                        @else
-                            <strong>Prix : </strong><span class="text-color1"> {{ $product->price }} </span><br>
-                        @endif
-                        @if ($product->start_date && $product->end_date)
-                            <br>
-                            <strong>Date de Debut : </strong><span class="text-color1"> {{ $product->start_date }}
-                            </span><br>
-                            <strong>Date de fin : </strong><span class="text-color1"> {{ $product->end_date }} </span>
-                        @endif
-                    </div>
-                @endif
-                <div class="mt-4 mb-4 max-w-lg ">
-                    <strong>Description : </strong>
-                    <p>{{ $product->description }}</p>
-                </div>
-                <div class="mt-4 mb-4 flex justify-center items-center ">
+        <div>
+            @if ($product->is_offering)
+                <div class="mt-4 mb-4">
+                    <strong>Je propose : </strong><span class="text-color1"> {{ $product->name }}</span><br><br>
                     @if ($product->exchange_for)
-                        <button>Echange contre</button>,
+                        <strong>Echange contre : </strong><span class="text-color1"> {{ $product->exchange_for }}
+                        </span>,
                     @else
-                        <button>Acheter</button></span>
+                        <strong>Prix : </strong><span class="text-color1"> {{ $product->price }} </span><strong
+                            class="font-bold"> DT</strong>
                     @endif
                 </div>
-                >>>>>>> main
+            @else
+                <div class="mt-4 mb-4">
+                    <strong>Je cherche : </strong> <span class="text-color1"> {{ $product->name }} </span> <br><br>
+                    @if ($product->exchange_for)
+                        <strong>Echange contre :</strong><span class="text-color1"> {{ $product->exchange_for }}
+                        </span>,
+                    @else
+                        <strong>Prix : </strong><span class="text-color1"> {{ $product->price }} </span><br>
+                    @endif
+                    @if ($product->start_date && $product->end_date)
+                        <br>
+                        <strong>Date de Debut : </strong><span class="text-color1"> {{ $product->start_date }}
+                        </span><br>
+                        <strong>Date de fin : </strong><span class="text-color1"> {{ $product->end_date }} </span>
+                    @endif
+                </div>
+            @endif
+            <div class="mt-4 mb-4 max-w-lg ">
+                <strong>Description : </strong>
+                <p>{{ $product->description }}</p>
             </div>
+            <div class="mt-4 mb-4 flex justify-center items-center ">
+                @if ($product->exchange_for)
+                    <button>Echange contre</button>,
+                @else
+                    <button>Acheter</button></span>
+                @endif
+            </div>
+        </div>
     </section>
 
 
