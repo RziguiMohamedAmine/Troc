@@ -92,6 +92,8 @@ Route::get('/my-products', [ProductController::class, 'userProducts'])->name('us
 Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
 Route::get('/backoffice/products/{product}', [ProductController::class, 'showBack'])->name('backoffice.products.show');
 
+Route::get('/backoffice/offres', [OffreController::class, 'showAllBackoffice'])->name('backoffice.offres.index');
+Route::get('/backoffice/offres/{offre}', [OffreController::class, 'showBack'])->name('backoffice.offres.show');
 
 
 Route::post('/search',[ProductController::class, 'searchP'])->name('search');

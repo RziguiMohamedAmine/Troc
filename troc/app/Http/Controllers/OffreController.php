@@ -35,6 +35,13 @@ class OffreController extends Controller
         return view('frontoffice.offres.create', ['product' => $index,'categories' => $categories]);
     }
 
+    public function showAllBackoffice()
+    {
+        // Retrieve all products with their subcategories
+        $offres = Offre::all();
+        
+        return view('backoffice.offres.index', compact('offres'));
+    }
     public function store(Request $request)
 {
     //     $request->validate([
@@ -78,7 +85,14 @@ class OffreController extends Controller
     {
        $index = Offre::findOrFail($offre);
 
-         return view('frontoffice.offres.show',['offre' => $index]);
+        return view('frontoffice.offres.show',['offre' => $index]);
+    }
+
+    public function showBack($offre)
+    {
+        $offre = Offre::findOrFail($offre);
+
+         return view('backoffice.offres.show',compact('offre'));
     }
 
     /**
