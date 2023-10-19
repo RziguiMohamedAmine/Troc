@@ -9,7 +9,7 @@ class Offre extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'user_id','product_id'];
+    protected $fillable = ['name', 'user_id','product_id', 'value', 'description', 'image'];
 
     public function user()
     {

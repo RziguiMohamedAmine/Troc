@@ -32,15 +32,75 @@ class OffreController extends Controller
         // $products = Product::with('products')->get();
         $index = Product::findOrFail($id);
         $categories = Category::with('subcategories')->get();
-        return view('frontoffice.offres.create', compact('categories'));
+        return view('frontoffice.offres.create', ['product' => $index,'categories' => $categories]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'offre-name' => 'required|string|max:255',
+    //         'offre-description' => 'required|string',
+    //         'offre-product_id' => 'required|exists:products,id',
+    //         'offre-value' => 'required|string',
+    //         'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+    //     $offre = new Offre();
+    //     $offre->name = $request->input('offre-name');
+    //     $offre->description = $request->input('offre-description');
+
+
+    //     $offre->product_id = $request->input('offre-product_id');
+    //     $offre->user_id = Auth::id();
+
+    //     if ($request->hasFile('image')) {
+    //         $image = $request->file('image');
+    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
+    //         $image->move(public_path('images'), $imageName);
+    //         $offre->image = $imageName;
+    //     }
+
+    //     $offre->save();
+
+    //     return redirect()->route('offres.index')->with('success', 'Offre created successfully!');
+    // }
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'offre-name' => 'required|string|max:255|min:3',
+            'offre-description' => 'required|string|min:10',
+            'offre-type' => 'required|in:offre,service',
+            'offre-product_id' => 'required|exists:products,id',
+            'offre-value' => 'required|string',
+
+        ]);
+
+
+        $offre = new Offre();
+        $offre->name = $request->input('offre-name');
+        $offre->description = $request->input('offre-description');
+        $offre->value = $request->input('offre-value');
+
+
+        $offre->product_id = $request->input('offre-product_id');
+
+
+
+        $offre->user_id = Auth::id();
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $offre->image = $imageName;
+        }
+
+        $offre->save();
+
+        return redirect()->route('products.index')->with('success', 'Product created successfully!');
+
     }
 
     /**
