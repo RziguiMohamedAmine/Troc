@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Plan;
 use Stripe\Stripe;
+use App\Http\Controllers\PlanController;
+
 use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
 
@@ -25,12 +28,29 @@ class CartController extends Controller
     {
         $cartItems = auth()->user()->cart;
         $totalPrice = 0;
+    $user = auth()->user();
+
+
+        if ($user->plan !== 'free') {
+            $subscriptionPlan = Plan::find($user->plan); // Adjust the model name based on your setup
+            if ($subscriptionPlan) {
+                $discount = $subscriptionPlan->remise;
+            } else {
+                $discount = 0;
+            }
+        } else {
+            // User is on the "free" plan, so no discount
+            $discount = 0;
+        }
+
+
 
         foreach ($cartItems as $cartItem) {
             $totalPrice += $cartItem->product->price;
         }
+        $discountedTotalPrice = $totalPrice - ($totalPrice * ($discount / 100));
 
-        return view('frontoffice.cart.show', compact('cartItems', 'totalPrice'), [
+        return view('frontoffice.cart.show', compact('cartItems', 'discountedTotalPrice'), [
             'confirmPurchaseButton' => true,
         ]);
     }

@@ -40,7 +40,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="3">Prix Total:</td>
-                        <td>${{ $totalPrice }}</td>
+                        <td>${{ $discountedTotalPrice }}</td>
                     </tr>
                 </tfoot>
             </table>

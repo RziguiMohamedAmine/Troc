@@ -104,10 +104,10 @@ Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::delete('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::get('/successCart', [CartController::class, 'successCart'])->name('successCart');
 
-Route::get('/successSub', [CategoryController::class, 'success'])->name('success');
+Route::get('/successSub', [PlanController::class, 'success'])->name('success');
 
 
-Route::post('/checkoutSub/{planId}', [CategoryController::class, 'buyPlan'])->name('payment.process');
+Route::post('/checkoutSub/{planId}', [PlanController::class, 'buyPlan'])->name('payment.process');
 
 
 

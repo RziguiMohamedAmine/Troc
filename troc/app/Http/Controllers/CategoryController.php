@@ -135,7 +135,7 @@ class CategoryController extends Controller
         $delete->delete();
         return redirect()->route('categories.index');
     }
-
+/*
     public function buyPlan($planId){
      // Find the selected plan based on $planId (replace with your actual plan retrieval logic)
      $selectedPlan = Plan::find($planId);
@@ -175,6 +175,7 @@ class CategoryController extends Controller
 
 
 public function success(Request $request)
+
     {
 
         $plans = Plan::all();
@@ -183,7 +184,7 @@ public function success(Request $request)
         return view('frontoffice.home', compact('categories','products','plans'));
     }
 
-
+*/
 
 
 
