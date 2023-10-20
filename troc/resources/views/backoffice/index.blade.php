@@ -92,21 +92,21 @@
                         <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown"
                             href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="mdi mdi-bell-outline noti-icon"></i>
-                            <span class="badge badge-pill badge-danger noti-icon-badge">
-                                {{ $user->notifications->count() }}
-                            </span>
+                            @if ($user->notifications->where('lu', 0)->count() > 0)
+                                <span class="badge badge-pill badge-danger noti-icon-badge">
+                                    {{ $user->notifications->where('lu', 0)->count() }}
+                                </span>
+                            @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-lg px-1">
-                            <!-- item-->
                             <h6 class="dropdown-item-text">
                                 Notifications
                             </h6>
                             <div class="slimscroll notification-item-list">
-                                <!-- item-->
 
                                 @foreach ($user->notifications as $notification)
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                                    <a href="{{ route('backoffice.offres.redirectToOffre', ['notification' => $notification->id]) }}"
+                                        class="dropdown-item notify-item {{ $notification->lu ? '' : 'active' }}">
                                         <div class="notify-icon bg-success"><i
                                                 class="mdi mdi-message-text-outline"></i></div>
                                         <p class="notify-details"><b>Nouvelle offre reçue</b><span class="text-muted">
@@ -114,9 +114,6 @@
                                             </span></p>
                                     </a>
                                 @endforeach
-
-
-
 
 
                             </div>

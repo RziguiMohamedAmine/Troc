@@ -98,6 +98,8 @@ Route::get('/backoffice/offres/{offre}', [OffreController::class, 'showBack'])->
 
 Route::post('/search',[ProductController::class, 'searchP'])->name('search');
 
+Route::get('/redirectToOffre/{notification}',[OffreController::class, 'redirectToOffre'])->name('backoffice.offres.redirectToOffre');
+
 
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
