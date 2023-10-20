@@ -40,41 +40,14 @@
                         <i class="lni-chevron-left small vertical-middle marg-r-XXS"></i><span>Retour</span>
                     </button>
                 </a>
-                <form id="filter-search" action="https://www.echange-service.com/communaute" method="post">
-                    <input type="text" name="search" value="" id="search" placeholder="Rechercher dans ..."
-                        minlength="3" maxlength="30" class="marg-r-XXS" />
-                    <button type="submit" name="form_search" class="">
-                        <i class="lni-search vertical-middle"></i>
-                    </button>
-                    <button type="submit" name="form_clear_search">
-                        <i class="lni-close vertical-middle"></i>
-                    </button>
-                </form>
+                
             </div>
-            <div class="offline"><span>Hors ligne</span>
-            </div>
+            
         </div>
         <ul>
-            <li>
-                <i class="lni-user marg-r-XXS"></i>
-                <span><strong>{{ $product->user->name }}</strong></span>
-            </li>
-            <li class="small">
-                <i class="lni-map-marker marg-r-XXS"></i><span>Marmande</span>
-            </li>
-            <li class="small">
-                <i class="lni-alarm-clock marg-r-XXS"></i><span>Inscrit le
-                    {{ $product->user->created_at->format('Y-m-d') }}</span>
-            </li>
-            @if ($product->user->id !== Auth::id())
-                <li class="marg-t-S">
-                    <button type="button" class="highlight small" data-goto="/user/login"
-                        data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?">
-                        <span>Contactez Moi !</span>
-                    </button>
-                </li>
-            @else
-            @endif
+           <br>
+           <br>
+           
 
             <li class="marg-t-L addthis_toolbox addthis_default_style">
                 <a class="addthis_button_preferred_1"></a>
@@ -110,12 +83,15 @@
                         <i class="lni-alarm-clock marg-r-XXS"></i><span>Inscrit le
                             {{ $product->user->created_at->format('Y-m-d') }}</span>
                     </li>
+                    @if ($product->user->id !== Auth::id())
                     <li class="marg-t-S">
                         <button type="button" class="highlight small" data-goto="/user/login"
                             data-modal="Vous devez être authentifié pour contacter un membre.<br />Souhaitez-vous aller à la page de connexion ?">
                             <span>Contactez Moi !</span>
                         </button>
                     </li>
+                @else
+                @endif
                     <li class="marg-t-L addthis_toolbox addthis_default_style">
                         <a class="addthis_button_preferred_1"></a>
                         <a class="addthis_button_preferred_2"></a>
@@ -129,52 +105,47 @@
             </div>
 
             <div id="profile-provide" class=" flex flex-col justify-center items-center py-8">
-                <div class="mt-4 mb-4 ml-32 ">
-                    <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}"
-                        class="w-40 border border-gray-950 rounded-lg" />
+                <div class="mt-4 mb-4 ml-32 " >
+                    <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}" class="w-40 border border-gray-950 rounded-lg" />          
                 </div>
-
+               
                 <div>
                     @if ($product->is_offering)
-                        <div class="mt-4 mb-4">
-                            <strong>Je propose : </strong><span class="text-color1">
-                                {{ $product->name }}</span><br><br>
-                            @if ($product->exchange_for)
-                                <strong>Echange contre :</strong><span class="text-color1">
-                                    {{ $product->exchange_for }} </span>,
-                            @else
-                                <strong>Prix : </strong><span class="text-color1"> {{ $product->price }}
-                                </span><strong class="font-bold"> DT</strong>
-                            @endif
-                        </div>
+                    <div class="mt-4 mb-4">         
+                      <strong>Je propose : </strong><span class="text-color1"> {{$product->name}}</span><br><br>
+                      @if ($product->exchange_for)
+                      <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
+                      @else
+                      <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span><strong class="font-bold"> DT</strong>
+                      @endif
+                    </div>
                     @else
-                        <div class="mt-4 mb-4">
-                            <strong>Je cherche :</strong><span class="text-color1"> {{ $product->name }} </span>
-                            <br><br>
-                            @if ($product->exchange_for)
-                                <strong>Echange contre :</strong><span class="text-color1">
-                                    {{ $product->exchange_for }} </span>,
-                            @else
-                                <strong>Prix :</strong><span class="text-color1"> {{ $product->price }} </span>
-                            @endif
-                        </div>
+                    <div class="mt-4 mb-4">
+                      <strong>Je cherche : </strong> <span class="text-color1"> {{$product->name}} </span> <br><br>
+                      @if ($product->exchange_for)
+                      <strong>Echange contre :</strong><span class="text-color1"> {{$product->exchange_for}} </span>, 
+                      @else
+                      <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span><br>
+                      @endif
+                      @if ($product->start_date && $product->end_date)
+                      <br>
+                      <strong>Date de Debut : </strong><span class="text-color1"> {{ $product->start_date }} </span><br>
+                      <strong>Date de fin : </strong><span class="text-color1"> {{ $product->end_date }} </span>
+                      @endif
+                    </div>
                     @endif
-                    <div class="mt-4 mb-4 max-w-lg ">
-                        <strong>Description : </strong>
-                        <p>{{ $product->description }}</p>
+                    <div class="mt-4 mb-4 max-w-lg " >
+                        <strong>Description : </strong> 
+                        <p>{{$product->description}}</p>
                     </div>
                     <div class="mt-4 mb-4 flex justify-center items-center ">
                         @if ($product->exchange_for)
-                            <a href="{{ route('offres.create', ['product' => $product['id']]) }}">
-                                @csrf
-                                <button>Echange contre</button>
-                            </a>,
+                        <button>Echange contre</button>, 
                         @else
-                            <button>Acheter</button> </span>
+                        <button>Acheter</button></span>
                         @endif
                     </div>
-                </div>
-            </div>
+            </div></div>
 
 
         </div>
@@ -216,47 +187,8 @@
             </button>
         </a>
 
-        <div>
-            @if ($product->is_offering)
-                <div class="mt-4 mb-4">
-                    <strong>Je propose : </strong><span class="text-color1"> {{ $product->name }}</span><br><br>
-                    @if ($product->exchange_for)
-                        <strong>Echange contre : </strong><span class="text-color1"> {{ $product->exchange_for }}
-                        </span>,
-                    @else
-                        <strong>Prix : </strong><span class="text-color1"> {{ $product->price }} </span><strong
-                            class="font-bold"> DT</strong>
-                    @endif
-                </div>
-            @else
-                <div class="mt-4 mb-4">
-                    <strong>Je cherche : </strong> <span class="text-color1"> {{ $product->name }} </span> <br><br>
-                    @if ($product->exchange_for)
-                        <strong>Echange contre :</strong><span class="text-color1"> {{ $product->exchange_for }}
-                        </span>,
-                    @else
-                        <strong>Prix : </strong><span class="text-color1"> {{ $product->price }} </span><br>
-                    @endif
-                    @if ($product->start_date && $product->end_date)
-                        <br>
-                        <strong>Date de Debut : </strong><span class="text-color1"> {{ $product->start_date }}
-                        </span><br>
-                        <strong>Date de fin : </strong><span class="text-color1"> {{ $product->end_date }} </span>
-                    @endif
-                </div>
-            @endif
-            <div class="mt-4 mb-4 max-w-lg ">
-                <strong>Description : </strong>
-                <p>{{ $product->description }}</p>
-            </div>
-            <div class="mt-4 mb-4 flex justify-center items-center ">
-                @if ($product->exchange_for)
-                    <button>Echange contre</button>,
-                @else
-                    <button>Acheter</button></span>
-                @endif
-            </div>
-        </div>
+     
+        
     </section>
 
 
