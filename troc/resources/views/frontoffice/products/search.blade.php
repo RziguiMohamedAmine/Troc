@@ -4,6 +4,46 @@
 
 
 <section id="main" class="clearfix">
+  <div>
+    @if(auth()->check() && !request()->routeIs('profile.show'))
+<div id="box-headersearch" class="box clearfix" data-box="ES header HeaderSearch" >
+  <form action="{{ route('search') }}" method="post" class="clearfix">
+    @csrf
+    <div class="select-group">
+      <i class="lni-share marg-r-XXS"></i>
+      <select name="search_region" id="search-region" required="required">
+        <option value="1" >Je propose</option>
+        <option value="0" >Je recherche</option>
+    </select>
+    </div>
+    <div class="select-group">
+      <i class="lni-revenue marg-r-XXS"></i>
+      <select name="search_department" id="search-department" required="required">
+        <option value="service" >Un service</option>
+        <option value="product" >Un bien</option>
+    </select>
+    </div>
+    <div class="select-group">
+      <i class="lni-menu marg-r-XXS"></i>
+      <select name="product-subcategory_id">
+        @foreach ($categories as $category)
+        <option value="" selected="selected">Catégories</option>
+        <option disabled class="bold bg-light large">{{ $category->name }}</option>                
+                  @foreach ($category->subcategories as $subcategory)
+                     <option value="{{ $subcategory->id }} @if(old('subcategory_id') == $subcategory->id ) selected @endif" >{{ $subcategory->name }}</option>
+                   @endforeach
+        @endforeach
+      </select>
+    </div>
+    <button class="highlight" name="form_search_dispatcher">
+      <i class="lni-search"></i><span>RECHERCHER</span>
+    </button>
+  </form>
+</div>
+@else
+
+@endif
+  </div>
     <h1>Les membres - Bricolage, Electricité</h1>
     <p id="communaute-intro">
       Echange de service, 929 membres inscrits en <strong>France</strong>.
