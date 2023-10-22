@@ -258,7 +258,7 @@
                                 </span></a>
                             <ul class="submenu">
                                 <li>
-                                    <a href="{{ route('backoffice.products.index') }}">List Of Productss</a>
+                                    <a href="{{ route('backoffice.products.index') }}">List Of Products</a>
                                 </li>
                             </ul>
                         </li>
@@ -282,7 +282,7 @@
                                 </span></a>
                             <ul class="submenu">
                                 <li>
-                                    <a href="{{ route('backoffice.products.index') }}">List Of Productss</a>
+                                    <a href="{{ route('backoffice.reports.index') }}">List Of Reports</a>
                                 </li>
                             </ul>
                         </li>
