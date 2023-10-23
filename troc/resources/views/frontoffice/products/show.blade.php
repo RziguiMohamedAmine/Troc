@@ -142,7 +142,10 @@
                         @if ($product->exchange_for)
                         <button>Echange contre</button>,
                         @else
-                        <button>Acheter</button></span>
+                        <form action="{{ route('add.to.cart', ['productId' => $product->id]) }}" method="POST">
+                            @csrf
+                            <button type="submit">Ajouter au Panier</button>
+                        </form>
                         @endif
                         <form method="GET" action="{{ route('claims.create', ['product_id' => $product->id]) }}">
                             @csrf

@@ -1,7 +1,7 @@
 @extends('frontoffice.index')
 
 @section('content')
-<section id="main" class="clearfix">  
+<section id="main" class="clearfix">
     <form action="{{ route('products.update', $product->id) }}" method="POST" class="form width-80" enctype="multipart/form-data" data-ajax-callback="adPostCallback">
         @csrf
         @method('PUT')
@@ -54,12 +54,12 @@
                                  @foreach ($category->subcategories as $subcategory)
                                                 <option value="{{ $subcategory->id }}" @if($product->subcategory_id == $subcategory->id) selected @endif >{{ $subcategory->name }}</option>
                                  @endforeach
-                                 @else  
+                                 @else
                                  <div>
                                     <span>No subcategories available</span>
                                 </div>
                                 @endif
-                                @endforeach 
+                                @endforeach
                         </select>
                         @error('product-subcategory_id')
                           <div class="form-error">
@@ -80,7 +80,7 @@
                         </div>
                     @enderror
                 </div>
-                
+
                 <div class="select-container" id="end-field" style="display: @if(old('product-is_offering', $product->is_offering) === '0' || $product->is_offering === '0') block @else none @endif;">
                     <label for="product-end_date">Date Fin</label><br>
                     <input type="date" class="rounded-lg" name="product-end_date" id="product-end_date" value="{{ $product->end_date }}" placeholder="end Date" class="inline-block width-100">
@@ -90,7 +90,7 @@
                     </div>
                     @enderror
                 </div>
-                
+
             </div>
 
 
@@ -108,7 +108,7 @@
 
                 </select>
             </div>
-            
+
             <div class="padd-b" id="price-field" style="display: @if(old('ad_exchange_type', $product->ad_exchange_type) === 'price' || $product->ad_exchange_type === 'price') block @else none @endif;">
                 <input type="number" name="product-price" id="ad_price" value="{{$product->price}}" placeholder="Price" class="inline-block width-100">
                 @error('product-price')
@@ -117,7 +117,7 @@
                     </div>
                     @enderror
             </div>
-            
+
             <div class="padd-b" id="exchange-field" style="display: @if(old('ad_exchange_type', $product->ad_exchange_type) === 'exchange' || $product->ad_exchange_type === 'exchange') block @else none @endif;">
                 <input type="text" name="product-exchange_for" id="ad_exchange_for" value="{{$product->exchange_for}}" placeholder="Exchange for" class="inline-block width-100">
                 @error('product-exchange_for')
@@ -126,7 +126,7 @@
                 </div>
                 @enderror
             </div>
-     
+
 
             <div class="padd-b ">
                 <input type="text" name="product-name" value="{{$product->name}}" placeholder="Nom du service ou du bien"
@@ -152,16 +152,16 @@
             <div class="text-center">
                 <i class="lni-download block xxlarge text-center marg-b-XS"></i>
                 <input type="file" name="image" id="image" accept="image/*" value="{{$product->image}}" />
-               
+
             </div>
-                 
-            
+
+
         </div>
 
         <!-- Localisation -->
-       
+
         <!-- Identité -->
-       
+
         <div class="text-center padd-t">
             <button type="submit" class="highlight" ><span>Publier</span></button>
         </div>

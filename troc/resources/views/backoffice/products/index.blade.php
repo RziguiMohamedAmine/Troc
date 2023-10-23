@@ -33,40 +33,68 @@
                             <p class="sub-title">just start typing to edit, or move around with arrow keys or mouse clicks!</p>
 
                             <table id="mainTable" class="table table-striped mb-0 table-editable">
-                                <thead>                         
+                                <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>                                                                      
+                                    <th>Name</th>
+                                    <th>offer / propose</th>
+                                    <th>Price / Echange for</th>
                                     <th>Sub-Categories</th>
+                                    <th data-priority="3">Category</th>
                                     <th data-priority="6">User</th>
-                                    <th data-priority="6">Details</th>
-                                    
+                                    <th data-priority="6">Date Publication</th>
+
                                 </tr>
 
                                 </thead>
                                 <tbody>
-                                 
+
                                     @foreach ($products as $product)
-                                    @php
-                                             $today = \Carbon\Carbon::today(); 
-                                             $endDate = \Carbon\Carbon::parse($product->end_date); 
-                                    @endphp  
-                                    @if ($endDate->greaterThanOrEqualTo($today))         
                                     <tr>
-                                       
-                                        <td>{{ $product->id }}</td>
-                                        <td>{{ $product->name }}</td> 
-                                        <td>{{ $product->subcategory->name }}</td>
-                                        <td>{{ $product->user->name }}</td>
                                         <td>
-                                            <a href="{{ route('backoffice.products.show',['product'=> $product['id']]) }}"
-                                                class="btn btn-primary">Details</a>
+                                            @if ($product->image)
+                                                <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->image }}"
+                                                style="width: 40px; height: 40px;" class="rounded-circle" />
+                                            @else
+                                            <div style="width: 40px;
+                                            height: 40px;
+                                            border-radius: 50%;
+                                            background-color: #2196F3;
+                                            color: #ffffff;
+                                            font-size: 10px;
+                                            text-align: center;
+                                            line-height: 40px;">
+                                                {{ strtoupper(substr($product->name, 0, 3)) }}
+                                            </div>
+
+                                            @endif
+
                                         </td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>
+
+                                                @if (!$product->is_offering)
+                                                    <strong>Je cherche :</strong><span class="text-color1"> {{ $product->name }}</span><br>
+                                                @else
+                                                    <strong>Je propose :</strong><span class="text-color1"> {{ $product->name }}</span><br>
+                                                @endif
+
+                                          </td>
+                                          <td>
+                                            @if ($product->exchange_for)
+                                                <strong>Echange contre :</strong><span class="text-color1"> {{ $product->exchange_for }}</span><br>
+                                            @else
+                                                <strong>Prix :</strong><span class="text-color1"> {{ $product->price }}</span><strong class="font-bold"> DT</strong>
+                                            @endif
+                                        </td>
+                                        <td>{{ $product->subcategory->name }}</td>
+                                        <td>{{ $product->subcategory->category->name }}</td>
+                                        <td>{{ $product->user->name }}</td>
+                                        <td>{{$product->created_at->format('Y-m-d')}}</td>
                                     </tr>
-                                    @endif
                                     @endforeach
-                             
-                              
+
+
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -81,9 +109,9 @@
                         </div>
                     </div>
                 </div> <!-- end col -->
-            </div> <!-- end row -->      
+            </div> <!-- end row -->
 
-            
+
         </div>
         <!-- container-fluid -->
 

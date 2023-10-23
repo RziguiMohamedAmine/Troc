@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'plan',
     ];
 
     /**
@@ -72,8 +73,12 @@ class User extends Authenticatable implements MustVerifyEmail
          return $this->hasMany(Product::class);
     }
     public function history()
-{
-    return $this->hasMany(History::class, 'user_id');
-}
+    {
+        return $this->hasMany(History::class, 'user_id');
+    }
 
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

@@ -2,6 +2,21 @@
 
 return [
 
+
+    'icon' => 'success',
+    'confirmButtonColor' => '#3085d6',
+    'cancelButtonColor' => '#d33',
+    'confirmButtonText' => 'Yes, confirm!',
+    'cancelButtonText' => 'No, cancel!',
+    'showCancelButton' => true,
+    'showConfirmButton' => true,
+    'reverseButtons' => false,
+    'showCloseButton' => true,
+    'showLoaderOnConfirm' => false,
+    'closeOnConfirm' => true,
+    'closeOnEscape' => true,
+    'clickOutsideToClose' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Theme

@@ -20,7 +20,6 @@ class ProductController extends Controller
         $selectedCategory = $request->query('category');
         $selectedSubcategory = $request->query('subcategory');
 
-
         $categories = Category::with('subcategories.products')->get();
         $subcategories = Subcategory::all();
 
@@ -49,7 +48,6 @@ class ProductController extends Controller
 
         return view('backoffice.products.index', compact('products'));
     }
-
 
     public function userProducts()
     {
@@ -235,7 +233,6 @@ class ProductController extends Controller
             $product->image = $imageName;
         }
         $product->save();
-
         return redirect()->route('products.index',$product);
 
 

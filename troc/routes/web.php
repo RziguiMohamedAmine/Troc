@@ -7,13 +7,15 @@ use \App\Http\Controllers\SubcategoryController;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\HistoryController;
 use \App\Http\Controllers\ClaimController;
+use \App\Http\Controllers\CartController;
+use \App\Http\Controllers\PlanController;
+use App\Http\Controllers\ReportsController;
+use \App\Http\Controllers\OffreController;
+
 use App\Livewire\Chat\Chatbox;
 use App\Livewire\Chat\CreateChat;
 use App\Livewire\Chat\Main;
 use App\Livewire\Chat\SendMessage;
-
-use App\Http\Controllers\ReportsController;
-use \App\Http\Controllers\OffreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +28,14 @@ use \App\Http\Controllers\OffreController;
 |
 */
 
-
 Route::get('/', function () {
     return view('frontoffice.welcome');
 })->name('welcome');
+Route::get('/chart', function () {
+    return view('backoffice.categories.chart');
+})->name('welcome');
+
+
 Route::get('/chart', function () {
     return view('backoffice.categories.chart');
 })->name('welcome');
@@ -130,7 +136,19 @@ Route::get('/backoffice/offres/{offre}', [OffreController::class, 'showBack'])->
 Route::post('/search',[ProductController::class, 'searchP'])->name('search');
 
 Route::get("/backoffice/reports", [ReportsController::class, 'showBackofficeReports'])->name("backoffice.reports.index");
+Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
+Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('add.to.cart');
+Route::get('/my-cart', [CartController::class, 'showCart'])->name('show.cart');
+Route::post('/cart/confirm-purchase', [CartController::class, 'confirmPurchase']);
+Route::get('/cart/confirm-payment/{clientSecret}', [CartController::class, 'handlePaymentConfirmation']);
+Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::delete('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.remove');
+Route::get('/successCart', [CartController::class, 'successCart'])->name('successCart');
 
+Route::get('/successSub', [PlanController::class, 'success'])->name('success');
+
+
+Route::post('/checkoutSub/{planId}', [PlanController::class, 'buyPlan'])->name('payment.process');
 
 Route::post('/backoffice/reports', [ReportsController::class, 'approve'])->name('backoffice.reports.approve');
 Route::post('/backoffice/reports/deny', [ReportsController::class, 'deny'])->name('backoffice.reports.deny');
