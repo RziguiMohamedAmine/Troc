@@ -42,9 +42,9 @@
 
         @stack('modals')
 
-        {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
    
-        <script src={{mix('js/app.js')}}></script> --}}
+        <script src={{mix('js/app.js')}}></script>
 
         <script>
             $.ajaxSetup({
