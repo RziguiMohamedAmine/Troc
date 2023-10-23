@@ -76,7 +76,7 @@ class CommentController extends Controller
             $comment->update([
                 'content' => $request->input('content')
             ]);
-    
+            $comment->save();
             return redirect()->back()->with('success', 'Commentaire mis à jour avec succès.');
         } else {
             return redirect()->back()->with('error', 'Vous n\'avez pas la permission de mettre à jour ce commentaire.');

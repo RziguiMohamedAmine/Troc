@@ -58,8 +58,8 @@
     <ul>
     @foreach($blog->comments as $comment)
     <li class="comment-item">
-        <div class="comment-info">
-            <img src="{{ $comment->user->profile_photo_url }}" alt="User Image">
+        <div class="comment-info" style="width: 50px ;height: 50px; margin-top: 2rem;">
+            <img class="" src="{{ $comment->user->profile_photo_url }}" alt="User Image">
         </div>
         <div class="comment-details">
             <div class="comment-header">
@@ -73,7 +73,9 @@
     &#9998; 
     </button>
 
-            <form class="edit-comment-form" id="edit-comment-{{ $comment->id }}" data-comment-id="{{ $comment->id }}" style="display: none;">
+            <form class="edit-comment-form" action="{{ route('comments.update', $comment->id) }}" method="POST" id="edit-comment-{{ $comment->id }}" data-comment-id="{{ $comment->id }}" style="display: none;">
+                @csrf
+                 @method('PUT')
                 <input type="text" class="edit-comment-input" value="{{ $comment->content }}">
                 <button type="submit" class="edit-comment-submit">Enregistrer</button>
             </form>
