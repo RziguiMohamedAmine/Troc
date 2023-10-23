@@ -5,12 +5,13 @@ namespace App\Livewire\Chat;
 use App\Events\MessageSent;
 use App\Models\Conversation;
 use App\Models\Message;
+use App\Models\Reports;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-
+use function Laravel\Prompts\alert;
 
 class Chatbox extends Component
 {
@@ -101,5 +102,14 @@ class Chatbox extends Component
         ]);
         
 
+    }
+
+    public function confirmReport($message_id){
+
+        session()->flash("message", "Reported Successfully");
+        
+        $newReport = Reports::create([
+            'message_id' => $message_id
+        ]);
     }
 }

@@ -257,14 +257,14 @@
 
         //initializing various charts and components
         FlotChart.prototype.init = function() {
-            //plot graph data
-            var uploads = [[0, 12], [1, 8], [2, 5], [3, 8], [4, 5], [5, 14], [6, 10]];
-            var downloads = [[0, 1], [1, 12], [2,4], [3, 3], [4, 12], [5, 4], [6, 12]];
-            var plabels = ["Marketplace","Other Market"];
-            var pcolors = ['#02c58d', '#30419b'];
-            var borderColor = '#222437';
-            var bgColor = '#222437';
-            this.createPlotGraph("#website-stats", uploads, downloads, plabels, pcolors, borderColor, bgColor);
+            // //plot graph data
+            // var uploads = [[0, 12], [1, 8], [2, 5], [3, 8], [4, 5], [5, 14], [6, 10]];
+            // var downloads = [[0, 1], [1, 12], [2,4], [3, 3], [4, 12], [5, 4], [6, 12]];
+            // var plabels = ["Marketplace","Other Market"];
+            // var pcolors = ['#02c58d', '#30419b'];
+            // var borderColor = '#222437';
+            // var bgColor = '#222437';
+            // this.createPlotGraph("#website-stats", uploads, downloads, plabels, pcolors, borderColor, bgColor);
 
             //Pie graph data
             var pielabels = ["Marketplace","Other Market","Direct Sales"];

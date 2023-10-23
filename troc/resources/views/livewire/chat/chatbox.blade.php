@@ -1,10 +1,22 @@
 
 
 <div>
+
  
 
     {{-- Stop trying to control. --}}
-    @if ($this->selectedConversation && $this->receiverInstance)
+@if($this->selectedConversation && $this->receiverInstance)
+
+@if(auth()->user()->warnings >= 3)
+<div class="flex flex-col items-center justify-center h-full">
+    <div class="text-2xl font-bold text-neutral-400">You have been banned from sending messages</div>
+    <div class="text-sm text-neutral-400">
+        To appeal your ban, please contact an admin 
+    </div>
+</div>
+
+
+@else
     <div class="border-b-[1px] border-gray-400 h-16 absolute top-0 w-full flex flex-nowrap " >
 
         <div class="img_container h-12 w-12 my-auto mx-1 ml-6">
@@ -38,7 +50,8 @@
         @foreach($messages as $message)
         
         @if($message->sender_id == auth()->user()->id) 
-        <div class="msg_body bg-sky-500 text-white mx-3 ml-auto rounded-lg p-2 my-1  block w-fit max-w-[80%]">
+    
+        <div class="msg_body bg-sky-500 text-white  rounded-lg p-2 mx-3 ml-auto my-1  block w-fit max-w-[80%]">
             
            {{-- if message body starts with https://res.cloudinary --}}
             @if (strpos($message->body, 'https://res.cloudinary') !== false)
@@ -64,8 +77,11 @@
                 </div>
             </div>
         </div>   
+
         @else
-        <div wire:key="{{$message->id}}" class="msg_body w-fit  bg-neutral-200 rounded-lg p-2 my-2 mx-3 block max-w-[80%]">
+        <div wire:key="{{$message->id}}" class="flex flex-col gap-1 my-2 mx-3 ">
+        <div class="flex  items-center gap-2">
+        <div  class="msg_body w-fit  bg-neutral-200 rounded-lg p-2  block max-w-[80%]">
             @if (strpos($message->body, 'https://res.cloudinary') !== false)
             <img class="rounded-lg" src="{{$message->body}}" alt="" />
             @else
@@ -88,8 +104,26 @@
                 </div>
             </div>
         </div>
+        {{-- check if message body is This message has been deleted by admin --}}
+        @if($message->body != 'This message has been deleted by admin')
+        <button  id="report-button" class="cursor-pointer" wire:click="
+        confirmReport({{ $message->id }})">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d93f3f" viewBox="0 0 256 256"><path d="M124,136V80a4,4,0,0,1,8,0v56a4,4,0,0,1-8,0Zm4,28a8,8,0,1,0,8,8A8,8,0,0,0,128,164Zm108-36a11.87,11.87,0,0,1-3.5,8.45l-96.05,96.06a12,12,0,0,1-16.9,0h0l-96-96.06a12,12,0,0,1,0-16.9l96.05-96.06a12,12,0,0,1,16.9,0l96.05,96.06A11.87,11.87,0,0,1,236,128Zm-8,0a3.9,3.9,0,0,0-1.16-2.79L130.79,29.15a4,4,0,0,0-5.58,0l-96,96.06a3.94,3.94,0,0,0,0,5.58l96.05,96.06a4,4,0,0,0,5.58,0l96.05-96.06A3.9,3.9,0,0,0,228,128Z"></path></svg>
+        </button>
+        @endif
+    </div>
+    <div>
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
+</div>
         @endif
         @endforeach
+        
+@endif
 
 
     </div>
@@ -175,5 +209,7 @@
         }).open();
     }
 </script>
+
+
 
 </div>
