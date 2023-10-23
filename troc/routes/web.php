@@ -144,6 +144,7 @@ Route::get('/cart/confirm-payment/{clientSecret}', [CartController::class, 'hand
 Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::delete('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::get('/successCart', [CartController::class, 'successCart'])->name('successCart');
+Route::get('/redirectToOffre/{notification}',[OffreController::class, 'redirectToOffre'])->name('backoffice.offres.redirectToOffre');
 
 Route::get('/successSub', [PlanController::class, 'success'])->name('success');
 

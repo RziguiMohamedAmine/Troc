@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Offre;
+use App\Models\Notification;
 use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\User;
@@ -39,19 +40,16 @@ class OffreController extends Controller
     {
         // Retrieve all products with their subcategories
         $offres = Offre::all();
-        
+
         return view('backoffice.offres.index', compact('offres'));
     }
     public function store(Request $request)
-{
-    //     $request->validate([
-    //         'offre-name' => 'required|string|max:255|min:3',
-    //         'offre-description' => 'required|string|min:10',
-    //         'offre-type' => 'required|in:offre,service',
-    //         'offre-product_id' => 'required|exists:products,id',
-    //         'offre-value' => 'required|string',
-
-    //     ]);
+    {
+        $request->validate([
+            'offre-description' => 'required|string|min:10',
+            'offre-product_id' => 'required|exists:products,id',
+            'offre-value' => 'required|string',
+        ]);
 
 
         $offre = new Offre();
@@ -60,8 +58,6 @@ class OffreController extends Controller
 
 
         $offre->product_id = $request->input('offre-product_id');
-
-
 
         $offre->user_id = Auth::id();
 
@@ -73,8 +69,15 @@ class OffreController extends Controller
         }
 
         $offre->save();
+        $notification = new Notification();
+        $product = Product::findOrFail($offre->product_id);
 
-        return redirect()->route('products.index')->with('success', 'Offer created successfully!');
+        $notification->message = 'Vous avez reçu une offre pour votre produit '.$product->name;
+        $notification->user_id = $product->user_id;
+        $notification->save();
+
+
+        return redirect()->route('products.show', ['product' => $product])->with('success', 'Offre ajoutée avec succès');
 
     }
 
@@ -86,6 +89,16 @@ class OffreController extends Controller
        $index = Offre::findOrFail($offre);
 
         return view('frontoffice.offres.show',['offre' => $index]);
+    }
+    public function redirectToOffre($notification)
+    {
+        $index = Notification::findOrFail($notification);
+        $index->lu = true;
+        $index->save();
+        $product = Product::findOrFail($index->product_id);
+        $categories = Category::with('subcategories')->get();
+        $offres = Offre::where('product_id',$product->id)->get();
+        return view('frontoffice.products.show', compact('product', 'categories','offres'));
     }
 
     public function showBack($offre)

@@ -123,7 +123,41 @@
 
 
                     <!-- notification -->
+                    <li class="dropdown notification-list list-inline-item">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown"
+                            href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="mdi mdi-bell-outline noti-icon"></i>
+                            @if ($user->notifications->where('lu', 0)->count() > 0)
+                                <span class="badge badge-pill badge-danger noti-icon-badge">
+                                    {{ $user->notifications->where('lu', 0)->count() }}
+                                </span>
+                            @endif
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-lg px-1">
+                            <h6 class="dropdown-item-text">
+                                Notifications
+                            </h6>
+                            <div class="slimscroll notification-item-list">
 
+                                @foreach ($user->notifications as $notification)
+                                    <a href="{{ route('backoffice.offres.redirectToOffre', ['notification' => $notification->id]) }}"
+                                        class="dropdown-item notify-item {{ $notification->lu ? '' : 'active' }}">
+                                        <div class="notify-icon bg-success"><i
+                                                class="mdi mdi-message-text-outline"></i></div>
+                                        <p class="notify-details"><b>Nouvelle offre reçue</b><span class="text-muted">
+                                                {{ $notification->message }}
+                                            </span></p>
+                                    </a>
+                                @endforeach
+
+
+                            </div>
+                            <!-- All-->
+                            <a href="javascript:void(0);" class="dropdown-item text-center notify-all text-primary">
+                                View all <i class="fi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </li>
 
                     <li class="dropdown notification-list list-inline-item">
                         <div class="dropdown notification-list nav-pro-img">
