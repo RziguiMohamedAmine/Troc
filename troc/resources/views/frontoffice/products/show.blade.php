@@ -152,7 +152,7 @@
                         @endif
                         <form method="GET" action="{{ route('claims.create', ['product_id' => $product->id]) }}">
                             @csrf
-                            <button type="submit" class="btn btn-primary">Reclamation</button>
+                            <button type="submit" class="btn btn-primary ml-1">Reclamation</button>
                         </form>
                     </div>
             </div></div>

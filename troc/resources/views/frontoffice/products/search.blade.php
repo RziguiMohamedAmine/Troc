@@ -332,7 +332,12 @@
 
       <!-- Members list -->
       @foreach ($results as $product)
-      <div class="member-box clearfix"  id="productDiv" data-product-id="{{ $product->id }}">
+                                    @php
+                                             $today = \Carbon\Carbon::today();
+                                             $endDate = \Carbon\Carbon::parse($product->end_date);
+                                    @endphp
+                                    @if ($endDate->greaterThanOrEqualTo($today))
+      <div class="member-box clearfix" id="productDiv" data-product-id="{{ $product->id }}">
         <span class="member-offline">&#9679;</span>
         <div class="member-image">
           <div class="img-container yellow cursor" data-goto="/profil/STE75-">
@@ -361,11 +366,22 @@
             @if (!$product->is_offering)
           <div>
             <strong>Je cherche :</strong><span class="text-color1">{{$product->name}}</span><br>
-            @if ($product->exchange_for)
-              <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+          @if ($product->start_date && $product->end_date)
+              @if ($product->exchange_for)
+                <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+                <strong>Service entre : </strong><span class="text-color1"> {{$product->start_date}} et {{$product->end_date}} </span> <br>
               @else
-              <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+                <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong><br>
+                <strong>Service entre : </strong><span class="text-color1"> {{$product->start_date}} </span><strong > et </strong><span class="text-color1"> {{$product->end_date}} </span>
               @endif
+                @else
+            @if ($product->exchange_for)
+                <strong>Echange contre : </strong><span class="text-color1"> {{$product->exchange_for}} </span> <br>
+              @else
+                <strong>Prix : </strong><span class="text-color1"> {{$product->price}} </span> </span><strong class="font-bold"> DT</strong>
+           @endif
+
+           @endif
           </div>
           @else
           <div>
@@ -379,6 +395,7 @@
           @endif
         </div>
       </div>
+       @endif
       @endforeach
 
       @if ($results->isEmpty())

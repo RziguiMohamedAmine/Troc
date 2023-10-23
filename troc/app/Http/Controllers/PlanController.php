@@ -36,7 +36,7 @@ class PlanController extends Controller
             'remise' => $request->input('remise'), // Adjust the field name as needed
         ]);
     
-        return redirect()->route('backoffice.subscription.create')->with('message', 'Plan added successfully');
+        return redirect()->route('backoffice.subscription.show')->with('message', 'Plan added successfully');
     }
 
     public function showBackofficePlans(){
