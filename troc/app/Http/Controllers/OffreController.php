@@ -71,8 +71,9 @@ class OffreController extends Controller
         $offre->save();
         $notification = new Notification();
         $product = Product::findOrFail($offre->product_id);
-
+        $notification->lu =false;
         $notification->message = 'Vous avez reçu une offre pour votre produit '.$product->name;
+        $notification->product_id= $product->id;
         $notification->user_id = $product->user_id;
         $notification->save();
 

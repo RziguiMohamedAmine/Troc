@@ -11,13 +11,13 @@
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h4 class="page-title">Liste Produits</h4>
+                        <h4 class="page-title">Table Editable</h4>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-right">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Produits</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Stexo</a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Liste Produits</li>
+                            <li class="breadcrumb-item active">Table Editable</li>
                         </ol>
                     </div>
                 </div> <!-- end row -->
@@ -29,43 +29,59 @@
                     <div class="card m-b-30">
                         <div class="card-body">
 
-                            <h4 class="mt-0 header-title">Produits</h4>
+                            <h4 class="mt-0 header-title">Examples</h4>
                             <p class="sub-title">just start typing to edit, or move around with arrow keys or mouse clicks!</p>
 
                             <table id="mainTable" class="table table-striped mb-0 table-editable">
                                 <thead>                         
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>                                                                      
-                                    <th>Sub-Categories</th>
+                                    <th>Title</th>
+                                    <th data-priority="3">Category</th>
                                     <th data-priority="6">User</th>
-                                    <th data-priority="6">Details</th>
+                                    <th data-priority="6">Date Publication</th>
+                                    <th data-priority="3">Modifier</th>
+                                    <th data-priority="6">Supprimer</th>
                                     
                                 </tr>
 
                                 </thead>
                                 <tbody>
                                  
-                                    @foreach ($products as $product)
-                                    @php
-                                             $today = \Carbon\Carbon::today(); 
-                                             $endDate = \Carbon\Carbon::parse($product->end_date); 
-                                    @endphp  
-                                    @if ($endDate->greaterThanOrEqualTo($today))         
+                                    @foreach ($blogs as $blog)
                                     <tr>
-                                       
-                                        <td>{{ $product->id }}</td>
-                                        <td>{{ $product->name }}</td> 
-                                        <td>{{ $product->subcategory->name }}</td>
-                                        <td>{{ $product->user->name }}</td>
                                         <td>
-                                            <a href="{{ route('backoffice.products.show',['product'=> $product['id']]) }}"
-                                                class="btn btn-primary">Details</a>
-                                        </td>
+                                        <img src="{{ asset('images/' . $blog->image) }}" alt="{{ $blog->image }}" 
+                                        style="width: 40px; height: 40px;" class="rounded-circle" />          
+                                     </td>
+                                        <td>{{ $blog->title }}</td> 
+                                      
+                                        <span class="lni-user marg-r-XXS"></span>
+                                        <td>@if ($blog->subcategory)
+    <span>{{ $blog->subcategory->name }}</span>
+@else
+    <span>Category inconnu</span>
+@endif
+</td>
+
+                                        <td>{{ $blog->user->name }}</td>
+                                        <td>{{$blog->created_at->format('Y-m-d')}}</td>
+                                        <td><a href="{{route('blogs.edit',$blog->id)}}" class="btn btn-tbl-edit"><i class="fa fa-edit" style="font-size:30px;color:rgb(15, 192, 15)"></i></a></td>
+
+
+                                    <td><a href="{{ route('blogs.destroy', $blog->id) }}"
+                                        onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this blog?')) document.getElementById('delete-blog-form').submit();">
+                                        <i class="fa fa-trash" style="font-size: 30px; color: red;"></i>
+                                     </a>
+                                     
+                                     <form id="delete-blog-form" action="{{ route('blogs.destroy', $blog->id) }}" method="POST" style="display: none;">
+                                         @csrf
+                                         @method('DELETE')
+                                     </form></td> 
+
                                     </tr>
-                                    @endif
                                     @endforeach
-                                    
+                             
                               
                                 </tbody>
                                 <tfoot>

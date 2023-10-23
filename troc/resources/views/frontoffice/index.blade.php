@@ -65,6 +65,11 @@
                 @endif
 
               </li>
+              <li>               
+                <a href="/chat"title="" class="link"
+                  ><i class="lni-question-circle"></i>Chat</a
+                ></a>
+              </li>
               <li>
                 @if(auth()->check())
                 <a href="{{ route('history.index') }}"title="" class="link"
@@ -77,6 +82,27 @@
                   ><i class="lni-users"></i>CHAT</a
                 >
               </li> --}}
+              
+              <li>
+   <ul>
+    <li>
+        <a href="{{ route('frontoffice.blogs.create') }}" title="" class="link" id="create-blog">
+            <i class="lni-envelope"></i> BLOG
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('user.blogs') }}" title="" class="link" id="user-blogs">
+            <i class="lni-question-circle"></i>Mes Blogs
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('all.blogs') }}" title="" class="link" id="all-blogs">
+            <i class="lni-question-circle"></i>all Blogs
+        </a>
+    </li>
+</ul>
+
+         
              
               @if(!auth()->check())
               <li>
@@ -93,6 +119,8 @@
                   ><i class="lni-question-circle"></i>Mes Annonces</a
                 >
               </li>
+             
+            
               <li>
                 @if(auth()->check())
                 <a href="{{ route('profile.show') }}" id="" title="" class="button"><i class="lni-lock"></i><span>Mon compte</span></a>

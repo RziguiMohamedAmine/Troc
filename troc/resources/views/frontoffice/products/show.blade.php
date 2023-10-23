@@ -143,15 +143,19 @@
                     </div>
                     <div class="mt-4 mb-4 flex justify-center items-center ">
                         @if ($product->exchange_for)
+                        @if ($product->user->id !== Auth::id() && $product->is_offering)
                         <a href="{{ route('offres.create', ['product' => $product['id']]) }}">
                             @csrf
                             <button>Echange contre</button>
-                        </a>,
+                        </a>
+                        @endif
                         @else
+                        @if ($product->user->id !== Auth::id() && $product->is_offering)
                         <form action="{{ route('add.to.cart', ['productId' => $product->id]) }}" method="POST">
                             @csrf
                             <button type="submit">Ajouter au Panier</button>
                         </form>
+                        @endif                      
                         @endif
                         <form method="GET" action="{{ route('claims.create', ['product_id' => $product->id]) }}">
                             @csrf
@@ -169,7 +173,7 @@
 
                 @foreach ($offres as $offre)
                     <div class="flex h-16 justify-between w-full items-center overflow-hidden">
-                        <img class="rounded-full h-full w-16" src="{{ asset('images/' . $offre->user->image) }}" />
+                        <img class="rounded-full h-full w-16" src="{{  $offre->user->profile_photo_url }}" />
                         <span>
                             {{ $offre->value }}
                         </span>
