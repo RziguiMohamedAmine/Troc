@@ -63,14 +63,14 @@
                 @else
                 <a href="{{ route('home') }}" title="" class="link"><i class="lni-users"></i>Accueil</a>
                 @endif
-              
+
               </li>
               {{-- <li>
                 <a href="communaute.html" title="" class="link"
-                  ><i class="lni-users"></i>COMMUNAUTÉ</a
+                  ><i class="lni-users"></i>CHAT</a
                 >
               </li> --}}
-              
+
               <li>
                 <a href="contact.html" title="" class="link"
                   ><i class="lni-envelope"></i>CONTACT</a
@@ -103,13 +103,13 @@
                   <i class="lni-pencil-alt"></i><span>Publier une annonce</span>
                 </a>
               </li>
-              
+
               <li>
                 @can('admin', Auth::user())
                 <a href="{{ route('dashboard') }}" id="" title="" class="button"><i class="lni-dashboard"></i><span>dashboard</span></a>
                @endcan
               </li>
-              <li>      
+              <li>
                 @if(auth()->check())
                 <!-- User is logged in, show the "logout" button -->
                 <form method="POST" action="{{ route('logout') }}">
@@ -135,7 +135,7 @@
                 @else
                 <!--Not Connected-->
                 @endif
-                
+
               </li>
             </ul>
           </div>
@@ -159,7 +159,7 @@
               avec les membres de la communauté !
             </p>
           </div>
-  
+
           {{-- @else
           <!-- User is not logged in, do not show the "logout" button -->
          @endif --}}
@@ -944,16 +944,16 @@
           @else
 
           @endif
-          
+
           @if(Route::currentRouteName() === 'login')
           <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
-                       <div class="marg-b" > 
+                       <div class="marg-b" >
                             <a href="{{ route('home') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Connexion</span>
                         </div>
             </div>
             @elseif(Route::currentRouteName() === 'register')
             <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
-              <div class="marg-b" > 
+              <div class="marg-b" >
                    <a href="{{ route('home') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Inscription</span>
                </div>
    </div>
@@ -967,9 +967,9 @@
 
 
 
-      
+
         @yield('content')
-    
+
 
 
 
@@ -1024,7 +1024,7 @@
                 >Saint-Aubin-d'Aubigné
               </div>
             </div>
-  
+
             <div class="ad-box-mini clearfix">
               <div class="ad-image clearfix">
                 <div class="image-container">
@@ -1066,7 +1066,7 @@
                 >
               </div>
             </div>
-  
+
             <div class="member-box-mini clearfix">
               <div class="member-image">
                 <div
@@ -1136,7 +1136,7 @@
 
     <!-- Analytics -->
     <script type="text/javascript">
-    
+
     var gaJsHost =
         "https:" == document.location.protocol ? "https://ssl." : "http://www.";
       document.write(
@@ -1167,4 +1167,4 @@
 
 
 
-      </html>    
+      </html>

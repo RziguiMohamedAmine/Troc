@@ -7,6 +7,14 @@ use \App\Http\Controllers\SubcategoryController;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\CartController;
 use \App\Http\Controllers\PlanController;
+use App\Http\Controllers\ReportsController;
+use \App\Http\Controllers\OffreController;
+
+use App\Livewire\Chat\Chatbox;
+use App\Livewire\Chat\CreateChat;
+use App\Livewire\Chat\Main;
+use App\Livewire\Chat\SendMessage;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +28,9 @@ use \App\Http\Controllers\PlanController;
 
 Route::get('/', function () {
     return view('frontoffice.welcome');
+})->name('welcome');
+Route::get('/chart', function () {
+    return view('backoffice.categories.chart');
 })->name('welcome');
 
 
@@ -54,6 +65,14 @@ config('jetstream.auth_session'),
     Route::get('/users', [UserController::class, 'index'])->name('users');
 });
 
+Route::get("/chat-users", CreateChat::class)->name("chat-users");
+Route::get("/chat{key?}", Main::class)->name("chat");
+
+Route::post('/load-conv', [Chatbox::class, 'loadConversation'])->name('load-conv');
+Route::post('/load-send-message', [SendMessage::class, 'loadSendMessage'])->name('load-send-message');
+Route::post('/send-message', [SendMessage::class, 'sendMessage'])->name('send-message');
+
+Route::post("/upload-image", [Chatbox::class, 'uploadImage'])->name("upload-image");
 Route::middleware([ 'auth:sanctum',
 config('jetstream.auth_session'),
 'verified',
@@ -79,22 +98,24 @@ Route::middleware([
 ])->group(function () {
     Route::resource('products', ProductController::class);
 });
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::resource('offres', OffreController::class);
+});
+Route::post("/check-conversation", [ProductController::class, 'checkConversation'])->name("check-conversation");
 
 Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
-Route::get('/backoffice/plan/show', [PlanController::class, 'showBackofficePlans'])->name('backoffice.subscription.show');
-//Route::post('/backoffice/plan/add', [PlanController::class, 'addBackofficePlans'])->name('backoffice.subscription.create');
-Route::get('/backoffice/plan/add', [PlanController::class, 'create'])->name('backoffice.subscription.create');
-Route::post('/backoffice/plan/add', [PlanController::class, 'addBackofficePlans'])->name('backoffice.subscription.create');
-//Route::get('/home/plans', [PlanController::class, 'showHomePlans'])->name('home.plans');
+Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
+Route::get('/backoffice/products/{product}', [ProductController::class, 'showBack'])->name('backoffice.products.show');
 
-Route::get('/backoffice/plan/{plan}/edit', [PlanController::class, 'edit'])->name('plan.edit');
+Route::get('/backoffice/offres', [OffreController::class, 'showAllBackoffice'])->name('backoffice.offres.index');
+Route::get('/backoffice/offres/{offre}', [OffreController::class, 'showBack'])->name('backoffice.offres.show');
+Route::post('/search',[ProductController::class, 'searchP'])->name('search');
 
-// Update a plan
-Route::put('/backoffice/plan/{plan}', [PlanController::class, 'update'])->name('plan.update');
-
-// Delete a plan
-Route::delete('/backoffice/plan/{plan}', [PlanController::class, 'destroy'])->name('plan.destroy');
-
+Route::get("/backoffice/reports", [ReportsController::class, 'showBackofficeReports'])->name("backoffice.reports.index");
 Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
 Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('add.to.cart');
 Route::get('/my-cart', [CartController::class, 'showCart'])->name('show.cart');
@@ -109,7 +130,8 @@ Route::get('/successSub', [PlanController::class, 'success'])->name('success');
 
 Route::post('/checkoutSub/{planId}', [PlanController::class, 'buyPlan'])->name('payment.process');
 
-
+Route::post('/backoffice/reports', [ReportsController::class, 'approve'])->name('backoffice.reports.approve');
+Route::post('/backoffice/reports/deny', [ReportsController::class, 'deny'])->name('backoffice.reports.deny');
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');

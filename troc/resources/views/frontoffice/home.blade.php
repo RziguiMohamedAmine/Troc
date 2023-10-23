@@ -145,7 +145,10 @@
 
 </div>
 
-  <!-- Info boxes -->
+
+
+
+      <!-- Info boxes -->
   <div id="home-infoboxes-container">
       <div class="container-center">
           <div>

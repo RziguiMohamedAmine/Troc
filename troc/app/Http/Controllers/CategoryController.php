@@ -37,9 +37,10 @@ class CategoryController extends Controller
         'categories' => $categories,
         'categoriesWithPercentages' => $categoriesWithPercentages,
     ]);
+        return view('backoffice.categories.index',['categories'=>Category::all()]);
     }
 
-  
+
 
     public function indexFront()
     {
@@ -100,7 +101,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $categorie)
     {
-       
+
             $request->validate([
                 'categorie-name'=>'required',
                 'categorie-description'=>'required',
@@ -108,11 +109,11 @@ class CategoryController extends Controller
             $updated = Category::findOrFail($categorie);
             $updated->name = strip_tags($request->input('categorie-name'));
             $updated->description = strip_tags($request->input('categorie-description'));
-    
+
             $updated->save();
             return redirect()->route('categories.index',$categorie);
-    
-   
+
+
     }
 
     // public function updateName(Request $request, $id)
@@ -123,7 +124,7 @@ class CategoryController extends Controller
     //      $category->save();
     // }
 
-  
+
 
 
     /**
@@ -143,7 +144,7 @@ class CategoryController extends Controller
      if (!$selectedPlan) {
          return redirect()->route('frontoffice.home')->with('error', 'Invalid plan selected.');
      }
- 
+
      \Stripe\Stripe::setApiKey(config('stripe.sk'));
      $session = \Stripe\Checkout\Session::create([
          'payment_method_types' => ['card'],
@@ -162,13 +163,13 @@ class CategoryController extends Controller
          'success_url' => route('success'),
          'cancel_url' => route('success'), // You may want to set a cancel route
      ]);
- 
+
      // Get the authenticated user
      $user = auth()->user();
- 
+
      // Update the user's plan to the selected plan
      $user->update(['plan' => $selectedPlan->id]);
- 
+
      return redirect()->away($session->url);
 
 }
@@ -188,5 +189,5 @@ public function success(Request $request)
 
 
 
-    
+
 }
