@@ -140,7 +140,10 @@
                     </div>
                     <div class="mt-4 mb-4 flex justify-center items-center ">
                         @if ($product->exchange_for)
-                        <button>Echange contre</button>,
+                        <a href="{{ route('offres.create', ['product' => $product['id']]) }}">
+                            @csrf
+                            <button>Echange contre</button>
+                        </a>,
                         @else
                         <form action="{{ route('add.to.cart', ['productId' => $product->id]) }}" method="POST">
                             @csrf
