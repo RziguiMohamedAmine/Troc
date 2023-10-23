@@ -31,6 +31,7 @@
             display: none;
           }
         </style>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('assets/frontoffice/css/generate/Home.EchangeService.1.css.css')}}"/>
         <link href="{{asset('assets/frontoffice/owlcarousel/owl.carousel.min.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/frontoffice/owlcarousel/owl.theme.default.min.css')}}" rel="stylesheet"/>
@@ -41,11 +42,7 @@
 
       <section id="top">
         <div class="container-center clearfix">
-          <div
-            id="box-headerlogo"
-            class="box clearfix"
-            data-box="CMS top HeaderLogo"
-          >
+          <div id="box-headerlogo" class="box clearfix" data-box="CMS top HeaderLogo">
             <a href="{{ route('home') }}" title="">
               <img src="{{asset('assets/frontoffice/img/logo_es.png')}}" alt="Echange & Service - " />
             </a>
@@ -66,7 +63,13 @@
                 @else
                 <a href="{{ route('home') }}" title="" class="link"><i class="lni-users"></i>Accueil</a>
                 @endif
-              
+
+              </li>
+              <li>
+                @if(auth()->check())
+                <a href="{{ route('history.index') }}"title="" class="link"
+                  ><i class="lni-question-circle"></i>History</a
+                ></a>@endif
               </li>
               <li>
                 @if(auth()->check())
@@ -76,7 +79,7 @@
               </li>
               {{-- <li>
                 <a href="communaute.html" title="" class="link"
-                  ><i class="lni-users"></i>COMMUNAUTÉ</a
+                  ><i class="lni-users"></i>CHAT</a
                 >
               </li> --}}
               <li>
@@ -89,10 +92,19 @@
                   ><i class="lni-envelope"></i>CONTACT</a
                 >
               </li>
+              @if(!auth()->check())
               <li>
                 <a href="{{ route('register') }}" title="" class="link"
                   ><i class="lni-user marg-r-XS" style="display: inline-block"></i
                   >INSCRIPTION GRATUITE</a
+                >
+              </li>
+              @else
+                     <!--Not Connected-->
+              @endif
+              <li>
+                <a href="{{ route('user.products') }}" title="" class="link"
+                  ><i class="lni-question-circle"></i>Mes Annonces</a
                 >
               </li>
               <li>
@@ -103,11 +115,11 @@
                 @endif
               </li>
               <li>
-                <a href="publier.html" title="" class="button highlight">
+                <a href="{{ route('products.create') }}" title="" class="button highlight">
                   <i class="lni-pencil-alt"></i><span>Publier une annonce</span>
                 </a>
               </li>
-              <li>      
+              <li>
                     @if(auth()->check())
                     <!-- User is logged in, show the "logout" button -->
                     <form method="POST" action="{{ route('logout') }}">
@@ -122,11 +134,8 @@
                       <button type="submit">
                           <a href="{{ route('login') }}"><i class="lni-user marg-r-XS"></i>Login</a>
                       </button>
-                  </form>
-                @endif
-
-
-
+                </form>
+                 @endif
               </li>
             </ul>
           </div>
@@ -137,7 +146,7 @@
           <div class="clear"></div>
 
 
-          @if(!auth()->check())
+         {{-- @if(auth()->check()) --}}
           <div id="es-home-header-title">
             <h1>
               <span class="text-color1">ECHANGE</span> &
@@ -150,7 +159,7 @@
               avec les membres de la communauté !
             </p>
           </div>
-  
+
           @else
           <!-- User is not logged in, do not show the "logout" button -->
          @endif
@@ -936,7 +945,7 @@
                   <option value="mode">Mode</option>
 =======
                 <select name="product-subcategory_id">
-                  
+
 >>>>>>> Stashed changes
                 </select>
               </div>
@@ -947,13 +956,13 @@
           </div>
           @if(Route::currentRouteName() === 'login')
           <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
-                       <div class="marg-b" > 
+                       <div class="marg-b" >
                             <a href="{{ route('home') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Connexion</span>
                         </div>
             </div>
             @elseif(Route::currentRouteName() === 'register')
             <div id="box-headerbreadcrumb" class="box clearfix"  data-box="CMS header HeaderBreadcrumb">
-              <div class="marg-b" > 
+              <div class="marg-b" >
                    <a href="{{ route('home') }}" title="" class="text-lighter" >Accueil</a> / <span class="sub-breadcrumb">Inscription</span>
                </div>
    </div>
@@ -967,9 +976,9 @@
 
 
 
-      
+
         @yield('content')
-    
+
 
 
 
@@ -1024,7 +1033,7 @@
                 >Saint-Aubin-d'Aubigné
               </div>
             </div>
-  
+
             <div class="ad-box-mini clearfix">
               <div class="ad-image clearfix">
                 <div class="image-container">
@@ -1066,7 +1075,7 @@
                 >
               </div>
             </div>
-  
+
             <div class="member-box-mini clearfix">
               <div class="member-image">
                 <div
@@ -1136,7 +1145,7 @@
 
     <!-- Analytics -->
     <script type="text/javascript">
-    
+
     var gaJsHost =
         "https:" == document.location.protocol ? "https://ssl." : "http://www.";
       document.write(
@@ -1167,4 +1176,4 @@
 
 
 
-      </html>    
+      </html>

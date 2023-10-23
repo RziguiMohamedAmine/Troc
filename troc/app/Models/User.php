@@ -65,10 +65,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function formattedRoles()
     {
         return implode(', ', $this->getRoleNames()->toArray());
-    }
-<<<<<<< Updated upstream
-=======
 
+    }
     public function products()
     {
          return $this->hasMany(Product::class);
@@ -78,5 +76,4 @@ class User extends Authenticatable implements MustVerifyEmail
     return $this->hasMany(History::class, 'user_id');
 }
 
->>>>>>> Stashed changes
 }
