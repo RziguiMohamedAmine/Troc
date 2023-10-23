@@ -10,6 +10,8 @@ use App\Livewire\Chat\SendMessage;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\SubcategoryController;
 use \App\Http\Controllers\ProductController;
+use \App\Http\Controllers\BlogController;
+use \App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,7 +91,43 @@ Route::middleware([
 });
 
 Route::get('/my-products', [ProductController::class, 'userProducts'])->name('user.products');
-Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
+Route::get('/my-blogs', [BlogController::class, 'userBlogs'])->name('user.blogs');
+Route::get('/allblogs', [BlogController::class, 'allBlogs'])->name('all.blogs');
+Route::get('/blog/create', [BlogController::class, 'createfront'])->name('frontoffice.blogs.create');
+Route::delete('/blogs/{id}', [BlogController::class, 'destroyfront'])->name('blogs.destroyfront');
+Route::get('/blog/{id}', [BlogController::class, 'editfront'])->name('blogs.editfront');
+Route::post('/backoffice/blogs', [BlogController::class, 'storeBack'])->name('blogs.storeBack');
+Route::put('/blogs/{blog}', [BlogController::class, 'updateback'])->name('blogs.updateback');
+
+
+
+
+Route::get('/backoffice/products', [ProductController::class, ''])->name('backoffice.products.index');
+
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
 
 //Route::post('categories/update-name/{category}', 'CategoryController@updateName')->name('categories.update-name');
 //Route::post('categories/update-name/{id}', 'CategoryController@updateName')->name('categories.update-name');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::resource('blogs', BlogController::class);
+});
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::resource('comments', CommentController::class);
+});
+Route::resource('comments', CommentController::class)->parameters([
+    'comments' => 'comment'
+]);
+
+Route::post('/blog/create/', [BlogController::class, 'createFront'])->name('frontoffice.blogs.create');
+
+
+

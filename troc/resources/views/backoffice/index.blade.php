@@ -225,6 +225,13 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Blogs <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li><a href="{{ route('blogs.index') }}">List Of Blogs</a></li>                      
+                            <li><a href="{{ route('blogs.create') }}">Add Blog</a></li>                      
+                        </ul>
+                    </li>
+                    <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Sub Categories <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
                             {{-- <li><a href="{{ route('subcategories.index') }}">List Of SubCategories</a></li>                     --}}
