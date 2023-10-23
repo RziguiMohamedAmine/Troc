@@ -90,7 +90,9 @@
                                         <td>{{ $product->subcategory->name }}</td>
                                         <td>{{ $product->subcategory->category->name }}</td>
                                         <td>{{ $product->user->name }}</td>
-                                        <td>{{$product->created_at->format('Y-m-d')}}</td>
+                                        <td>{{
+                                            $product->created_at?$product->created_at->format('Y-m-d'):""
+                                            }}</td>
                                     </tr>
                                     @endforeach
 

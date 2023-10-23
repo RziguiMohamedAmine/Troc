@@ -153,3 +153,17 @@ Route::post('/checkoutSub/{planId}', [PlanController::class, 'buyPlan'])->name('
 Route::post('/backoffice/reports', [ReportsController::class, 'approve'])->name('backoffice.reports.approve');
 Route::post('/backoffice/reports/deny', [ReportsController::class, 'deny'])->name('backoffice.reports.deny');
 
+
+Route::get('/backoffice/plan/show', [PlanController::class, 'showBackofficePlans'])->name('backoffice.subscription.show');
+//Route::post('/backoffice/plan/add', [PlanController::class, 'addBackofficePlans'])->name('backoffice.subscription.create');
+Route::get('/backoffice/plan/add', [PlanController::class, 'create'])->name('backoffice.subscription.create');
+Route::post('/backoffice/plan/add', [PlanController::class, 'addBackofficePlans'])->name('backoffice.subscription.create');
+//Route::get('/home/plans', [PlanController::class, 'showHomePlans'])->name('home.plans');
+
+Route::get('/backoffice/plan/{plan}/edit', [PlanController::class, 'edit'])->name('plan.edit');
+
+// Update a plan
+Route::put('/backoffice/plan/{plan}', [PlanController::class, 'update'])->name('plan.update');
+
+// Delete a plan
+Route::delete('/backoffice/plan/{plan}', [PlanController::class, 'destroy'])->name('plan.destroy');
