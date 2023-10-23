@@ -176,9 +176,7 @@
             </p>
           </div>
 
-          @else
-          <!-- User is not logged in, do not show the "logout" button -->
-         @endif
+
 
          @if(auth()->check())
           <div id="box-headersearch" class="box clearfix" data-box="ES header HeaderSearch" >
@@ -958,7 +956,7 @@
             </form>
           </div>
           @else
-
+          <p></p>
           @endif
 
           <div
