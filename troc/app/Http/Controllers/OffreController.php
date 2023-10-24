@@ -49,6 +49,7 @@ class OffreController extends Controller
             'offre-description' => 'required|string|min:10',
             'offre-product_id' => 'required|exists:products,id',
             'offre-value' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
 

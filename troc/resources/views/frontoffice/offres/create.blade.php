@@ -10,7 +10,7 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-        <h1 class="text-center title-underline-center">Publier une annonce</h1>
+        <h1 class="text-center title-underline-center">Votre Offre</h1>
         <div id="ad-publish" style="margin-left: 170px">
 
 
@@ -21,7 +21,7 @@
 
                 <!-- Annonce -->
                 <div class="fields-box clearfix">
-                    <h3>Votre annonce pour <b>
+                    <h3>Votre offre pour <b>
                             {{ $product->name }}
                         </b></h3>
                     <div class="padd-b">
@@ -80,9 +80,9 @@
 
 
                     <div class="padd-b" id="exchange-field">
-                        <label for="offre-value">Value</label>
+                        <label for="offre-value">Titre de votre bien</label>
                         <input type="text" name="offre-value" id="ad_value" value="{{ old('offre-value') }}"
-                            placeholder="Value" class="inline-block width-100" required>
+                            placeholder="titre de votre bien" class="inline-block width-100" required>
                         @error('offre-value')
                             <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                                 {{ $message }}
@@ -95,7 +95,7 @@
                     <label>Description</label>
                     <div class="padd-b relative">
 
-                        <textarea name="offre-description" value="{{ old('offre-description') }}" rows="4" class="width-100"></textarea>
+                        <textarea required name="offre-description" value="{{ old('offre-description') }}" rows="4" class="width-100"></textarea>
                         @error('offre-description')
                             <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
                                 {{ $message }}
@@ -108,7 +108,11 @@
                     <div class="text-center">
                         <i class="lni-download block xxlarge text-center marg-b-XS"></i>
                         <input type="file" name="image" id="image" accept="image/*" />
-
+                        @error('image')
+                        <div class="form-error bg-red-500 h-8 w-36 text-white rounded-md mt-1 pl-4">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     </div>
 
 
