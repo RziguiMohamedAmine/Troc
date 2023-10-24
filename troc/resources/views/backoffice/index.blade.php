@@ -92,7 +92,7 @@
                         <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown"
                             href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="mdi mdi-bell-outline noti-icon"></i>
-                            @if ($user->notifications->where('lu', 0)->count() > 0)
+                            @if  ($user &&$user->notifications && $user->notifications->where('lu', 0)->count() > 0)
                                 <span class="badge badge-pill badge-danger noti-icon-badge">
                                     {{ $user->notifications->where('lu', 0)->count() }}
                                 </span>
@@ -102,6 +102,7 @@
                             <h6 class="dropdown-item-text">
                                 Notifications
                             </h6>
+                            @if($user && $user->notifications)
                             <div class="slimscroll notification-item-list">
 
                                 @foreach ($user->notifications as $notification)
@@ -117,6 +118,7 @@
 
 
                             </div>
+                            @endif
                             <!-- All-->
                             <a href="javascript:void(0);" class="dropdown-item text-center notify-all text-primary">
                                 View all <i class="fi-arrow-right"></i>
@@ -204,21 +206,21 @@
 
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i
-                                    class="mdi mdi-account-circle"></i><span> Users <span
+                                    class="mdi mdi-account-circle"></i><span> utilisateurs <span
                                         class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
                                 </span></a>
                             <ul class="submenu">
-                                <li><a href="{{ route('users') }}">List Of users</a></li>
+                                <li><a href="{{ route('users') }}">List des utilisateurs</a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i
-                                    class="icon-todolist-check"></i><span> Products<span
+                                    class="icon-todolist-check"></i><span> Produits<span
                                         class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
                                 </span></a>
                             <ul class="submenu">
                                 <li>
-                                    <a href="{{ route('backoffice.products.index') }}">List Of Productss</a>
+                                    <a href="{{ route('backoffice.products.index') }}">List des produits</a>
                                 </li>
                             </ul>
                         </li>
@@ -237,12 +239,12 @@
                             <a href="javascript:void(0);" class=" lni-cart"><i class="mdi mdi-account-circle"></i><span> Abonnements <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
                             <li><a href="{{ route('backoffice.subscription.create') }}">Ajouter Abonnements</a></li>
-                            <li><a href="{{ route('backoffice.subscription.show') }}">Consulter Liste des Abonnements</a></li>
+                            <li><a href="{{ route('backoffice.subscription.show') }}">Liste des Abonnements</a></li>
                             </ul>
 
 
                             </li>
-                            
+
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i
                                     class="icon-todolist-check"></i><span> Reports<span
@@ -258,9 +260,9 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Blogs <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="{{ route('blogs.index') }}">List Of Blogs</a></li>                      
-                                <li><a href="{{ route('blogs.create') }}">Add Blog</a></li>
-                            </ul>   
+                                <li><a href="{{ route('blogs.index') }}">Liste des Blogs</a></li>
+                                <li><a href="{{ route('blogs.create') }}">Ajouter Blog</a></li>
+                            </ul>
 
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i
@@ -268,8 +270,8 @@
                                         class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
                                 </span></a>
                             <ul class="submenu">
-                                <li><a href="{{ route('categories.index') }}">List Of Categories</a></li>
-                                <li><a href="{{ route('categories.create') }}">Add Categories</a></li>
+                                <li><a href="{{ route('categories.index') }}">List des Categories</a></li>
+                                <li><a href="{{ route('categories.create') }}">ajouter Categories</a></li>
                             </ul>
                         </li>
                         <li>
@@ -279,10 +281,10 @@
                                 </span></a>
                             <ul class="submenu">
                                 {{-- <li><a href="{{ route('subcategories.index') }}">List Of SubCategories</a></li>                     --}}
-                                <li><a href="{{ route('subcategories.create') }}">Add SubCategories</a></li>
+                                <li><a href="{{ route('subcategories.create') }}">ajouter SubCategories</a></li>
                             </ul>
                         </li>
- 
+
 
                     </ul>
 

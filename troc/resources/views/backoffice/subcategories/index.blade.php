@@ -11,13 +11,13 @@
             <div class="page-title-box">
                 <div class="row align-items-center">
                     <div class="col-sm-6">
-                        <h4 class="page-title">Table Editable</h4>
+                        <h4 class="page-title">Sub Categories</h4>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-right">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Stexo</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Tables</a></li>
-                            <li class="breadcrumb-item active">Table Editable</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Liste</a></li>
+                           
+                            <li class="breadcrumb-item active">Sub Categories</li>
                         </ol>
                     </div>
                 </div> <!-- end row -->
@@ -29,7 +29,7 @@
                     <div class="card m-b-30">
                         <div class="card-body">
 
-                            <h4 class="mt-0 header-title">Examples</h4>
+                            <h4 class="mt-0 header-title">Sub Categories</h4>
                             <p class="sub-title">just start typing to edit, or move around with arrow keys or mouse clicks!</p>
 
                             <table id="mainTable" class="table table-striped mb-0 table-editable">

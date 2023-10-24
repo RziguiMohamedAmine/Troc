@@ -36,19 +36,29 @@
         <link href="{{asset('assets/frontoffice/owlcarousel/owl.carousel.min.css')}}" rel="stylesheet" />
         <link href="{{asset('assets/frontoffice/owlcarousel/owl.theme.default.min.css')}}" rel="stylesheet"/>
         <script async src="{{asset('assets/frontoffice/pagead/js/f.txt')}}"></script>
+        <link href="{{ asset('assets/backoffice/css/metismenu.min.css') }}" rel="stylesheet" type="text/css">
+
+        <link href="{{ asset('assets/backoffice/css/icons.css') }}" rel="stylesheet" type="text/css">
         <!--<script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-0184352842429596", enable_page_level_ads: true });</script>-->
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
       </head>
       <style>
-        .dropdown:hover .dropdown-menu {
+        .dropdownss:hover .dropdown-menuss {
             display: flex !important;
             padding: 16px 8px;
             border-radius: 15px;
-            width:100px;
+            width:300px;
             flex-direction:column;
             gap:8px;
         }
-        .dropdown-menu .link{
+        .dropdown-item{
+            padding-inline:4px;
+        }
+        .dropdown-item.active, .dropdown-item:active{
+            background-color: #2e304a8a;
+            color: var(--blue);
+        }
+        .dropdown-menuss .link{
             color:black !important;
             text-transform: capitalize;
             padding:0 !important;
@@ -89,14 +99,14 @@
               <li>
                 @if(auth()->check())
                 <a href="{{ route('history.index') }}"title="" class="link"
-                  ><i class="lni-question-circle"></i>History</a
+                  ><i class="lni-question-circle"></i>Historique</a
                 ></a>@endif
               </li>
-              <li class="dropdown relative">
+              <li class="dropdownss relative">
                 <a href="#" title="" class="link" id="user-blogs cursor-pointer">
                     <i class="lni-question-circle"></i>Blogs
                 </a>
-                <div class="dropdown-menu hidden absolute top-full left-0 bg-white  p-[8px]">
+                <div class="dropdown-menuss hidden absolute top-full left-0 bg-white  p-[8px]">
                     <a href="{{ route('frontoffice.blogs.create') }}" title="" class="link" id="create-blog">
                         <i class="lni-envelope"></i>BLOG
                     </a>
@@ -109,17 +119,6 @@
                 </div>
               </li>
 
-              {{-- <li>
-                <a href="communaute.html" title="" class="link"
-                  ><i class="lni-users"></i>CHAT</a
-                >
-              </li> --}}
-
-              <li>
-   <ul>
-   
-
-</ul>
 
 
 
@@ -138,7 +137,28 @@
                   ><i class="lni-question-circle"></i>Mes Annonces</a
                 >
               </li>
-
+              <li class="dropdownss relative">
+                @if ( $user &&$user->notifications &&$user->notifications->where('lu', 0)->count() > 0)
+                <div style="width:14px;height:14px;right:-2px;top:-4px;color:white" class="flex justify-center items-center absolute -top-1 right-0 bg-red-500 rounded-full text-sm aspect-square">
+                    {{ $user->notifications->where('lu', 0)->count() }}
+                </div>
+                @endif
+                    <i style="font-size:30px" class="mdi mdi-bell-outline noti-icon"></i>
+                    @if( $user && $user->notifications)
+                <div class="dropdown-menuss hidden absolute top-full right-0 bg-white  p-[8px]">
+                    @foreach ($user->notifications as $notification)
+                    <a href="{{ route('backoffice.offres.redirectToOffre', ['notification' => $notification->id]) }}"
+                        class="dropdown-item notify-item {{ $notification->lu ? '' : 'active' }}">
+                        <div class="notify-icon bg-success"><i
+                                class="mdi mdi-message-text-outline"></i></div>
+                        <p class="notify-details"><b>Nouvelle offre reçue</b><br/><span class="text-muted">
+                                {{ $notification->message }}
+                            </span></p>
+                    </a>
+                @endforeach
+                </div>
+                @endif
+            </li>
 
               <li>
                 @if(auth()->check())
@@ -149,7 +169,7 @@
               </li>
               <li>
                 <a href="{{ route('products.create') }}" title="" class="button highlight">
-                  <i class="lni-pencil-alt"></i><span>Publier une annonce</span>
+                  <i class="lni-pencil-alt"></i><span>Publier</span>
                 </a>
               </li>
 
@@ -169,6 +189,7 @@
                 @endif
 
               </li>
+
               <li>
                 @if(auth()->check())
                 <!-- User is logged in, show the "logout" button -->
