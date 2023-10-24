@@ -19,6 +19,34 @@ class ClaimController extends Controller
     
         return view('frontoffice.claims.create', compact('product'));
     }
+
+    public function showBackofficeClaims()
+    {
+        $listClaims = Claim::with(['user', 'product'])->get();
+    
+        return view('backoffice.Claims.index', compact('listClaims'));
+    }
+
+    public function sendApproval(Request $request)
+    {
+        $claimId = $request->input('claim_id');
+        $approvalComment = $request->input('approvalComment');
+    
+        // Retrieve the claim
+        $claim = Claim::findOrFail($claimId);
+        $user = $claim->user;
+
+        logger($user->email);
+        logger($approvalComment);
+    
+        // Send the email
+        Mail::to($user->email)->send(new ApprovalEmail($approvalComment));
+    
+        // You can add any additional logic, such as marking the claim as approved, here.
+        session()->flash('success', 'Approval email sent successfully.');
+    
+        return redirect()->route('backoffice.Claims.index')->with('success', 'Approval email sent successfully.');
+    }
     
    
     

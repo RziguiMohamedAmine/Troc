@@ -174,6 +174,9 @@ Route::get('/backoffice/offres/{offre}', [OffreController::class, 'showBack'])->
 Route::post('/search',[ProductController::class, 'searchP'])->name('search');
 
 Route::get("/backoffice/reports", [ReportsController::class, 'showBackofficeReports'])->name("backoffice.reports.index");
+
+Route::get("/backoffice/claims", [ClaimController::class, 'showBackofficeClaims'])->name("backoffice.Claims.index");
+
 Route::get('/backoffice/products', [ProductController::class, 'showBackofficeProducts'])->name('backoffice.products.index');
 Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('add.to.cart');
 Route::get('/my-cart', [CartController::class, 'showCart'])->name('show.cart');

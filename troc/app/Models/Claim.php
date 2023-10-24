@@ -14,4 +14,9 @@ class Claim extends Model
     {
         return $this->belongsTo(User::class); // Assuming there is a User model for the customer.
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }
