@@ -99,7 +99,7 @@
               <li>
                 @if(auth()->check())
                 <a href="{{ route('history.index') }}"title="" class="link"
-                  ><i class="lni-question-circle"></i>History</a
+                  ><i class="lni-question-circle"></i>Historique</a
                 ></a>@endif
               </li>
               <li class="dropdownss relative">

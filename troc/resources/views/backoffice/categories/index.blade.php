@@ -36,7 +36,7 @@
 
                             <div class="row align-items-center">
                                 <div class="col-sm-6">
-                                    <h4 class="mt-0 header-title">Examples</h4>
+                                    <h4 class="mt-0 header-title">Categories</h4>
                                     <p class="sub-title">just start typing to edit, or move around with arrow keys or mouse
                                         clicks!</p>
                                 </div>
