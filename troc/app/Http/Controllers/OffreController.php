@@ -150,11 +150,15 @@ class OffreController extends Controller
         // $product->offres()->delete();
         $offres = Offre::where('product_id',$product->id)->get();
         $notifications = Notification::where('product_id',$product->id)->get();
+        $history = History::where('product_id',$product->id)->get();
         foreach ($offres as $offre) {
             $offre->delete();
         }
         foreach ($notifications as $notification) {
             $notification->delete();
+        }
+        foreach ($history as $history) {
+            $history->delete();
         }
         $product->delete();
 
