@@ -151,7 +151,7 @@ class ProductController extends Controller
     {
        $product = Product::findOrFail($product);
        $categories = Category::with('subcategories')->get();
-       $offres = Offre::where('product_id',$product->id)->get();
+       $offres = Offre::where('product_id',$product->id)->where('user_id',$product->user_id)->get();
 
          return view('frontoffice.products.show',compact('product', 'categories','offres'));
     }
@@ -254,7 +254,7 @@ class ProductController extends Controller
                 return redirect()->route('chat');
 
             }else{
-               
+
                 $createdConversation = Conversation::create([
                     'sender_id' => auth()->user()->id,
                     'receiver_id' => $receiverId,

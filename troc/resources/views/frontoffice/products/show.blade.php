@@ -155,7 +155,7 @@
                             @csrf
                             <button type="submit">Ajouter au Panier</button>
                         </form>
-                        @endif                      
+                        @endif
                         @endif
                         <form method="GET" action="{{ route('claims.create', ['product_id' => $product->id]) }}">
                             @csrf
@@ -167,6 +167,7 @@
 
         </div>
         <!-- Ads -->
+        @if($offres->count() > 0)
         <div id="profile-ads " style="margin-top:16px">
             <h4 class="text-center">Les offres</h4>
             <div class="ad-box">
@@ -185,6 +186,7 @@
                 @endforeach
             </div>
         </div>
+        @endif
         <div id="profile-ads">
             <h4>Mes annonces</h4>
             <div class="ad-box text-center">Aucune annonce pour le moment</div>
