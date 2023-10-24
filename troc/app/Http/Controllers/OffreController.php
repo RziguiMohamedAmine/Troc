@@ -10,6 +10,7 @@ use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\History;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
