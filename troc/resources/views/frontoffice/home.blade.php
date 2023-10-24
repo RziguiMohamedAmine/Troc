@@ -8,7 +8,7 @@
       <div class="container-center clearfix">
           <div id="slide-members" class="owl-carousel">
               @foreach ($products as $product)
-                  <div class="member-box clearfix">
+                  <div class="member-box clearfix" id="productDiv" data-product-id="{{ $product->id }}">
                       <span class="member-offline">&#9679;</span>
                       <div class="member-image">
                           <div class="img-container blue cursor" data-goto="/profil/GeraldineD">
@@ -179,3 +179,40 @@
   @endif
 </section>
 @endsection
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var productDiv = document.getElementById("productDiv");
+
+    productDiv.addEventListener("click", function() {
+        var productId = productDiv.getAttribute("data-product-id");
+        var userId = "{{ auth()->user()->id ?? null }}";
+
+        console.log("Product ID: " + productId);
+        console.log("User ID: " + userId);
+
+        if (userId && productId) {
+          fetch(`/add-to-history/${userId}/${productId}`, {
+    method: "POST", // Change the method to POST
+    headers: {
+        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+        "Content-Type": "application/json", // Set the content type if needed
+    },
+    body: JSON.stringify({}), // Include an empty body or data if necessary
+})
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Product added to history!");
+                } else {
+                    console.log("Failed to add product to history.");
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+
+        window.location.href = "/products/" + productId;
+    });
+});
+</script>
