@@ -32,10 +32,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row m-t-30" style="margin-left:8rem;">
+            <div class="row m-t-30" style="margin-inline:auto;justify-content:center">
                 <div class="col-xl-11 col-md-6">
                     <div class="card pricing-box mt-4">
-                        <div class="pricing-icon " style="margin-left: 24rem;">
+                        <div class="pricing-icon " style="margin-inline:auto;">
                             @if ($offre->image)
                                 <img src="{{ asset('images/' . $offre->image) }}" alt="{{ $offre->image }}"
                                     style="width: 150px; height: 150px;" class="" />
