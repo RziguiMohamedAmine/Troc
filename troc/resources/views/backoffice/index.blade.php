@@ -92,7 +92,7 @@
                         <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown"
                             href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="mdi mdi-bell-outline noti-icon"></i>
-                            @if  ($user->notifications && $user->notifications->where('lu', 0)->count() > 0)
+                            @if  ($user &&$user->notifications && $user->notifications->where('lu', 0)->count() > 0)
                                 <span class="badge badge-pill badge-danger noti-icon-badge">
                                     {{ $user->notifications->where('lu', 0)->count() }}
                                 </span>
@@ -102,7 +102,7 @@
                             <h6 class="dropdown-item-text">
                                 Notifications
                             </h6>
-                            @if( $user->notifications)
+                            @if($user && $user->notifications)
                             <div class="slimscroll notification-item-list">
 
                                 @foreach ($user->notifications as $notification)
