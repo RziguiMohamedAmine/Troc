@@ -182,6 +182,17 @@
                             {{ $offre->description }}
                         </span>
                         <img class="h-full w-16" src="{{ asset('images/' . $offre->image) }}" />
+                        <div class="flex gap-4 items-center">
+
+                            <form id="offres-form-accept"  method="GET" action="{{ route('offres.acceptfront',['id' => $offre->product_id]) }}">
+                                @csrf
+                                <button onclick="event.preventDefault(); if (confirm('Etes-vous sûr de vouloir accepter cette offre ?')) document.getElementById('offres-form-accept').submit();" type="submit" class="btn btn-primary ml-1">Accepter</button>
+                            </form>
+                            <form id="offres-form"  method="GET" action="{{ route('offres.destroyfront',['id' => $offre->id]) }}">
+                                @csrf
+                                <button onclick="event.preventDefault(); if (confirm('Etes-vous sûr de vouloir refuser cette offre ?')) document.getElementById('offres-form').submit();" type="submit" class="btn btn-primary ml-1">Refuser</button>
+                            </form>
+                        </div>
                     </div>
                 @endforeach
             </div>

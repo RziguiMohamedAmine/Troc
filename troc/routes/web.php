@@ -120,6 +120,8 @@ Route::get('/blog/{id}', [BlogController::class, 'editfront'])->name('blogs.edit
 Route::post('/backoffice/blogs', [BlogController::class, 'storeBack'])->name('blogs.storeBack');
 Route::put('/blogs/{blog}', [BlogController::class, 'updateback'])->name('blogs.updateback');
 
+Route::get('/offres/delete/{id}', [OffreController::class, 'destroyOffrefront'])->name('offres.destroyfront');
+Route::get('/offres/accept/{id}', [OffreController::class, 'acceptOffrefront'])->name('offres.acceptfront');
 
 
 

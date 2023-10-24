@@ -126,11 +126,40 @@ class OffreController extends Controller
         //
     }
 
+
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroyOffrefront ( $offre)
     {
-        //
+        $offre = Offre::findOrFail($offre);
+        $product_id = $offre->product_id;
+        $offre->delete();
+
+        $product = Product::findOrFail($product_id);
+        $categories = Category::with('subcategories')->get();
+        $offres = Offre::where('product_id',$product->id)->where('user_id',$product->user_id)->get();
+
+        //   return view('frontoffice.products.show',compact('product', 'categories','offres'));
+        return redirect()->route('products.show', ['product' => $product])->with('success', 'Offre supprimée avec succès');
+    }
+    public function acceptOffrefront ( $id)
+    {
+        $product = Product::findOrFail($id);
+        // $product->offres()->delete();
+        $offres = Offre::where('product_id',$product->id)->get();
+        $notifications = Notification::where('product_id',$product->id)->get();
+        foreach ($offres as $offre) {
+            $offre->delete();
+        }
+        foreach ($notifications as $notification) {
+            $notification->delete();
+        }
+        $product->delete();
+
+
+        $categories = Category::with('subcategories')->get();
+        return redirect()->route('home');
     }
 }

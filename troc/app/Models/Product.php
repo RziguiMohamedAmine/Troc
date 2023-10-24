@@ -19,5 +19,9 @@ class Product extends Model
     {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
     }
+    public function offres()
+    {
+        return $this->belongsTo(Offre::class, 'offre_id');
+    }
 
 }
