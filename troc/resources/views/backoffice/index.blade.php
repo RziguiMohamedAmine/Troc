@@ -92,7 +92,7 @@
                         <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown"
                             href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="mdi mdi-bell-outline noti-icon"></i>
-                            @if ($user->notifications->where('lu', 0)->count() > 0)
+                            @if  ($user->notifications && $user->notifications->where('lu', 0)->count() > 0)
                                 <span class="badge badge-pill badge-danger noti-icon-badge">
                                     {{ $user->notifications->where('lu', 0)->count() }}
                                 </span>
@@ -102,6 +102,7 @@
                             <h6 class="dropdown-item-text">
                                 Notifications
                             </h6>
+                            @if( $user->notifications)
                             <div class="slimscroll notification-item-list">
 
                                 @foreach ($user->notifications as $notification)
@@ -117,6 +118,7 @@
 
 
                             </div>
+                            @endif
                             <!-- All-->
                             <a href="javascript:void(0);" class="dropdown-item text-center notify-all text-primary">
                                 View all <i class="fi-arrow-right"></i>
@@ -242,7 +244,7 @@
 
 
                             </li>
-                            
+
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i
                                     class="icon-todolist-check"></i><span> Reports<span
@@ -258,9 +260,9 @@
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-circle"></i><span> Blogs <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                             <ul class="submenu">
-                                <li><a href="{{ route('blogs.index') }}">List Of Blogs</a></li>                      
+                                <li><a href="{{ route('blogs.index') }}">List Of Blogs</a></li>
                                 <li><a href="{{ route('blogs.create') }}">Add Blog</a></li>
-                            </ul>   
+                            </ul>
 
                         <li>
                             <a href="javascript:void(0);" class="waves-effect"><i
@@ -282,7 +284,7 @@
                                 <li><a href="{{ route('subcategories.create') }}">Add SubCategories</a></li>
                             </ul>
                         </li>
- 
+
 
                     </ul>
 

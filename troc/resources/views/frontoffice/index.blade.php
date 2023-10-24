@@ -138,13 +138,13 @@
                 >
               </li>
               <li class="dropdownss relative">
-                @if ($user->notifications->where('lu', 0)->count() > 0)
+                @if ( $user->notifications &&$user->notifications->where('lu', 0)->count() > 0)
                 <div style="width:14px;height:14px;right:-2px;top:-4px;color:white" class="flex justify-center items-center absolute -top-1 right-0 bg-red-500 rounded-full text-sm aspect-square">
                     {{ $user->notifications->where('lu', 0)->count() }}
                 </div>
                 @endif
                     <i style="font-size:30px" class="mdi mdi-bell-outline noti-icon"></i>
-
+                    @if( $user->notifications)
                 <div class="dropdown-menuss hidden absolute top-full right-0 bg-white  p-[8px]">
                     @foreach ($user->notifications as $notification)
                     <a href="{{ route('backoffice.offres.redirectToOffre', ['notification' => $notification->id]) }}"
@@ -157,6 +157,7 @@
                     </a>
                 @endforeach
                 </div>
+                @endif
             </li>
 
               <li>
