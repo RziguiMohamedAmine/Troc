@@ -39,7 +39,23 @@
         <!--<script>(adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-0184352842429596", enable_page_level_ads: true });</script>-->
         <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
       </head>
-
+      <style>
+        .dropdown:hover .dropdown-menu {
+            display: flex !important;
+            padding: 16px 8px;
+            border-radius: 15px;
+            width:100px;
+            flex-direction:column;
+            gap:8px;
+        }
+        .dropdown-menu .link{
+            color:black !important;
+            text-transform: capitalize;
+            padding:0 !important;
+            text-align:left !important;
+            width:fit-content;
+        }
+      </style>
       <section id="top">
         <div class="container-center clearfix">
           <div id="box-headerlogo" class="box clearfix" data-box="CMS top HeaderLogo">
@@ -65,7 +81,7 @@
                 @endif
 
               </li>
-              <li>               
+              <li>
                 <a href="/chat"title="" class="link"
                   ><i class="lni-question-circle"></i>Chat</a
                 ></a>
@@ -76,34 +92,37 @@
                   ><i class="lni-question-circle"></i>History</a
                 ></a>@endif
               </li>
+              <li class="dropdown relative">
+                <a href="#" title="" class="link" id="user-blogs cursor-pointer">
+                    <i class="lni-question-circle"></i>Blogs
+                </a>
+                <div class="dropdown-menu hidden absolute top-full left-0 bg-white  p-[8px]">
+                    <a href="{{ route('frontoffice.blogs.create') }}" title="" class="link" id="create-blog">
+                        <i class="lni-envelope"></i>BLOG
+                    </a>
+                    <a href="{{ route('user.blogs') }}" title="" class="link" id="user-blogs">
+                        <i class="lni-question-circle"></i>Mes Blogs
+                    </a>
+                    <a href="{{ route('all.blogs') }}" title="" class="link" id="all-blogs">
+                        <i class="lni-question-circle"></i>all Blogs
+                    </a>
+                </div>
+              </li>
 
               {{-- <li>
                 <a href="communaute.html" title="" class="link"
                   ><i class="lni-users"></i>CHAT</a
                 >
               </li> --}}
-              
+
               <li>
    <ul>
-    <li>
-        <a href="{{ route('frontoffice.blogs.create') }}" title="" class="link" id="create-blog">
-            <i class="lni-envelope"></i> BLOG
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('user.blogs') }}" title="" class="link" id="user-blogs">
-            <i class="lni-question-circle"></i>Mes Blogs
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('all.blogs') }}" title="" class="link" id="all-blogs">
-            <i class="lni-question-circle"></i>all Blogs
-        </a>
-    </li>
+   
+
 </ul>
 
-         
-             
+
+
               @if(!auth()->check())
               <li>
                 <a href="{{ route('register') }}" title="" class="link"
@@ -119,8 +138,8 @@
                   ><i class="lni-question-circle"></i>Mes Annonces</a
                 >
               </li>
-             
-            
+
+
               <li>
                 @if(auth()->check())
                 <a href="{{ route('profile.show') }}" id="" title="" class="button"><i class="lni-lock"></i><span>Mon compte</span></a>
@@ -139,7 +158,7 @@
                 <a href="{{ route('dashboard') }}" id="" title="" class="button"><i class="lni-dashboard"></i><span>dashboard</span></a>
                @endcan
               </li>
-             
+
               <li style="margin-top: 0.5rem;">
                 @if(auth()->check())
                 <a href="{{ route('show.cart') }}" title="" class="button highlight mt-1">
